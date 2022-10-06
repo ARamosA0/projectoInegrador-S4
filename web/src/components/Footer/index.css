@@ -1,0 +1,25 @@
+body{
+    padding: 0%;
+    margin: 0%;
+}
+
+.footer-container{
+    display: flex;
+    justify-content:space-around;
+    background-color: #2F2C2C;
+    color: #fff;
+    height: 50vh;
+    align-items: center;
+}
+
+.footer-cont-icons{
+    display: flex;
+}
+
+
+
+.footer-component{
+    display: flex;
+    align-items: center;
+    margin-left: 1.5rem;
+}

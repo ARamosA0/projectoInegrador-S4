@@ -3,13 +3,18 @@ body{
     margin: 0%;
 }
 
+.baxkground{
+    background-color: #2F2C2C;  
+}
+
 .footer-container{
-    display: flex;
-    justify-content:space-around;
-    background-color: #2F2C2C;
-    color: #fff;
-    height: 50vh;
-    align-items: center;
+    display: flex !important;
+    justify-content:space-around !important;
+    align-items: center !important;
+    color: #fff !important;
+    align-items: center !important;
+    height: 50vh;  
+    /* padding-top: 3rem; */
 }
 
 .footer-cont-icons{
@@ -21,5 +26,5 @@ body{
 .footer-component{
     display: flex;
     align-items: center;
-    margin-left: 1.5rem;
+    /* margin-left: 1.5rem; */
 }

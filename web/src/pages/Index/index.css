@@ -5,7 +5,9 @@ body{
 
 
 .index-container{
-    height: 50vh;
+    height: 65vh;
+    margin-left: 13rem;
+    margin-right: 13rem;
 }
 .index-titulo {
     position: absolute;
@@ -14,29 +16,56 @@ body{
     justify-content: center;
     height: fit-content;
     width: fit-content;
-    top: 4rem;
+    top: 0.6rem;
     bottom: 10rem;
     right: 50rem;
     left: 8rem;
     color: rgba(156, 154, 154, 0.329);
     font-size: 6rem;
-    border: 3px solid;
     line-height: 0;
+    z-index: -100;
 }
 
 .index-titulo-descripcion{
-    position:absolute;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
     height: fit-content;
     width: fit-content;
     padding: 0%;
-    margin: 0;
-    top: 10rem;
-    right: 100px;
-    left: 100px;
-    bottom: 90px;
-    border: 3px solid;
+    margin-top: 6.5rem;
+    /* margin-left: 12rem; */
+}
+
+.index-titulo-uno p{
+    color: #EB3b3b;
+    font-weight: 800;
+    font-size: 1.2rem;
+    line-height: 0.1;
+}
+
+.index-titulo-dos p{
+    color: black;
+    font-size: 3rem;
+    font-weight: 900;
+    line-height: 0.3;
+}
+.index-titulo-btn button {
+    border-width: 2px;
+    border-color: #EB3B3B !important;
+    color: #000 !important;
+}
+.index-titulo-btn button:hover {
+    background-color: #EB3B3B !important;
+    color: #fff !important;
+}
+
+.index-titulo-redes {
+    display: flex;
+    /* margin-left: 12rem; */
+    margin-top: 4rem;
+}
+
+.index-titulo-redes span{
+    font-weight: 700;
 }

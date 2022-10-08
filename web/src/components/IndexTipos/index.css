@@ -1,0 +1,38 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.tipos-titulo-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.tipos-titulo-uno p{
+    color:#eb3b3b;
+    font-weight: 800;
+}
+
+.tipos-titulo-dos{
+    color: #000;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.tipos-elementos-container{
+    margin: 2rem;
+
+}
+
+.tipos-card-content{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.tipos-card-content h4{
+    color: #eb3b3b;
+}

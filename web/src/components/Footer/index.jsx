@@ -1,7 +1,8 @@
 import { useState } from "react";
+import {Link} from "react-router-dom"
 
 //Material components
-import {Button} from "@mui/material"
+import {Button, Container} from "@mui/material"
 
 //CSS
 import "./index.css"
@@ -12,8 +13,8 @@ import AddLocationIcon from '@mui/icons-material/AddLocation';
 
 const Footer = () => {
     return (
-        <>
-        <div className="footer-container">
+        <div className="baxkground">
+        <Container maxWidth="md" className="footer-container">
             <div className="footer-cont-one">
                 <div className="footer-component">
                     <LocalPhoneIcon sx={{color:"#EB3B3B", marginRight:2}} />
@@ -41,11 +42,13 @@ const Footer = () => {
                 <div className="footer-component-btn">
                     <p>Necesitas ayuda</p>
                     <p>Llamanos</p>
+                    <Link to={'/ubicacion'}>
                     <Button variant="contained" className="navbar-btn-single">Contactanos</Button>
+                    </Link>
                 </div>
             </div>
+        </Container>
         </div>
-        </>
     )
 }
 

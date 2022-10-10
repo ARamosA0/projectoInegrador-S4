@@ -16,6 +16,7 @@ import SpeedIcon from '@mui/icons-material/Speed';
 import HeatPumpIcon from '@mui/icons-material/HeatPump';
 import CarRepairIcon from '@mui/icons-material/CarRepair';
 import LocalCarWashIcon from '@mui/icons-material/LocalCarWash';
+import AutoGraphIcon from '@mui/icons-material/AutoGraph';
 
 // CSS
 import "./index.css";
@@ -28,6 +29,9 @@ const IndexTipos = () => {
         descripcion:'Sensor de velocidad que se instala en tu vehiculo'},
         {titulo:'Sensor de calo',
         imagen: <HeatPumpIcon fontSize="large"/>,
+        descripcion:'Sensor de velocidad que se instala en tu vehiculo'},
+        {titulo:'Telemetria',
+        imagen: <AutoGraphIcon fontSize="large"/>,
         descripcion:'Sensor de velocidad que se instala en tu vehiculo'},
         {titulo:'Reparacion',
         imagen: <CarRepairIcon fontSize="large"/>,

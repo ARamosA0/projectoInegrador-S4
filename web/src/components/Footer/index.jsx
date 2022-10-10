@@ -1,4 +1,5 @@
 import { useState } from "react";
+import {Link} from "react-router-dom"
 
 //Material components
 import {Button, Container} from "@mui/material"
@@ -41,7 +42,9 @@ const Footer = () => {
                 <div className="footer-component-btn">
                     <p>Necesitas ayuda</p>
                     <p>Llamanos</p>
+                    <Link to={'/ubicacion'}>
                     <Button variant="contained" className="navbar-btn-single">Contactanos</Button>
+                    </Link>
                 </div>
             </div>
         </Container>

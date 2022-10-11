@@ -1,0 +1,17 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.auto-info-info-uno{
+    color: #EB3b3b;
+    font-size: large;
+    padding-left: 2rem;
+}
+
+.auto-info-info-dos{
+    color: #000 !important;
+    font-weight: 800;
+    text-align: end;
+    padding-right: 2rem;
+}

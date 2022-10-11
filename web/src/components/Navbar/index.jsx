@@ -1,4 +1,5 @@
 import { useState } from "react";
+import {Link} from "react-router-dom"
 
 //Material components
 import {Button} from "@mui/material"
@@ -16,11 +17,11 @@ const Navbar = () =>{
         <>
         <div className="navbar-container">
             <div>
-                <h2>Taller</h2>
+                <Link to={"/"}><h2>Taller</h2></Link>
             </div>
             
             <div className="navbar-btn-group">
-                <div><MapIcon className="btn-navbar-map" fontSize="large"/></div>   
+                <div><Link to={"/ubicacion"}><MapIcon className="btn-navbar-map" fontSize="large"/></Link></div>   
                 <div>
                     <Button variant="contained" className="navbar-btn-single">Login</Button>
                     <Button variant="contained" className="navbar-btn-single">Registro</Button>

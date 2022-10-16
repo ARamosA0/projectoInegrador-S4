@@ -22,7 +22,7 @@ body{
     left: 8rem;
     color: rgba(156, 154, 154, 0.329);
     font-size: 6rem;
-    line-height: 0;
+    line-height: 0.3rem;
     z-index: -100;
 }
 
@@ -41,14 +41,14 @@ body{
     color: #EB3b3b;
     font-weight: 800;
     font-size: 1.2rem;
-    line-height: 0.1;
+    line-height: 0.1rem;
 }
 
 .index-titulo-dos p{
     color: black;
     font-size: 3rem;
     font-weight: 900;
-    line-height: 0.3;
+    line-height: 0.3rem;
 }
 .index-titulo-btn button {
     border-width: 2px;

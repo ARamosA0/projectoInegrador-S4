@@ -8,9 +8,8 @@ import Main from "../layouts/Main";
 
 //Pages
 import Index from "../pages/Index";
-import Log from "../pages/Log";
-import Telemetria from "../pages/Telemetria";
 import Ubicacion from "../pages/Ubicacion";
+import Auto from "../pages/Auto"
 
 
 const Router = () =>{
@@ -20,8 +19,7 @@ const Router = () =>{
                 <Route element={<Main/>}>
                     <Route path="/" element={<Index />}/>
                     <Route path="/ubicacion" element={<Ubicacion />}/>
-                    <Route path="/telemetria" element={<Telemetria/>}/>
-                    <Route path="/log" element={<Log/>}/>
+                    <Route path="/auto" element={<Auto/>}/>
                 </Route>
             </Routes>
         </BrowserRouter>

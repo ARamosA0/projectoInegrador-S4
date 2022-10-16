@@ -8,11 +8,10 @@ import Main from "../layouts/Main";
 
 //Pages
 import Index from "../pages/Index";
-import Log from "../pages/Log";
-import Telemetria from "../pages/Telemetria";
 import Ubicacion from "../pages/Ubicacion";
 import Inf_Usuario from "../components/InfoUsuario";
 import Reg_auto from "../components/Reg_autos";
+import Auto from "../pages/Auto"
 
 const Router = () =>{
     return (
@@ -24,7 +23,8 @@ const Router = () =>{
                     <Route path="/telemetria" element={<Telemetria/>}/>
                     <Route path="/log" element={<Log/>}/>
                     <Route path="/usuario" element={<Inf_Usuario/>}/>
-                    <Route path="/auto" element={<Reg_auto/>}/>
+                    <Route path="/regauto" element={<Reg_auto/>}/>
+                    <Route path="/auto" element={<Auto/>}/>
                 </Route>
             </Routes>
         </BrowserRouter>

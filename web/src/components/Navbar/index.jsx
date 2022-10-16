@@ -1,4 +1,6 @@
-import React , {useState} from "react";
+
+import { useState } from "react";
+import {Link} from "react-router-dom"
 
 //Material components
 import {Button} from "@mui/material"
@@ -33,11 +35,11 @@ const Navbar = () =>{
         
         <div className="navbar-container">
             <div>
-                <h2>Taller</h2>
+                <Link to={"/"}><h2>Taller</h2></Link>
             </div>
             
             <div className="navbar-btn-group">
-                <div><MapIcon className="btn-navbar-map" fontSize="large"/></div>   
+                <div><Link to={"/ubicacion"}><MapIcon className="btn-navbar-map" fontSize="large"/></Link></div>   
                 <div>
                     <Button id="btnClick" onClick={e => handleClickOpen()}  variant="contained" className="navbar-btn-single" >Login</Button>
                     <Modales handleClickOpen={handleClickOpen} estadoModal1={estadoModal1} />

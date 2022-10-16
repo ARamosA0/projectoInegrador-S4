@@ -1,0 +1,23 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.titulo-container{
+    text-align: center;
+    line-height: 0;
+}
+
+.titulo-img-container img{
+    width: 14em;
+    height: 14rem;
+    border-radius: 7rem;
+    object-fit: contain;
+    margin: auto;
+}
+
+.titulo-container span{
+    font-weight: 900;
+    font-size: larger;
+}
+

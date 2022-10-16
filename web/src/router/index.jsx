@@ -3,11 +3,15 @@ import {  BrowserRouter,
     Route,
     Link} from "react-router-dom"
 
-//Pages
-import Index from "../pages/Index";
-
 //Layouts
 import Main from "../layouts/Main";
+
+//Pages
+import Index from "../pages/Index";
+import Log from "../pages/Log";
+import Telemetria from "../pages/Telemetria";
+import Ubicacion from "../pages/Ubicacion";
+
 
 const Router = () =>{
     return (
@@ -15,6 +19,9 @@ const Router = () =>{
             <Routes>
                 <Route element={<Main/>}>
                     <Route path="/" element={<Index />}/>
+                    <Route path="/ubicacion" element={<Ubicacion />}/>
+                    <Route path="/telemetria" element={<Telemetria/>}/>
+                    <Route path="/log" element={<Log/>}/>
                 </Route>
             </Routes>
         </BrowserRouter>

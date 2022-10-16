@@ -1,0 +1,24 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.title-container{
+    line-height: 0;
+}
+
+.title-divider{
+    border-top: 0;
+    border-color: #FFA34F;
+    border-width: 5px;
+    margin-bottom: 3rem;
+}
+
+.map-container{
+    margin-bottom: 2rem;
+}
+
+.map-cont{
+    height: 500px !important;
+}
+

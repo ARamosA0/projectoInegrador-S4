@@ -29,4 +29,9 @@ body {
 .navbar-btn-single{
     background-color: #EB3B3B !important;
     margin-right: 10px !important;
+    color:#FFF !important;
+}
+
+.navbar-btn-single:hover{
+    background-color: #cf3434 !important;
 }

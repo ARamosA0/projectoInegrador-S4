@@ -83,7 +83,7 @@ const SesionUser = () => {
         handleChange,
         handleBlur,
       }) => (
-        <form fullWidth onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit}>
           <Grid container>
             <Grid item xs={12} md={12}>
               <TextField

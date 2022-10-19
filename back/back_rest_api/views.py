@@ -10,6 +10,19 @@ from back_rest_api.serializers import UsuarioSerializer
 from rest_framework import status
 
 # Create your views here.
+
+#Index 
+## Se agrego esta vista para tener una vista principal que
+## no requiera nada en la url
+class Index(APIView):
+    def get(self, request):
+        context = {
+            'status':True,
+            'content':'api activa'
+        }
+        return Response(context)
+
+
 #Usuarios
 class UsuarioAPIGeneral(APIView):
     def get(self, request):

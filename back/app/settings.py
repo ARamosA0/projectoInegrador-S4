@@ -25,12 +25,16 @@ SECRET_KEY = 'django-insecure-3l=n^gdd-r6#^_!#+7bi(6gjqcid75-c8yhgxu6h6u-r8u5jyf
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+
+#Se agrego que se pueda haceptar todos los puertos 
+ALLOWED_HOSTS = ['*']
+CORS_ORIGIN_ALLOW_ALL = True
 
 
 # Application definition
-
+# Se agrego la app de cors
 INSTALLED_APPS = [
+    'corsheaders',
     'back_rest_api',
     'back_foundation',
     'rest_framework',
@@ -42,7 +46,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+#Se agrego el midelware de cors
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -76,12 +82,15 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+
+#Si tienes errores con la base de datos talvez es por el password
+#borralo o cambialo
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'final_project_test',
         'USER': 'root',
-        'PASSWORD': 'root',
+        'PASSWORD': 'password',
         'HOST': 'localhost',
         'PORT': '3306',
     }

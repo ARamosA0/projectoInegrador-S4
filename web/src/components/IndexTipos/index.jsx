@@ -58,8 +58,8 @@ const IndexTipos = () => {
       <div className="tipos-elementos-container">
         <Grid container spacing={2}>
             {count.length > 0 &&
-            count.map((count)=>(
-                <Grid item xs={4}>
+            count.map((count, index)=>(
+                <Grid key={index} item xs={4}>
                     <Card sx={{maxWidth: 200, maxHeight:300}}>
                         <CardContent className="tipos-card-content">
                             {count.imagen}

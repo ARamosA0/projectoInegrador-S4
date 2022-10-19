@@ -31,7 +31,7 @@ const Navbar = () =>{
     //     clickBttn.click();
     //   };
 
-    const [open, setOpen] = useState(null);
+    const [open, setOpen] = useState(false);
 
     const handleClickOpen = () =>{
         setOpen(!open) ;

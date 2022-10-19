@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('api/', include('back_rest_api.urls')),
+    #Se quito api para que se ingrese a la url desde el puerto
+    # http://localhost:8000/
+    path('', include('back_rest_api.urls')),
     path('admin/', admin.site.urls),
 ]

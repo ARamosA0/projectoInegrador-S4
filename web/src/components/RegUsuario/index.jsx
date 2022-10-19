@@ -91,14 +91,14 @@ const RegUsuario = ({ handleClickOpen, open }) => {
               value="1"
               icon={<LoginIcon />}
               iconPosition="start"
-              indicatorColor="warning"
+              indicatorcolor="warning"
             />
             <Tab
               label="Registrate"
               value="2"
               icon={<PersonIcon />}
               iconPosition="start"
-              indicatorColor="#FFA34F"
+              indicatorcolor="#FFA34F"
               color="#FFA34F"
             />
           </TabList>
@@ -123,6 +123,4 @@ const RegUsuario = ({ handleClickOpen, open }) => {
 
 export default RegUsuario;
 
-{
-  /* */
-}
+

@@ -88,11 +88,11 @@ WSGI_APPLICATION = 'app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'final_project_test',
-        'USER': 'root',
-        'PASSWORD': 'password',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'NAME': 'defaultdb',
+        'USER': 'doadmin',
+        'PASSWORD': 'AVNS_N1KB4on2mcZGbRDgSlu',
+        'HOST': 'db-mysql-nyc1-55843-do-user-12058349-0.b.db.ondigitalocean.com',
+        'PORT': '25060',
     }
 }
 

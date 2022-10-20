@@ -9,19 +9,20 @@ class UsuarioSerializer(serializers.ModelSerializer):
         read_only_fields = ('usu_fecregistro', 'usu_fecmodificacion')
 
 class AutoSerializer(serializers.ModelSerializer):
-    marca = serializers.SlugField(
-        queryset=Marca_mar.objects.all(), read_only=True, slug_field='mar_nombre'
+    """
+    marca = serializers.SlugRelatedField(
+        read_only=True, slug_field='aut_marca'
     )
 
     usuario = serializers.SlugRelatedField(
-        queryset= Usuario_usu.objects.all(), read_only=True, slug_field='usu_nombres'
-    )
+        read_only=True, slug_field='aut_usuario'
+    )"""
 
     class Meta:
         model = Auto_aut
-        fields = (
-            'marca',
-            'usuario',
+        fields = [
+            'aut_marca',
+            'aut_usuario',
             'aut_placa',
             'aut_color',
             'aut_imagen',
@@ -30,5 +31,5 @@ class AutoSerializer(serializers.ModelSerializer):
             'aut_fecadquisicion',
             'aut_fecregistro',
             'aut_fecmodificacion'
-        )
-        read_only_fields = ('marca', 'usuario', 'aut_fecregistro', 'aut_fecmodificacion')
+        ]
+        read_only_fields = ['aut_marca', 'aut_usuario','aut_fecregistro', 'aut_fecmodificacion']

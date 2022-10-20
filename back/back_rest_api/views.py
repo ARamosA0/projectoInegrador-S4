@@ -7,7 +7,7 @@ from back_foundation.models import *
 #Imports relacionado a rest framework
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from back_rest_api.serializers import AutoSerializer, UsuarioSerializer
+from back_rest_api.serializers import *
 from rest_framework import status
 
 # Create your views here.

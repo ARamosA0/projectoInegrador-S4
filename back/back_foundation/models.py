@@ -29,8 +29,8 @@ class Marca_mar(models.Model):
     mar_year = models.CharField(max_length=6)
 
 class Auto_aut(models.Model):
-    aut_marca = models.ForeignKey(Marca_mar, on_delete=models.CASCADE)
-    aut_usuario = models.ForeignKey(Usuario_usu, on_delete=models.CASCADE)
+    aut_marca = models.ForeignKey(Marca_mar, related_name='marca', on_delete=models.CASCADE)
+    aut_usuario = models.ForeignKey(Usuario_usu, related_name='usuario', on_delete=models.CASCADE)
     #Datos de auto
     aut_placa = models.CharField(max_length=7)
     aut_color = models.CharField(max_length=20)
@@ -38,6 +38,8 @@ class Auto_aut(models.Model):
     aut_modelo = models.CharField(max_length=50)
     aut_descripcion = models.TextField()
     aut_fecadquisicion = models.DateField()
+    aut_fecregistro = models.DateTimeField(auto_now_add=True)
+    aut_fecmodificacion = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.aut_placa

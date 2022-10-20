@@ -5,5 +5,11 @@ from back_foundation.models import *
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta: 
         model = Usuario_usu
-        fields = ('id', 'usu_nombres', 'usu_email', 'usu_password', 'usu_celular', 'usu_fecregistro', 'usu_fecmodificacion')
+        fields = '__all__'
         read_only_fields = ('usu_fecregistro', 'usu_fecmodificacion')
+
+class AutoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Auto_aut
+        fields = '__all__'
+        read_only_fields = ['aut_fecregistro', 'aut_fecmodificacion']

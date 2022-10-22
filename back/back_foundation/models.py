@@ -1,21 +1,68 @@
-from os import chown
-from pyexpat import model
-from random import choices
-from statistics import mode
+from enum import unique
+from django.contrib.auth.models import User
 from django.db import models
+from django.contrib.auth.models import (
+    BaseUserManager, AbstractBaseUser,AbstractUser
+)
+from django.dispatch import receiver
+from django.db.models.signals import post_save
+# User Manager
+
 
 # Create your models here.
 #Relacionado a usuario
-class Usuario_usu(models.Model):
-    usu_nombres = models.CharField(max_length=50)
-    usu_email = models.EmailField(max_length=100)
-    usu_password = models.CharField(max_length=50)
-    usu_celular = models.CharField(max_length=8)
-    usu_fecregistro = models.DateTimeField(auto_now_add=True)
-    usu_fecmodificacion = models.DateTimeField(auto_now=True)
 
-    def __str__(self):
-        return self.usu_nombres
+
+
+## Cambiar usuario 
+
+
+
+# class UserManager(BaseUserManager):
+#     def create_user(self, email, password=None):
+#         """
+#         Creates and saves a User with the given email and password.
+#         """
+#         if not email:
+#             raise ValueError('Users must have an email address')
+
+#         user = self.model(
+#             email=self.normalize_email(email),
+#         )
+
+#         user.set_password(password)
+#         user.save(using=self._db)
+#         return user
+
+#     def create_staffuser(self, email, password):
+#         """
+#         Creates and saves a staff user with the given email and password.
+#         """
+#         user = self.create_user(
+#             email,
+#             password=password,
+#         )
+#         user.staff = True
+#         user.save(using=self._db)
+#         return user
+
+
+
+
+class User(AbstractUser):
+    # user = models.OneToOneField(User, related_name='Usuario_usu',on_delete=models.RESTRICT)
+
+    name = models.CharField(max_length=255)
+    email = models.CharField(max_length=255, unique=True)
+    password = models.CharField(max_length=255)
+    celular = models.CharField(max_length=9)
+    username = None
+    is_staff = True
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+    
+    
 
 #Relacionado a auto
 class Documento_doc(models.Model):
@@ -30,7 +77,7 @@ class Marca_mar(models.Model):
 
 class Auto_aut(models.Model):
     aut_marca = models.ForeignKey(Marca_mar, related_name='marca', on_delete=models.CASCADE)
-    aut_usuario = models.ForeignKey(Usuario_usu, related_name='usuario', on_delete=models.CASCADE)
+    aut_usuario = models.ForeignKey(User, related_name='usuario', on_delete=models.CASCADE)
     #Datos de auto
     aut_placa = models.CharField(max_length=7)
     aut_color = models.CharField(max_length=20)

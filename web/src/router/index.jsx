@@ -5,6 +5,7 @@ import {  BrowserRouter,
 
 //Layouts
 import Main from "../layouts/Main";
+import User from "../layouts/User"
 
 //Pages
 import Index from "../pages/Index";
@@ -20,9 +21,15 @@ const Router = () =>{
                 <Route element={<Main/>}>
                     <Route path="/" element={<Index />}/>
                     <Route path="/ubicacion" element={<Ubicacion />}/>
-                    <Route path="/usuario" element={<Inf_Usuario/>}/>
-                    <Route path="/auto" element={<Auto/>}/>
-                    <Route path="/nregauto" element={<RegAuto/>}/>
+                </Route>
+
+                <Route element={<User/>}>
+                    <Route element={<Main/>}>
+                        <Route path="/" element={<Index />}/>
+                        <Route path="/usuario" element={<Inf_Usuario/>}/>
+                        <Route path="/auto" element={<Auto/>}/>
+                        <Route path="/nregauto" element={<RegAuto/>}/>
+                    </Route>
                 </Route>
             </Routes>
         </BrowserRouter>

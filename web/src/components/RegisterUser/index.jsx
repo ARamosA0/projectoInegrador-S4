@@ -22,33 +22,33 @@ const RegisterUser = () => {
     <Formik
       initialValues={{
         //valores inciales del formulario
-        usu_nombres:"",
-        usu_email: "",
-        usu_password: "",
-        usu_celular: ""
+        name:"",
+        email: "",
+        celular: "",
+        password: ""
       }}
       //para validar los datos
       validate={(valores) => {
         let errores = {};
         //validacion nombre
-        if (!valores.usu_nombres) {
-          errores.usu_nombres = "Ingrese su nombre";
+        if (!valores.name) {
+          errores.name = "Ingrese su nombre";
         }
-        if (!valores.usu_email) {
-          errores.usu_email = "Ingrese su correo";
+        if (!valores.email) {
+          errores.email = "Ingrese su correo";
         } else if (
           !/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(
-            valores.usu_email
+            valores.email
           )
         ) {
-          errores.usu_email = "Digite bien su correo";
+          errores.email = "Digite bien su correo";
         }
-        if (!valores.usu_password) {
-          errores.usu_password = "Ingrese su password";
+        if (!valores.password) {
+          errores.password = "Ingrese su password";
         }
 
-        if (!valores.usu_celular) {
-          errores.usu_celular = "Ingrese su Telefono";
+        if (!valores.celular) {
+          errores.celular = "Ingrese su Telefono";
         }
         return errores;
       }}
@@ -60,17 +60,17 @@ const RegisterUser = () => {
         console.log(valores)
         try {
           await createUser(valores)
-          swal({
-            icon: "success",
-            title: "Cuenta creada",
-            text: "Inicie sesion para continuar",
-          });
+          swal.fire(
+            'Cuenta creada',
+            'Inicie sesion para continuar',
+            'success'
+          );
         } catch (error) {
-          swal({
-            icon: "error",
-            title: `${error.message}`,
-            text: "Intenta de nuevo dentro de unos minutos",
-          });
+          swal.fire(
+            "Intenta de nuevo dentro de unos minutos",
+            `${error.message}`,
+            "error"
+          );
         }
       }}
     >
@@ -86,86 +86,86 @@ const RegisterUser = () => {
           <Grid container spacing={2}>
             <Grid item xs={6}  md={6}>
               <TextField
-                error={touched.nombres && errors.nombres && true}
+                error={touched.name && errors.name && true}
                 required
                 margin="dense"
-                name="usu_nombres"
+                name="name"
                 label="Nombre Completo"
                 color="warning"
                 type="text"
                 fullWidth
-                value={values.usu_nombres}
+                value={values.name}
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
               <ErrorMessage
-                name="nombres"
+                name="name"
                 component={() => (
-                  <div className="input-error">{errors.usu_nombres}</div>
+                  <div className="input-error">{errors.name}</div>
                 )}
               />
             </Grid>
             <Grid item xs={6}  md={6}>
               <TextField
-                error={touched.usu_email && errors.usu_email && true}
+                error={touched.email && errors.email && true}
                 margin="dense"
-                name="usu_email"
+                name="email"
                 required
                 color="warning"
                 label="Correo"
                 type="email"
                 fullWidth
-                value={values.usu_email}
+                value={values.email}
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
               <ErrorMessage
                 name="email"
                 component={() => (
-                  <div className="input-error">{errors.usu_email}</div>
+                  <div className="input-error">{errors.email}</div>
                 )}
               />
             </Grid>
             <Grid item xs={6}  md={6}>
               <TextField
-                error={touched.usu_password && errors.usu_password && true}
+                error={touched.password && errors.password && true}
                 margin="dense"
-                name="usu_password"
+                name="password"
                 required
                 color="warning"
                 label="Contrasena"
                 type="password"
                 fullWidth
-                value={values.usu_password}
+                value={values.password}
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
               <ErrorMessage
                 name="password"
                 component={() => (
-                  <div className="input-error">{errors.usu_password}</div>
+                  <div className="input-error">{errors.password}</div>
                 )}
               />
             </Grid>
               <Grid item xs={6}  md={6}>
                 <TextField
-                  error={touched.usu_celular && errors.usu_celular && true}
+                  error={touched.celular && errors.celular && true}
                   margin="dense"
-                  name="usu_celular"
+                  name="celular"
                   required
                   color="warning"
                   label="Telefono"
                   type="tel"
-                  value={values.usu_celular}
+                  value={values.celular}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  inputProps={{ maxLength: 8 }}
+                  inputProps={{ maxLength: 9 }}
                   fullWidth
                 />
                 <ErrorMessage
                   name="celular"
                   component={() => (
-                    <div className="input-error">{errors.usu_celular}</div>
+                    <div className="input-error">{errors.celular}</div>
                   )}
                 />
               </Grid>

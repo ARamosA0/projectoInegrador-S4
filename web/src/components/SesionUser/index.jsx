@@ -1,6 +1,6 @@
 import React from "react";
-// import { loginUserAxios } from "../../service/userService";
-// import jwt_decode from "jwt-decode";
+import { loginUser } from "../../service/userServices";
+import jwt_decode from "jwt-decode";
 import { Grid, TextField, Button, styled } from "@mui/material";
 import { Formik, ErrorMessage } from "formik";
 import SendIcon from "@mui/icons-material/Send";
@@ -17,19 +17,20 @@ const SesionUser = () => {
     },
     borderRadius: "12px",
   }));
+  
 
   return (
     <Formik
       initialValues={{
         //valores inciales del formulario
-        username: "",
+        email: "",
         password: "",
       }}
       validate={(valores) => {
         let errores = {};
         //validacion nombre
-        if (!valores.username) {
-          errores.username = "Ingrese su nombre de usuario";
+        if (!valores.email) {
+          errores.email = "Ingrese su email";
         }
         if (!valores.password) {
           errores.password = "Ingrese su password";
@@ -41,37 +42,41 @@ const SesionUser = () => {
         //funcion iniciar sesion
         try {
           //? login de usuario haciendo post a la api y decodificando con jwt_decode
-          const data = await loginUserAxios(valores);
-          // console.log(data);
-          const decoded = jwt_decode(data.Token);
-          // console.log(decoded);
+          const login = await loginUser(valores);
+          const decoded = jwt_decode(login.jwt);
+
+          console.log(login)
+
           const idUser = {
-            id: decoded.id,
-            userName: decoded.username,
-            lastName: decoded.lastname,
-            Token: data.Token
-          };
+            id : decoded.id,
+            name : decoded.name,
+            email : decoded.email,
+            celular : decoded.celular
+          }
+
           localStorage.setItem("userID", JSON.stringify(idUser));
-          const response = await swal({
-            icon: "success",
-            title: "Inicio de sesion exitoso",
-            text: `Bienvenido ${decoded.username}`,
-          });
+
+
+          const response = await swal.fire(
+            "Inicio de sesion exitoso",
+            `Bienvenido ${decoded.name}`,
+            'success'
+          );
           if (response) {
             window.location.replace("");
           }
 
         } catch (error) {
           console.log(error);
-          swal({
-            icon: "error",
-            title: `${
+          swal.fire(
+            `${
               error.request.status === 401
                 ? "No se pudo iniciar sesion"
                 : error.message
             }`,
-            text: "Coloque bien su correo o contraseña \n o si no esta registrado registrese primero",
-          });
+            "Coloque bien su correo o contraseña \n o si no esta registrado registrese primero",
+            "error",
+          );
         }
       }}
     >
@@ -90,21 +95,21 @@ const SesionUser = () => {
                 autoFocus
                 error={touched.username && errors.username && true}
                 margin="dense"
-                label="Nombre de usuario"
+                label="Correo Electronico"
                 type="text"
-                name="username"
+                name="email"
                 fullWidth
                 variant="filled"
                 color="warning"
                 required
-                value={values.username}
+                value={values.email}
                 onChange={handleChange}
                 onBlur={handleBlur}
               />
               <ErrorMessage
-                name="username"
+                name="email"
                 component={() => (
-                  <div className="input-error">{errors.username}</div>
+                  <div className="input-error">{errors.email}</div>
                 )}
               />
             </Grid>

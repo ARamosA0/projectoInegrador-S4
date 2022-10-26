@@ -1,9 +1,10 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {Link} from "react-router-dom"
+import swal from "sweetalert2";
 
 //Material components
-import {Avatar, Button, IconButton} from "@mui/material"
+import {Avatar, Button, IconButton, Menu, MenuItem} from "@mui/material"
 
 //CSS
 import "./index.css"
@@ -12,36 +13,57 @@ import "./index.css"
 import MapIcon from '@mui/icons-material/Map';
 import Modal from "../Modal";
 import Modales from "../RegistroUsuario"
+import PersonAdd from "@mui/icons-material/PersonAdd";
+import Logout from "@mui/icons-material/Logout";
 
 import RegUsuario from "../RegUsuario";
 
+import { userData,loginOut } from "../../service/userServices";
+
 const Navbar = () =>{
-    // const [estadoModal1, cambiarEstadoModal1] = useState(false);
-    // const [estadoModal2, cambiarEstadoModal2] = useState(false);
-    // const handleClickOpen = () => {
-
-    //     cambiarEstadoModal1(!estadoModal1);
-    //     cambiarEstadoModal2(!estadoModal2);
-        
-
-
-    //   };
-    //   const clickBttn = document.querySelector("#btnClick");
-    //   const clickBtnRegistro = () => {
-    //     clickBttn.click();
-    //   };
-
+    const [anchorEl, setAnchorEl] = useState(null);
     const [open, setOpen] = useState(false);
 
     const handleClickOpen = () =>{
         setOpen(!open) ;
     }
 
+    const handleMenu = (event) => {
+        setAnchorEl(event.currentTarget);
+      };
+    
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
+
     const clickBttn = document.querySelector("#btnClick");
     //funcion para darle click al boton registro
     const clickBtnRegistro = () => {
       clickBttn.click();
     };
+
+    const user = JSON.parse(localStorage.getItem("userID")); 
+
+    const clickCerrarSesion = () => {
+        localStorage.removeItem("userID");
+        if (!localStorage.getItem("userID")) {
+          const response = swal.fire(
+            'Sesion cerrada',
+            'Cerraste sesion correctamente',
+            'success'
+          );
+          setTimeout(() => {
+            if (response) {
+                window.location.replace("");
+            }
+          }, 2000);
+        }
+    }
+
+    const getUserData = async () =>{
+        setUser(userData())
+    }
+
 
 
     return(
@@ -55,22 +77,57 @@ const Navbar = () =>{
             <div className="navbar-btn-group">
                 <div><Link to={"/ubicacion"}><MapIcon className="btn-navbar-map" fontSize="large"/></Link></div>   
                 <div>
-                    {/* <Button id="btnClick" onClick={e => handleClickOpen()}  variant="contained" className="navbar-btn-single" >Login</Button>
-                    <Modales handleClickOpen={handleClickOpen} estadoModal1={estadoModal1} />
-                    
-                    <Button id="btnClick" onClick={e => handleClickOpen()}  variant="contained" className="navbar-btn-single" >Register</Button>
-                    <Modales handleClickOpen={handleClickOpen} estadoModal2={estadoModal2} /> */}
 
-                    <Button
-                        id="btnClick"
-                        size="large"
-                        onClick={handleClickOpen}
-                        color="inherit"
-                        className="navbar-btn-single">
-                        <span>&nbsp;&nbsp;Iniciar Secion</span>
-                    </Button>
-                    
-                    <RegUsuario handleClickOpen={handleClickOpen} open={open}/>
+                    {!user?(
+                        <>
+                            <Button
+                                id="btnClick"
+                                size="large"
+                                onClick={handleClickOpen}
+                                color="inherit"
+                                className="navbar-btn-single">
+                                <span>&nbsp;&nbsp;Iniciar Sesion</span>
+                            </Button>
+                        
+                            <RegUsuario handleClickOpen={handleClickOpen} open={open}/>
+                        </>
+                    ):(
+                        <Button
+                            id="btnClick"
+                            size="large"
+                            onClick={handleMenu}
+                            color="inherit"
+                            className="navbar-btn-single">
+                            <span>&nbsp;&nbsp;{user.name}</span>
+                        </Button>
+                    )}
+
+                    {!user?(
+                        <></>
+                    ) : (
+                        <Menu
+                            anchorEl={anchorEl}
+                            open={Boolean(anchorEl)}
+                            onClose={handleClose}>
+                             <MenuItem>
+                                <Link
+                                href={'/auto'}
+                                color="black"
+                                undeline="none"
+                                className="navbar-btn-single-out">
+                                    <PersonAdd fontSize="small" />
+                                    &nbsp;&nbsp;Mi Cuenta
+                                </Link>
+                             </MenuItem>
+                             <MenuItem
+                                variant="outlined"
+                                className="navbar-btn-single-out"
+                                onClick={clickCerrarSesion}>
+                                    <Logout fontSize="small" />
+                                    &nbsp;&nbsp;Cerrar Sesion
+                             </MenuItem>            
+                        </Menu>
+                    )}
 
                 </div>
                 

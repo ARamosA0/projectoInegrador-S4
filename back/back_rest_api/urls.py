@@ -17,9 +17,6 @@ urlpatterns = [
     path('vehicles/<int:auto_id>', views.AutoAPIDetallado.as_view()),
     path('marcas/', views.AutoMarca.as_view()),
 
-    # # JWT
-    # path('login/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
-    # path('login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

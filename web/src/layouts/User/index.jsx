@@ -1,16 +1,22 @@
 import * as React from 'react';
-import {Outlet} from "react-router-dom";
+import {Navigate,Outlet} from "react-router-dom";
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import {userData} from "../../service/userServices"
 
 const User = () =>{
-    return(
-        <>
-            <Navbar></Navbar>
-            <Outlet />
-            <Footer></Footer>
-        </>
-    )
+
+    const user = JSON.parse(localStorage.getItem("userID")); 
+    
+    if (!user){
+        return <Navigate to="/"/>
+    } else {
+        return (
+            <>
+                <Outlet/>
+            </>
+        )
+    }
 }
 
 export default User;

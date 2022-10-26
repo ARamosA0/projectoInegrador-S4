@@ -44,25 +44,28 @@ class LoginView(APIView):
         user = User.objects.filter(email=email).first()
 
         if user is None:
-            raise AuthenticationFailed('Usuario no encontrado')
-        
+            raise AuthenticationFailed('User not found!')
+
         if not user.check_password(password):
-            raise AuthenticationFailed('Password incorrecta')
+            raise AuthenticationFailed('Incorrect password!')
 
         payload = {
-            'id':user.id,
-            'exp':datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
+            'id': user.id,
+            'name':user.name,
+            'email':user.email,
+            'celular':user.celular,
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
             'iat': datetime.datetime.utcnow()
         }
 
         token = jwt.encode(payload, 'secret', algorithm='HS256').decode('utf-8')
 
         response = Response()
+
         response.set_cookie(key='jwt', value=token, httponly=True)
         response.data = {
-            'jwt':token
+            'jwt': token
         }
-        
         return response
 
 #Usuarios

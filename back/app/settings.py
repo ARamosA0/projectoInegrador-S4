@@ -189,3 +189,4 @@ REST_FRAMEWORK = {
 
 # AUTH_PROFILE_MODULE = 'back_foundation.Usuario_usu'
 AUTH_USER_MODEL = 'back_foundation.User'
+

@@ -177,4 +177,13 @@ class AutoMarca(APIView):
         listaMarcas = Marca_mar.objects.all()
         serializer = MarcaSerializer(listaMarcas, many=True)
 
-        return Response(serializer)
+        return Response(serializer.data)
+
+    def post(self, request):
+        marcaSerializer = MarcaSerializer(data=request.data)
+        
+        if marcaSerializer.is_valid():
+            marcaSerializer.save()
+            return Response(marcaSerializer.data, status=status.HTTP_201_CREATED)
+
+        return Response(marcaSerializer.errors, status=status.HTTP_400_BAD_REQUEST)

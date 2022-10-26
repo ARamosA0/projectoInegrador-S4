@@ -44,6 +44,9 @@ const SesionUser = () => {
           //? login de usuario haciendo post a la api y decodificando con jwt_decode
           const login = await loginUser(valores);
           const decoded = jwt_decode(login.jwt);
+
+          console.log(login)
+
           const idUser = {
             id : decoded.id,
             name : decoded.name,

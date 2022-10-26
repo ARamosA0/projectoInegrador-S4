@@ -1,11 +1,9 @@
+from email.policy import default
 from enum import unique
 from django.contrib.auth.models import User
 from django.db import models
-from django.contrib.auth.models import (
-    BaseUserManager, AbstractBaseUser,AbstractUser
-)
-from django.dispatch import receiver
-from django.db.models.signals import post_save
+from django.contrib.auth.models import AbstractUser
+from cloudinary.models import CloudinaryField
 # User Manager
 
 
@@ -17,47 +15,15 @@ from django.db.models.signals import post_save
 ## Cambiar usuario 
 
 
-
-# class UserManager(BaseUserManager):
-#     def create_user(self, email, password=None):
-#         """
-#         Creates and saves a User with the given email and password.
-#         """
-#         if not email:
-#             raise ValueError('Users must have an email address')
-
-#         user = self.model(
-#             email=self.normalize_email(email),
-#         )
-
-#         user.set_password(password)
-#         user.save(using=self._db)
-#         return user
-
-#     def create_staffuser(self, email, password):
-#         """
-#         Creates and saves a staff user with the given email and password.
-#         """
-#         user = self.create_user(
-#             email,
-#             password=password,
-#         )
-#         user.staff = True
-#         user.save(using=self._db)
-#         return user
-
-
-
-
 class User(AbstractUser):
-    # user = models.OneToOneField(User, related_name='Usuario_usu',on_delete=models.RESTRICT)
 
     name = models.CharField(max_length=255)
     email = models.CharField(max_length=255, unique=True)
     password = models.CharField(max_length=255)
     celular = models.CharField(max_length=9)
-    username = None
-    is_staff = True
+    imagen = CloudinaryField('image',default='https://res.cloudinary.com/dm8aqmori/image/upload/v1666805714/usuario_tcf7ys.png')
+    username = models.CharField(max_length=255, default='admin')
+    # is_staff = True
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -81,7 +47,7 @@ class Auto_aut(models.Model):
     #Datos de auto
     aut_placa = models.CharField(max_length=7)
     aut_color = models.CharField(max_length=20)
-    aut_imagen = models.URLField()
+    aut_imagen = CloudinaryField('image', null=True, blank=True, default='https://res.cloudinary.com/dm8aqmori/image/upload/v1666805846/autoIcono_ljytgv.png')
     aut_modelo = models.CharField(max_length=50)
     aut_descripcion = models.TextField()
     aut_fecadquisicion = models.DateField()

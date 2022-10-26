@@ -122,9 +122,7 @@ const RegAuto = () => {
                                 <Select
                                 error={touched.aut_marca && errors.aut_marca && true}
                                 required
-                                
                                 name="aut_marca"
-                                label="Marca del vehiculo"
                                 color="warning"
                                 fullWidth
                                 value={values.marca}

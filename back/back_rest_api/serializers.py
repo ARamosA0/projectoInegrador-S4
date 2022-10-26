@@ -1,18 +1,12 @@
 from rest_framework import serializers
 from back_foundation.models import *
 
-#Serializers de los modelos de back_foundation
-# class UsuarioSerializer(serializers.ModelSerializer):
-#     class Meta: 
-#         model = Usuario_usu
-#         fields = '__all__'
-        # read_only_fields = ('usu_fecregistro', 'usu_fecmodificacion')
 
 class UserSerializer(serializers.ModelSerializer):
     # Usuario = UsuarioSerializer(read_only=True)
     class Meta:
         model = User
-        fields = ['id','name','email','celular','password']
+        fields = ['id','name','email','celular','password', 'imagen']
         extra_key = {
             "password": {'write_only':True}
         }
@@ -24,6 +18,11 @@ class UserSerializer(serializers.ModelSerializer):
         instance.save()
         return instance     
 
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation['imagen'] = instance.imagen
+        return representation
+
 
 
 class AutoSerializer(serializers.ModelSerializer):
@@ -31,6 +30,11 @@ class AutoSerializer(serializers.ModelSerializer):
         model = Auto_aut
         fields = '__all__'
         read_only_fields = ['aut_fecregistro', 'aut_fecmodificacion']
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation['aut_imagen'] = instance.aut_imagen
+        return representation
 
 class MarcaSerializer(serializers.ModelSerializer):
     class Meta:

@@ -20,13 +20,6 @@ export const loginUser = async(user) =>{
     } catch (error){
         console.log(error)
     }
-    // const response = await fetch('http://127.0.0.1:8000/login/', {
-    //         method: 'POST',
-    //         headers: {'Content-Type': 'application/json'},
-    //         credentials: 'include',
-    //         body: JSON.stringify(user)
-    //     });
-    // return response.data
     
 }
 
@@ -42,7 +35,7 @@ export const loginOut = async(user) =>{
 export const userData = async() => {
     try {
         const response = await axios.get('http://127.0.0.1:8000/users/');
-        return response
+        return response.data
     } catch (error){
         console.log(error)
     }

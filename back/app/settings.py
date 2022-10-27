@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'back_rest_api',
     'back_foundation',
     'rest_framework',
-    'rest_framework_simplejwt',
     'rest_framework.authtoken',
     'django.contrib.admin',
     'django.contrib.auth',

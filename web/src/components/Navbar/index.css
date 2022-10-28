@@ -35,3 +35,15 @@ body {
 .navbar-btn-single:hover{
     background-color: #cf3434 !important;
 }
+
+.navbar-btn-single-out{
+    border-color: #FFA34F !important;
+    border-width: 2px !important;
+    margin-right: 10px !important;
+    color:#EB3B3B !important;
+}
+
+.navbar-btn-single-out:hover{
+    border-color: #FFA34F !important;
+    border-width: 2px !important;
+}

@@ -1,4 +1,4 @@
-from re import L
+
 from django.http import Http404
 from django.shortcuts import render
 
@@ -9,7 +9,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from back_rest_api.serializers import *
 from rest_framework import status
+from rest_framework.exceptions import AuthenticationFailed
 
+import jwt, datetime
 # Create your views here.
 
 #Index 
@@ -24,39 +26,93 @@ class Index(APIView):
         return Response(context)
 
 
+
+#Registro
+
+class RegisterView(APIView):
+    def post(self, request):
+        serializers = UserSerializer(data=request.data)
+        serializers.is_valid(raise_exception=True)
+        serializers.save()
+        return Response(serializers.data) 
+
+class LoginView(APIView):
+    def post (self, request):
+        email = request.data['email']
+        password = request.data['password']
+
+        user = User.objects.filter(email=email).first()
+
+        if user is None:
+            raise AuthenticationFailed('User not found!')
+
+        if not user.check_password(password):
+            raise AuthenticationFailed('Incorrect password!')
+
+        payload = {
+            'id': user.id,
+            'name':user.name,
+            'email':user.email,
+            'celular':user.celular,
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
+            'iat': datetime.datetime.utcnow()
+        }
+
+        token = jwt.encode(payload, 'secret', algorithm='HS256').decode('utf-8')
+
+        response = Response()
+
+        response.set_cookie(key='jwt', value=token, httponly=True)
+        response.data = {
+            'jwt': token
+        }
+        return response
+
 #Usuarios
 class UsuarioAPIGeneral(APIView):
     def get(self, request):
-        usuLista = Usuario_usu.objects.all()
-        usuSerializer = UsuarioSerializer(usuLista, many=True)
+        token = request.COOKIES.get('jwt')
 
-        return Response(usuSerializer.data)
+        if not token:
+            raise AuthenticationFailed('Usuario no autenticado')
+        try:
+            payload = jwt.decode(token, 'secret', algorithm=['HS256'])
+        except jwt.ExpiredSignatureError:
+            raise AuthenticationFailed('Usuario no autenticado')
 
+        user = User.objects.filter(id=payload['id']).first()
+        serializer =  UserSerializer(user)
+
+        return Response(serializer.data)
+
+class LogoutView(APIView):
     def post(self, request):
-        usuSerializer = UsuarioSerializer(data=request.data)
-        
-        if usuSerializer.is_valid():
-            usuSerializer.save()
-            return Response(usuSerializer.data, status=status.HTTP_201_CREATED)
+        response = Response()
+        response.delete_cookie('jwt')
+        response.data = {
+            "message":"succese"
+        }
+        return response
 
-        return Response(usuSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 
 class UsuarioAPIDetallado(APIView):
     def get_object(self, usuario_id):
         try:
-            return Usuario_usu.objects.get(pk=usuario_id)
-        except Usuario_usu.DoesNotExist:
+            return User.objects.get(pk=usuario_id)
+        except User.DoesNotExist:
             raise Http404
     
     def get(self, request, usuario_id):
         usuListaDet = self.get_object(usuario_id)
-        usuSerializer = UsuarioSerializer(usuListaDet)
+        UserSerializer = UserSerializer(usuListaDet)
         
-        return Response(usuSerializer.data)
+        return Response(UserSerializer.data)
     
     def put(self, request, usuario_id):
         usuListaDet = self.get_object(usuario_id)
-        usuSerializer = UsuarioSerializer(usuListaDet, data=request.data)
+        usuSerializer = UserSerializer(usuListaDet, data=request.data)
 
         if usuSerializer.is_valid():
             usuSerializer.save()
@@ -115,3 +171,19 @@ class AutoAPIDetallado(APIView):
         autListaDet.delete()
 
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class AutoMarca(APIView):
+    def get(self, request):
+        listaMarcas = Marca_mar.objects.all()
+        serializer = MarcaSerializer(listaMarcas, many=True)
+
+        return Response(serializer.data)
+
+    def post(self, request):
+        marcaSerializer = MarcaSerializer(data=request.data)
+        
+        if marcaSerializer.is_valid():
+            marcaSerializer.save()
+            return Response(marcaSerializer.data, status=status.HTTP_201_CREATED)
+
+        return Response(marcaSerializer.errors, status=status.HTTP_400_BAD_REQUEST)

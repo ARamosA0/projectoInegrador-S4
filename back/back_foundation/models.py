@@ -1,20 +1,34 @@
-from pyexpat import model
-from random import choices
-from statistics import mode
+from email.policy import default
+from enum import unique
+from django.contrib.auth.models import User
 from django.db import models
+from django.contrib.auth.models import AbstractUser
+from cloudinary.models import CloudinaryField
+# User Manager
+
 
 # Create your models here.
 #Relacionado a usuario
-class Usuario_usu(models.Model):
-    usu_nombres = models.CharField(max_length=50)
-    usu_email = models.EmailField(max_length=100)
-    usu_password = models.CharField(max_length=50)
-    usu_celular = models.CharField(max_length=8)
-    usu_fecregistro = models.DateTimeField(auto_now_add=True)
-    usu_fecmodificacion = models.DateTimeField(auto_now=True)
 
-    def __str__(self):
-        return self.usu_nombres
+
+
+## Cambiar usuario 
+
+
+class User(AbstractUser):
+
+    name = models.CharField(max_length=255)
+    email = models.CharField(max_length=255, unique=True)
+    password = models.CharField(max_length=255)
+    celular = models.CharField(max_length=9)
+    imagen = CloudinaryField('image',default='https://res.cloudinary.com/dm8aqmori/image/upload/v1666805714/usuario_tcf7ys.png')
+    username = models.CharField(max_length=255, default='admin')
+    # is_staff = True
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+    
+    
 
 #Relacionado a auto
 class Documento_doc(models.Model):
@@ -29,11 +43,11 @@ class Marca_mar(models.Model):
 
 class Auto_aut(models.Model):
     aut_marca = models.ForeignKey(Marca_mar, related_name='marca', on_delete=models.CASCADE)
-    aut_usuario = models.ForeignKey(Usuario_usu, related_name='usuario', on_delete=models.CASCADE)
+    aut_usuario = models.ForeignKey(User, related_name='usuario', on_delete=models.CASCADE)
     #Datos de auto
     aut_placa = models.CharField(max_length=7)
     aut_color = models.CharField(max_length=20)
-    aut_imagen = models.URLField()
+    aut_imagen = CloudinaryField('image', null=True, blank=True, default='https://res.cloudinary.com/dm8aqmori/image/upload/v1666805846/autoIcono_ljytgv.png')
     aut_modelo = models.CharField(max_length=50)
     aut_descripcion = models.TextField()
     aut_fecadquisicion = models.DateField()

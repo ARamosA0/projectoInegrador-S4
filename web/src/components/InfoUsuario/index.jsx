@@ -21,6 +21,7 @@ import {
 
 import {Button} from "@mui/material"
 import "./index.css";
+import { color } from "@mui/system";
 
 
 const Inf_Usuario = () => {
@@ -75,8 +76,8 @@ const Inf_Usuario = () => {
                             </div>
                             <div className="botones">
                                 <Button variant="contained" className="navbar-btn-single">Ver</Button>
-                                <Button variant="contained" className="navbar-btn-single">Editar</Button>
-                                <Button onClick={handleOpen}>Open modal</Button>
+                                <Button variant="contained" className="navbar-btn-single" onClick={handleOpen}>Editar</Button>
+                                
 
                             </div>
                 
@@ -93,12 +94,17 @@ const Inf_Usuario = () => {
   onClose={handleClose}
   className="Formulario"
   maxWidth={'lg'}
->
+><center>
+  <DialogTitle><H11>Edita la Información de tu Auto</H11></DialogTitle>
+  </center>
 <DialogContent
 
 >
+
   <RegAuto/>
-  <Button onClick={handleClose}>Open modal</Button>
+  <center>
+  <Button variant="contained" className="navbar-btn-single" onClick={handleClose}>Cancelar</Button>
+  </center>
   </DialogContent>
   
 </Dialog>
@@ -127,6 +133,15 @@ const ContenedorModal = styled.div`
     top: 0;
     padding: 40px;
     overflow: scroll;
+
+             
+`;
+
+
+const H11 = styled.h1`
+ color: #FFA34F;
+ font-family: Comic Sans MS;
+ font-size: 42px;
 
              
 `;

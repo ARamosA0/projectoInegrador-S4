@@ -1,4 +1,3 @@
-from os import chown
 from pyexpat import model
 from random import choices
 from statistics import mode

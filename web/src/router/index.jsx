@@ -10,7 +10,7 @@ import User from "../layouts/User"
 //Pages
 import Index from "../pages/Index";
 import Ubicacion from "../pages/Ubicacion";
-import Inf_Usuario from "../components/InfoUsuario";
+import Inf_Usuario from "../pages/InfoUsuario";
 import Auto from "../pages/Auto"
 import RegAuto from "../components/nuevoregistroautovalidacion";
 

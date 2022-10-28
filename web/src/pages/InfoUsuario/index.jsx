@@ -17,6 +17,8 @@ import "./index.css";
 
 const Inf_Usuario = () => {
 
+    const [user, setUser] = useState();
+
     const [count, setcount] = useState([
         {Placa:'Placa: XUS79',
         Marca:'Marca: Hyundai', Descripcion:'Carro en buen estado de los años 90'},
@@ -27,6 +29,18 @@ const Inf_Usuario = () => {
         {Placa:'Placa: XUS79',
         Marca:'Marca: Hyundai', Descripcion:'Carro en buen estado de los años 90'},
     ]);
+
+
+    const fetchUserInfo = async() =>{
+      const userData = JSON.parse(localStorage.getItem("userID"));
+      setUser(userData); 
+      console.log(user)
+    }
+
+    useEffect (()=>{
+      fetchUserInfo();
+    },[])
+
   return (
     <>
     
@@ -41,8 +55,7 @@ const Inf_Usuario = () => {
           </div>
         </div>
         <div className="tipos-titulo-dos">
-          <span>Nombre de Usuario</span>
-          
+          <span>{user.name}</span>
         </div>
       </div>
       <div className="tipos-elementos-container">

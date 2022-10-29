@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // import { createUserAxios } from "../../service/userService";
 import { Grid, TextField, Button, styled } from "@mui/material";
@@ -8,17 +8,25 @@ import swal from "sweetalert2";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import { Container, FormControlLabel, RadioGroup, Radio, Select, MenuItem, InputLabel } from "@mui/material"
 
+import { marcas } from "../../service/autoServices";
+
 const RegAuto = () => {
 
+
+
     const [count, setcount] = useState([
-        {Marca:'HYUNDAI',
-        Año:'2019', Valor:20},
-        {Marca:'SOOVBO',
-        Año:'2019', Valor:15},
-        {Marca:'CHEBROLTE',
-        Año:'2019', Valor:10}
+        
     ]);
-    
+
+
+    const getMarcas = async () => {
+        const marcasdata = await marcas()
+        setcount(marcasdata)
+        console.log(marcasdata)
+  }
+
+
+
     const ColorButton = styled(Button)(({ theme }) => ({
         backgroundColor: "#EB3B3B",
         height: "42px",
@@ -29,6 +37,10 @@ const RegAuto = () => {
         },
         borderRadius: "12px",
     }));
+
+    useEffect(() => {
+        getMarcas()
+    }, []);
 
     return (
         <Container>
@@ -120,28 +132,28 @@ const RegAuto = () => {
                             <Grid item xs={6} md={6}>
                                 <h2 >Marca del vehiculo </h2>
                                 <Select
-                                error={touched.aut_marca && errors.aut_marca && true}
-                                required
-                                name="aut_marca"
-                                color="warning"
-                                fullWidth
-                                value={values.marca}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
+                                    error={touched.aut_marca && errors.aut_marca && true}
+                                    required
+                                    name="aut_marca"
+                                    color="warning"
+                                    fullWidth
+                                    value={values.marca}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
 
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
-                                   
 
-                                    > 
-                                    
+
+                                >
+
                                     {count.length > 0 &&
-                                    count.map((count)=>(
-                                    <MenuItem  value={count.Valor}>{count.Marca} - {count.Año}</MenuItem>
-                                    ))}
-                                    
+                                        count.map((count) => (
+                                            <MenuItem >{count.mar_nombre}</MenuItem>
+                                        ))}
+
                                 </Select>
-                            {/* 
+                                {/* 
                                 <TextField
                                     error={touched.aut_marca && errors.aut_marca && true}
                                     required
@@ -316,7 +328,7 @@ const RegAuto = () => {
                                 />
                             </Grid>
 
-                        {/*
+                            {/*
                             <Grid >
                                 <InputLabel id="demo-simple-select-label">Marca del vehiculo</InputLabel>
                                 <Select

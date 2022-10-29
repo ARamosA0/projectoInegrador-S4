@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'back_rest_api',
     'back_foundation',
     'rest_framework',
-    'rest_framework_simplejwt',
     'rest_framework.authtoken',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -103,6 +102,18 @@ WSGI_APPLICATION = 'app.wsgi.application'
 #     }
 # }
 
+
+# BD DIGITAL OCEAN
+#DATABASES = {
+    #'default': {
+       # 'ENGINE': 'django.db.backends.mysql',
+      #  'NAME': 'final_project_test',
+     #   'USER': 'root',
+    #    'PASSWORD': '',
+   #     'HOST': 'localhost',
+  #      'PORT': '3306',
+ #   }
+#}
 
 # BD DIGITAL OCEAN
 DATABASES = {

@@ -20,7 +20,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        representation['imagen'] = instance.imagen
+        representation['imagen'] = instance.imagen.url
         return representation
 
 
@@ -33,7 +33,7 @@ class AutoSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        representation['aut_imagen'] = instance.aut_imagen
+        representation['aut_imagen'] = instance.aut_imagen.url
         return representation
 
 class MarcaSerializer(serializers.ModelSerializer):

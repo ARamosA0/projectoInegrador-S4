@@ -111,7 +111,7 @@ const Navbar = () =>{
                             onClose={handleClose}>
                              <MenuItem>
                                 <Link
-                                to="/usuario/"
+                                to={`/usuario/${user.id}`}
                                 color="black"
                                 undeline="none"
                                 className="navbar-btn-single-out">

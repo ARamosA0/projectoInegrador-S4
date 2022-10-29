@@ -12,6 +12,8 @@ from rest_framework import status
 from rest_framework.exceptions import AuthenticationFailed
 
 import jwt, datetime
+
+import cloudinary.uploader
 # Create your views here.
 
 #Index 
@@ -54,6 +56,7 @@ class LoginView(APIView):
             'name':user.name,
             'email':user.email,
             'celular':user.celular,
+            'imagen':user.imagen,
             'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
             'iat': datetime.datetime.utcnow()
         }
@@ -105,10 +108,14 @@ class UsuarioAPIDetallado(APIView):
             raise Http404
     
     def get(self, request, usuario_id):
-        usuListaDet = self.get_object(usuario_id)
-        UserSerializer = UserSerializer(usuListaDet)
+        usuListaDet = User.objects.filter(pk=usuario_id).latest("id")
+        serializer = UserSerializer(usuListaDet)
+        context = {
+            'status':True,
+            'content':serializer.data
+        }
         
-        return Response(UserSerializer.data)
+        return Response(context)
     
     def put(self, request, usuario_id):
         usuListaDet = self.get_object(usuario_id)
@@ -135,13 +142,31 @@ class AutoAPIGeneral(APIView):
         return Response(autSerializer.data)
 
     def post(self, request):
-        autSerializer = AutoSerializer(data=request.data)
-        
-        if autSerializer.is_valid():
-            autSerializer.save()
-            return Response(autSerializer.data, status=status.HTTP_201_CREATED)
 
-        return Response(autSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            aut_imagen = request.data.get('image')
+            cloudinaryResponse = cloudinary.uploader.upload(aut_imagen)
+
+            dictionaryData = {
+                'image': '{}.{}'.format(cloudinaryResponse['public_id'], cloudinaryResponse['format'])
+            }
+            # serAuto = AutoSerializer(data = dictionaryData)
+
+            autSerializer = AutoSerializer(data=[request.data, dictionaryData])
+
+            if autSerializer.is_valid():
+                autSerializer.save()
+                return Response(autSerializer.data, status=status.HTTP_201_CREATED)
+
+            return Response(autSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        except Exception as Error:
+            print(Error)
+            return Response({
+                'status': False,
+                'content': None,
+                'message': 'Internal server error'
+            })    
 
 class AutoAPIDetallado(APIView):
     def get_object(self, auto_id):
@@ -187,3 +212,11 @@ class AutoMarca(APIView):
             return Response(marcaSerializer.data, status=status.HTTP_201_CREATED)
 
         return Response(marcaSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class AutoIdUsuario(APIView):
+    def get(self, request, id_usuario):
+        listaAutos = Auto_aut.objects.filter(aut_usuario = id_usuario)
+        serializer = AutoSerializer(listaAutos)
+
+        return Response(serializer.data, many=True)
+

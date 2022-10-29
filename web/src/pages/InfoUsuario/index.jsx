@@ -11,53 +11,59 @@ import {
   Grid
 } from "@mui/material";
 
+import { Link, useParams } from "react-router-dom";
+
 import {Button} from "@mui/material"
 import "./index.css";
 
 
+import { userData } from "../../service/userServices";
+
 const Inf_Usuario = () => {
+const { usuarioId } = useParams();
+const [user, setUser] = useState([]);
+const [count, setcount] = useState([
+    {Placa:'Placa: XUS79',
+    Marca:'Marca: Hyundai', Descripcion:'Carro en buen estado de los años 90'},
+    {Placa:'Placa: XUS79',
+    Marca:'Marca: Hyundai', Descripcion:'Carro en buen estado de los años 90'},
+]);
 
-    const [user, setUser] = useState();
+const fetchUserInfo = async () =>{
+  // const userData = JSON.parse(localStorage.getItem("userID"));
+  console.log(usuarioId)
+  const data = await userData(usuarioId);
+  const usuarioData = data.content
+  setUser(usuarioData); 
+  console.log(user)
+  // console.log(usuarioData)
+}
 
-    const [count, setcount] = useState([
-        {Placa:'Placa: XUS79',
-        Marca:'Marca: Hyundai', Descripcion:'Carro en buen estado de los años 90'},
-        {Placa:'Placa: XUS79',
-        Marca:'Marca: Hyundai', Descripcion:'Carro en buen estado de los años 90'},
-        {Placa:'Placa: XUS79',
-        Marca:'Marca: Hyundai', Descripcion:'Carro en buen estado de los años 90'},
-        {Placa:'Placa: XUS79',
-        Marca:'Marca: Hyundai', Descripcion:'Carro en buen estado de los años 90'},
-    ]);
-
-
-    const fetchUserInfo = async() =>{
-      const userData = JSON.parse(localStorage.getItem("userID"));
-      setUser(userData); 
-      console.log(user)
-    }
-
-    useEffect (()=>{
-      fetchUserInfo();
-    },[])
+useEffect (()=>{
+  fetchUserInfo();
+},[])
 
   return (
     <>
     
     <Container maxWidth="md">
                 
-         
+    
     <div className="tipos-container">
+    {Object.keys(user).length > 0 ? (
+
       <div className="tipos-titulo-container">
         <div className="tipos-titulo-uno">
         <div className ="iitem1">
-        <img src="https://i.pinimg.com/originals/aa/82/fc/aa82fcaa820018b9f48d876f624d9fc1.jpg" className="item1"></img>
+        <img src={user.imagen} className="item1"></img>
           </div>
         </div>
         <div className="tipos-titulo-dos">
           <span>{user.name}</span>
         </div>
       </div>
+    ):<></>}
+
       <div className="tipos-elementos-container">
         <Grid container spacing={3} direction="column"  alignContent={'center'}>
             {count.length > 0 &&

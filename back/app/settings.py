@@ -207,5 +207,6 @@ AUTH_USER_MODEL = 'back_foundation.User'
 cloudinary.config( 
   cloud_name = "dm8aqmori", 
   api_key = "416938536925695", 
-  api_secret = "PDq8lrOVNA3hI3EwM3c3b1gosVU" 
+  api_secret = "PDq8lrOVNA3hI3EwM3c3b1gosVU", 
+  secure = True
 )

@@ -20,6 +20,8 @@ import "./index.css";
 
 const AutoInfo = ({auto}) => {
 
+console.log(auto)
+
   // Select sensor
   const [sensor, setSensor] = useState("");
   const handleChange = (event) => {
@@ -34,27 +36,16 @@ const AutoInfo = ({auto}) => {
 
   return (
     <>
-        <Grid container>
+        {auto.length > 0 &&
+        auto.map((auto)=>(
+            <Grid container>
             <Grid item xs={12}>
                 <Grid container>
                     <Grid item xs={6} className="auto-info-info-uno">
                         <span>Marca:</span>
                     </Grid>
                     <Grid item xs={6} className="auto-info-info-dos">
-                        <span>{auto.marca}</span>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <hr/>
-                    </Grid>
-                </Grid>
-            </Grid>
-            <Grid item xs={12}>
-                <Grid container>
-                    <Grid item xs={6} className="auto-info-info-uno">
-                        <span>Marca:</span>
-                    </Grid>
-                    <Grid item xs={6} className="auto-info-info-dos">
-                        <span>{auto.modelo}</span>
+                        <span>{auto.aut_marca}</span>
                     </Grid>
                     <Grid item xs={12}>
                         <hr/>
@@ -67,7 +58,20 @@ const AutoInfo = ({auto}) => {
                         <span>Modelo:</span>
                     </Grid>
                     <Grid item xs={6} className="auto-info-info-dos">
-                        <span>{auto.kilometraje}</span>
+                        <span>{auto.aut_modelo}</span>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <hr/>
+                    </Grid>
+                </Grid>
+            </Grid>
+            <Grid item xs={12}>
+                <Grid container>
+                    <Grid item xs={6} className="auto-info-info-uno">
+                        <span>Color:</span>
+                    </Grid>
+                    <Grid item xs={6} className="auto-info-info-dos">
+                        <span>{auto.aut_color}</span>
                     </Grid>
                     <Grid item xs={12}>
                         <hr/>
@@ -80,7 +84,7 @@ const AutoInfo = ({auto}) => {
                         <span>Fecha de Compra:</span>
                     </Grid>
                     <Grid item xs={6} className="auto-info-info-dos">
-                        <span>{auto.fecha_in}</span>
+                        <span>{auto.aut_fecadquisicion}</span>
                     </Grid>
                     <Grid item xs={12}>
                         <hr/>
@@ -93,20 +97,7 @@ const AutoInfo = ({auto}) => {
                         <span>Año de fabricacion:</span>
                     </Grid>
                     <Grid item xs={6} className="auto-info-info-dos">
-                        <span>{auto.ano_fab}</span>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <hr/>
-                    </Grid>
-                </Grid>
-            </Grid>
-            <Grid item xs={12}>
-                <Grid container>
-                    <Grid item xs={6} className="auto-info-info-uno">
-                        <span>Estado:</span>
-                    </Grid>
-                    <Grid item xs={6} className="auto-info-info-dos">
-                        <span>{auto.estado}</span>
+                        <span>{auto.aut_fecregistro}</span>
                     </Grid>
                     <Grid item xs={12}>
                         <hr/>
@@ -119,7 +110,7 @@ const AutoInfo = ({auto}) => {
                         <span>Descripcion:</span>
                     </Grid>
                     <Grid item xs={6} className="auto-info-info-dos">
-                        <span>{auto.descripcion}</span>
+                        <span>{auto.aut_descripcion}</span>
                     </Grid>
                     <Grid item xs={12}>
                         <hr/>
@@ -127,6 +118,7 @@ const AutoInfo = ({auto}) => {
                 </Grid>
             </Grid>
         </Grid>
+        ))}
     </>
   );
 };

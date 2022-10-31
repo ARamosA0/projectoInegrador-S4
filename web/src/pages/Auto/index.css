@@ -9,15 +9,25 @@ body{
 }
 
 .titulo-img-container img{
-    width: 14em;
-    height: 14rem;
-    border-radius: 7rem;
+    padding:0px;
+    margin-bottom: 10px;
+    width: 250px;
+    height: 250px;
+    border-radius: 120px;
+    align-items: center;
+    text-align:center;
     object-fit: contain;
-    margin: auto;
 }
 
 .titulo-container span{
     font-weight: 900;
     font-size: larger;
+}
+
+.icon-container{
+    display: flex !important;
+    /* align-items: center !important; */
+    justify-content: space-evenly !important;
+
 }
 

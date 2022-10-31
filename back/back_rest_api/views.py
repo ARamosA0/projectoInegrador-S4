@@ -147,12 +147,12 @@ class AutoAPIGeneral(APIView):
             aut_imagen = request.data.get('image')
             cloudinaryResponse = cloudinary.uploader.upload(aut_imagen)
 
-            dictionaryData = {
-                'image': '{}.{}'.format(cloudinaryResponse['public_id'], cloudinaryResponse['format'])
-            }
-            # serAuto = AutoSerializer(data = dictionaryData)
+            
+            imagenUrl = '{}.{}'.format('https://res.cloudinary.com/dm8aqmori/', cloudinaryResponse['format'])
+            
+            
 
-            autSerializer = AutoSerializer(data=[request.data, dictionaryData])
+            autSerializer = AutoSerializer(data=[request.data, imagenUrl])
 
             if autSerializer.is_valid():
                 autSerializer.save()
@@ -216,7 +216,8 @@ class AutoMarca(APIView):
 class AutoIdUsuario(APIView):
     def get(self, request, id_usuario):
         listaAutos = Auto_aut.objects.filter(aut_usuario = id_usuario)
-        serializer = AutoSerializer(listaAutos)
+        print(listaAutos)
+        serializer = AutoSerializer(listaAutos, many=True)
 
-        return Response(serializer.data, many=True)
+        return Response(serializer.data)
 

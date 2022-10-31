@@ -42,6 +42,9 @@ class Marca_mar(models.Model):
     mar_nombre = models.CharField(max_length=20)
     mar_year = models.CharField(max_length=6)
 
+    def __str__(self):
+        return self.mar_nombre
+
 class Auto_aut(models.Model):
     aut_marca = models.ForeignKey(Marca_mar, related_name='marca', on_delete=models.CASCADE)
     aut_usuario = models.ForeignKey(User, related_name='usuario', on_delete=models.CASCADE)

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/register_background"
     tools:context=".LoginActivity">
 
     <LinearLayout
@@ -22,10 +23,7 @@
             android:id="@+id/tosignup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:text="¿Ya tienes una cuenta?"
-
-            />
+            android:text="¿Ya tienes una cuenta?" />
 
         <TextView
             android:id="@+id/ActividadLogin"
@@ -40,7 +38,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/opensans_extrabold"
+        android:fontFamily="@font/poppins_extrabold"
         android:text="REGISTRO"
         android:textColor="@color/titbtn"
         android:textSize="40sp"
@@ -49,7 +47,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.13" />
+        app:layout_constraintVertical_bias="0.0800000" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/userEmailLayoutReg"
@@ -57,7 +55,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:hint="Correo electrónico"
         app:layout_constraintEnd_toEndOf="parent"
@@ -70,7 +68,7 @@
             android:id="@+id/userEmaileditReg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"/>
+            android:inputType="textEmailAddress" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -91,7 +89,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:gravity="center"
-        android:text="Al registrarte aceptas nuestras condiciones de uso y\npolitica de privacidad"
+        android:text="Al registrarte aceptas nuestras condiciones de uso y politica de privacidad"
+        android:textSize="11dp"
 
         app:layout_constraintEnd_toEndOf="@+id/btnRegistrarse"
 
@@ -100,17 +99,17 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/userPaswordLayoutReg"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
+        android:hint="Contraseña"
         app:layout_constraintEnd_toEndOf="parent"
-        app:startIconDrawable="@drawable/ic_passkey"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userEmailLayoutReg"
-        android:hint="Contraseña">
+        app:startIconDrawable="@drawable/ic_baseline_lock_24">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/userPasswordeditReg"
@@ -148,7 +147,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:hint="Teléfono"
         app:layout_constraintEnd_toEndOf="parent"

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Taller">
+    tools:context=".fragments.Taller">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,7 +20,7 @@
             android:text="Encuentranos en"
             android:textSize="32dp"
             android:layout_marginTop="40dp"
-            android:fontFamily="@font/opensans_extrabold"
+            android:fontFamily="@font/poppins_extrabold"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteY="40dp" />
 

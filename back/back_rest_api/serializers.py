@@ -40,3 +40,20 @@ class MarcaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Marca_mar
         fields = '__all__'
+
+#Relacionado a instrumentos (sensores) y registro de datos
+class InstrumentoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Instrumento_ins
+        fields = '__all__'
+
+class InstrumentoXAutoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InstrumentoXAuto_ixa
+        fields = '__all__'
+        read_only_fields = ['ixa_fecinstalacion', 'ixa_fecmodificacion']
+
+class RegistroDatosSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RegistroDatos_rda
+        fields = '__all__'

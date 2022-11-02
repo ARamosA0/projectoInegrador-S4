@@ -1,5 +1,6 @@
 from email.policy import default
 from enum import unique
+from unittest.util import _MAX_LENGTH
 from django.contrib.auth.models import User
 from django.db import models
 from django.contrib.auth.models import AbstractUser
@@ -22,7 +23,7 @@ class User(AbstractUser):
     password = models.CharField(max_length=255)
     celular = models.CharField(max_length=9)
     imagen = CloudinaryField('image',default='https://res.cloudinary.com/dm8aqmori/image/upload/v1666805714/usuario_tcf7ys.png')
-    username = models.CharField(max_length=255, default='admin')
+    username = models.CharField(max_length=250, default='admin')
     # is_staff = True
 
     USERNAME_FIELD = 'email'
@@ -40,6 +41,9 @@ class Documento_doc(models.Model):
 class Marca_mar(models.Model):
     mar_nombre = models.CharField(max_length=20)
     mar_year = models.CharField(max_length=6)
+
+    def __str__(self):
+        return self.mar_nombre
 
 class Auto_aut(models.Model):
     aut_marca = models.ForeignKey(Marca_mar, related_name='marca', on_delete=models.CASCADE)

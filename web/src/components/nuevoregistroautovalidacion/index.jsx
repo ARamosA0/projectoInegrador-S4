@@ -8,24 +8,19 @@ import swal from "sweetalert2";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import { Container, FormControlLabel, RadioGroup, Radio, Select, MenuItem, InputLabel } from "@mui/material"
 
-import { marcas } from "../../service/autoServices";
+import { marcas, registerCar } from "../../service/autoServices";
 
 const RegAuto = () => {
 
+    const [count, setcount] = useState([]);
+    const [auto,setAuto] = useState([])
 
-
-    const [count, setcount] = useState([
-        
-    ]);
-
-
-    const getMarcas = async () => {
+    const fetchApi = async () => {
         const marcasdata = await marcas()
         setcount(marcasdata)
-        console.log(marcasdata)
+
+        
   }
-
-
 
     const ColorButton = styled(Button)(({ theme }) => ({
         backgroundColor: "#EB3B3B",
@@ -39,7 +34,7 @@ const RegAuto = () => {
     }));
 
     useEffect(() => {
-        getMarcas()
+        fetchApi()
     }, []);
 
     return (
@@ -100,7 +95,9 @@ const RegAuto = () => {
                 onSubmit={async (valores, { resetForm }) => {
                     //valores son los valores de los inputs donde se muestra en un objeto
                     resetForm();
-                    //funcion para crear usuario
+                    const registroAuto = await registerCar(valores)
+                    // setAuto(registroAuto)
+                    console.log(registroAuto)
                     console.log(valores)
                     try {
                         await createUserAxios(valores)
@@ -149,30 +146,10 @@ const RegAuto = () => {
 
                                     {count.length > 0 &&
                                         count.map((count) => (
-                                            <MenuItem >{count.mar_nombre}</MenuItem>
+                                            <MenuItem value={count.mar_nombre} >{count.mar_nombre}</MenuItem>
                                         ))}
 
                                 </Select>
-                                {/* 
-                                <TextField
-                                    error={touched.aut_marca && errors.aut_marca && true}
-                                    required
-                                    margin="dense"
-                                    name="aut_marca"
-                                    label="Marca del vehiculo"
-                                    color="warning"
-                                    type="text"
-                                    fullWidth
-                                    value={values.marca}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                />
-                                <ErrorMessage
-                                    name="aut_marca"
-                                    component={() => (
-                                        <div className="input-error">{errors.aut_marca}</div>
-                                    )}
-                                />*/}
                             </Grid>
                             <Grid item xs={6} md={6}>
                                 <h2>Modelo del vehiculo</h2>

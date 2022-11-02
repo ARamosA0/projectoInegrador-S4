@@ -3,12 +3,12 @@ package com.miempresa.myapplication
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.miempresa.myapplication.databinding.ActivityMainBinding
-import kotlinx.android.synthetic.main.activity_main.*
-
+import com.miempresa.myapplication.fragments.AutoHome
+import com.miempresa.myapplication.fragments.Historial
+import com.miempresa.myapplication.fragments.Taller
+import com.miempresa.myapplication.fragments.Telemetria
 
 
 class MainActivity : AppCompatActivity() {
@@ -18,11 +18,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
         replaceFragment(AutoHome())
 
         binding.bottomNavigation.setOnItemSelectedListener {
@@ -45,4 +44,6 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.replace(R.id.FrameMain,fragment)
         fragmentTransaction.commit()
     }
+
+
 }

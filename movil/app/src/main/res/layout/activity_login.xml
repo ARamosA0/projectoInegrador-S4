@@ -4,21 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/login_background"
     tools:context=".LoginActivity">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_extrabold"
         android:text="LOGIN"
         android:textColor="@color/titbtn"
         android:textSize="40sp"
-        android:fontFamily="@font/opensans_extrabold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.13999999" />
+        app:layout_constraintVertical_bias="0.0900000" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/userEmailLayoutReg"
@@ -26,24 +27,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:hint="Correo electrónico"
-        app:startIconDrawable="@drawable/ic_email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:startIconDrawable="@drawable/ic_email">
 
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/userEmaileditReg"
+            android:id="@+id/userEmaileditLog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/btnRegistrarse"
+        android:id="@+id/btnLogin"
         android:layout_width="0dp"
         android:layout_height="65dp"
         android:layout_marginTop="16dp"
@@ -93,9 +94,9 @@
         android:paddingLeft="30dp"
         android:text="Acceder con Google"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="@+id/btnRegistrarse"
-        app:layout_constraintStart_toStartOf="@+id/btnRegistrarse"
-        app:layout_constraintTop_toBottomOf="@+id/btnRegistrarse" />
+        app:layout_constraintEnd_toEndOf="@+id/btnLogin"
+        app:layout_constraintStart_toStartOf="@+id/btnLogin"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 
     <Button
         android:id="@+id/btnFacebook"
@@ -107,27 +108,27 @@
         android:paddingLeft="30dp"
         android:text="Acceder con Facebook"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="@+id/btnRegistrarse"
+        app:layout_constraintEnd_toEndOf="@+id/btnLogin"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/btnRegistrarse"
+        app:layout_constraintStart_toStartOf="@+id/btnLogin"
         app:layout_constraintTop_toBottomOf="@+id/btnGoogle" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/userPaswordLayoutReg"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
+        android:hint="Contraseña"
         app:layout_constraintEnd_toEndOf="parent"
-        app:startIconDrawable="@drawable/ic_passkey"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userEmailLayoutReg"
-        android:hint="Contraseña">
+        app:startIconDrawable="@drawable/ic_baseline_lock_24">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/userPasswordeditReg"
+            android:id="@+id/userPasswordeditLog"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword" />

@@ -32,9 +32,9 @@ export const loginOut = async(user) =>{
     }
 }
 
-export const userData = async() => {
+export const userData = async(id) => {
     try {
-        const response = await axios.get('http://127.0.0.1:8000/users/');
+        const response = await axios.get(`http://127.0.0.1:8000/usuario/${id}`);
         return response.data
     } catch (error){
         console.log(error)

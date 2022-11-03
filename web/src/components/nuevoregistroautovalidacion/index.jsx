@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 // import { createUserAxios } from "../../service/userService";
 import { Grid, TextField, Button, styled } from "@mui/material";
-import { Formik, ErrorMessage } from "formik";
+import { Formik, ErrorMessage, Field, Form } from "formik";
 import swal from "sweetalert2";
 import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import { Container, FormControlLabel, RadioGroup, Radio, Select, MenuItem, InputLabel } from "@mui/material"
@@ -17,10 +17,9 @@ const RegAuto = () => {
 
     const fetchApi = async () => {
         const marcasdata = await marcas()
-        setcount(marcasdata)
-
-        
+        setcount(marcasdata)        
   }
+
 
     const ColorButton = styled(Button)(({ theme }) => ({
         backgroundColor: "#EB3B3B",
@@ -99,20 +98,20 @@ const RegAuto = () => {
                     // setAuto(registroAuto)
                     console.log(registroAuto)
                     console.log(valores)
-                    try {
-                        await createUserAxios(valores)
-                        swal({
-                            icon: "success",
-                            title: "Cuenta creada",
-                            text: "Inicie sesion para continuar",
-                        });
-                    } catch (error) {
-                        swal({
-                            icon: "error",
-                            title: `${error.message}`,
-                            text: "Intenta de nuevo dentro de unos minutos",
-                        });
-                    }
+                    // try {
+                    //     await createUserAxios(valores)
+                    //     swal({
+                    //         icon: "success",
+                    //         title: "Cuenta creada",
+                    //         text: "Inicie sesion para continuar",
+                    //     });
+                    // } catch (error) {
+                    //     swal({
+                    //         icon: "error",
+                    //         title: `${error.message}`,
+                    //         text: "Intenta de nuevo dentro de unos minutos",
+                    //     });
+                    // }
                 }}
             >
                 {({
@@ -122,9 +121,10 @@ const RegAuto = () => {
                     handleSubmit,
                     handleChange,
                     handleBlur,
+                    setFieldValue
                 }) => (
 
-                    <form onSubmit={handleSubmit}>
+                    <Form onSubmit={handleSubmit}>
                         <Grid container spacing={3}>
                             <Grid item xs={6} md={6}>
                                 <h2 >Marca del vehiculo </h2>
@@ -140,13 +140,11 @@ const RegAuto = () => {
 
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
-
-
                                 >
 
                                     {count.length > 0 &&
                                         count.map((count) => (
-                                            <MenuItem value={count.mar_nombre} >{count.mar_nombre}</MenuItem>
+                                            <MenuItem value={count.id} >{count.mar_nombre}</MenuItem>
                                         ))}
 
                                 </Select>
@@ -197,7 +195,7 @@ const RegAuto = () => {
                             </Grid>
                             <Grid item xs={6} md={6}>
                                 <h2>Imgen del vehiculo</h2>
-                                <TextField
+                                <Field
                                     error={touched.aut_imagen && errors.aut_imagen && true}
                                     margin="dense"
                                     name="aut_imagen"
@@ -205,7 +203,9 @@ const RegAuto = () => {
                                     color="warning"
                                     type="file"
                                     value={values.aut_imagen}
-                                    onChange={handleChange}
+                                    onChange={(event) => {
+                                        setFieldValue("file", event.currentTarget.files[0]);
+                                      }}
                                     onBlur={handleBlur}
                                     fullWidth
                                 />
@@ -337,7 +337,7 @@ const RegAuto = () => {
                         >
                             ENVIAR FORMULARIO DE REGISTRO DE VEHICULO
                         </ColorButton>
-                    </form>
+                    </Form>
 
                 )}
             </Formik>

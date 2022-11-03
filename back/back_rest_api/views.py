@@ -49,12 +49,15 @@ class LoginView(APIView):
         if not user.check_password(password):
             raise AuthenticationFailed('Incorrect password!')
 
+        print(user.imagen)
+        imagen = str(user.imagen)
+
         payload = {
             'id': user.id,
             'name':user.name,
             'email':user.email,
             'celular':user.celular,
-            'imagen':user.imagen,
+            'imagen':imagen,
             'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
             'iat': datetime.datetime.utcnow()
         }
@@ -141,15 +144,27 @@ class AutoAPIGeneral(APIView):
     def post(self, request):
 
         try:
-            aut_imagen = request.data.get('image')
+            aut_imagen = request.data.get('aut_imagen')
             cloudinaryResponse = cloudinary.uploader.upload(aut_imagen)
 
+            print('hola')
             
-            imagenUrl = '{}.{}'.format('https://res.cloudinary.com/dm8aqmori/', cloudinaryResponse['format'])
+            imagenUrl = {
+                'aut_imagen': '{}.{}'.format(cloudinaryResponse['public_id'], cloudinaryResponse['format']),
+                'aut_placa': request.data.get('aut_placa'),
+                'aut_color': request.data.get('aut_color'),
+                'aut_modelo': request.data.get('aut_modelo'),
+                'aut_descripcion': request.data.get('aut_descripcion'),
+                'aut_fecadquisicion': request.data.get('aut_fecadquisicion'),
+                'aut_marca': request.data.get('aut_marca'),
+                'aut_usuario': request.data.get('aut_usuario')
+            }
             
             
 
-            autSerializer = AutoSerializer(data=[request.data, imagenUrl])
+            autSerializer = AutoSerializer(data =imagenUrl )
+
+            print(autSerializer)
 
             if autSerializer.is_valid():
                 autSerializer.save()

@@ -23,7 +23,7 @@ class User(AbstractUser):
     password = models.CharField(max_length=255)
     celular = models.CharField(max_length=9)
     imagen = CloudinaryField('image',default='https://res.cloudinary.com/dm8aqmori/image/upload/v1666805714/usuario_tcf7ys.png')
-    username = models.CharField(max_length=250, default='admin')
+    username = None
     # is_staff = True
 
     USERNAME_FIELD = 'email'
@@ -51,7 +51,7 @@ class Auto_aut(models.Model):
     #Datos de auto
     aut_placa = models.CharField(max_length=7)
     aut_color = models.CharField(max_length=20)
-    aut_imagen = CloudinaryField('image', null=True, blank=True, default='https://res.cloudinary.com/dm8aqmori/image/upload/v1666805846/autoIcono_ljytgv.png')
+    aut_imagen = CloudinaryField('aut_imagen', null=True, blank=True, default='https://res.cloudinary.com/dm8aqmori/image/upload/v1666805846/autoIcono_ljytgv.png')
     aut_modelo = models.CharField(max_length=50)
     aut_descripcion = models.TextField()
     aut_fecadquisicion = models.DateField()

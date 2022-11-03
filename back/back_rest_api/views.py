@@ -28,9 +28,7 @@ class Index(APIView):
         return Response(context)
 
 
-
 #Registro
-
 class RegisterView(APIView):
     def post(self, request):
         serializers = UserSerializer(data=request.data)
@@ -71,6 +69,7 @@ class LoginView(APIView):
         }
         return response
 
+
 #Usuarios
 class UsuarioAPIGeneral(APIView):
     def get(self, request):
@@ -96,9 +95,6 @@ class LogoutView(APIView):
             "message":"succese"
         }
         return response
-
-
-
 
 class UsuarioAPIDetallado(APIView):
     def get_object(self, usuario_id):
@@ -132,6 +128,7 @@ class UsuarioAPIDetallado(APIView):
         usuListaDet.delete()
 
         return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 #Auto
 class AutoAPIGeneral(APIView):
@@ -221,3 +218,85 @@ class AutoIdUsuario(APIView):
 
         return Response(serializer.data)
 
+
+#Instrumentos (sensores) y registro de datos
+class InstrumentoAPIGeneral(APIView):
+    def get(self, request):
+        instrumentos = Instrumento_ins.objects.all()
+        serializer = InstrumentoSerializer(instrumentos, many=True)
+
+        return Response(serializer.data)
+    
+    def post(self, request):
+        serializer = InstrumentoSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class InstrumentoAPIDetallado(APIView):
+    def get_object(self, instrumento_id):
+        try:
+            return Instrumento_ins.objects.get(pk=instrumento_id)
+        except Instrumento_ins.DoesNotExist:
+            raise Http404
+    
+    def get(self, request, instrumento_id):
+        instrumento = self.get_object(instrumento_id)
+        serializer = InstrumentoSerializer(instrumento)
+        return Response(serializer.data)
+    
+    def put(self, request, instrumento_id):
+        instrumento = self.get_object(instrumento_id)
+        serializer = InstrumentoSerializer(instrumento, data=request.data)
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def delete(self, request, instrumento_id, format=None):
+        instrumento = self.get_object(instrumento_id)
+        instrumento.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+class InstrumentoXAutoAPIGeneral(APIView):
+    def get(self, request):
+        instrumento_auto = InstrumentoXAuto_ixa.objects.all()
+        serializer = InstrumentoXAutoSerializer(instrumento_auto, many=True)
+
+        return Response(serializer.data)
+    
+    def post(self, request):
+        serializer = InstrumentoXAutoSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class RegistroDatosAPIGeneral(APIView):
+    def get(self, request):
+        registro_datos = RegistroDatos_rda.objects.all()
+        serializer = RegistroDatosSerializer(registro_datos, many=True)
+
+        return Response(serializer.data)
+    
+    def post(self, request):
+        serializer = RegistroDatosSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class RegistroDatosAPIDetallado (APIView):
+    def get_object(self, registrodato_id):
+        try:
+            return RegistroDatos_rda.objects.get(pk=registrodato_id)
+        except RegistroDatos_rda.DoesNotExist:
+            raise Http404
+    
+    def get(self, request, registrodato_id):
+        registro_datos = self.get_object(registrodato_id)
+        serializer = RegistroDatosSerializer(registro_datos)
+        return Response(serializer.data)
+    

@@ -16,7 +16,14 @@ urlpatterns = [
     path('vehicles/', views.AutoAPIGeneral.as_view()),
     path('vehicles/<int:auto_id>', views.AutoAPIDetallado.as_view()),
     path('marcas/', views.AutoMarca.as_view()),
-    path('auto/<int:id_usuario>', views.AutoIdUsuario.as_view())
+    path('auto/<int:id_usuario>', views.AutoIdUsuario.as_view()),
+    
+    #Relacionado a instrumentos (sensores) y registro de datos
+    path('sensors/', views.InstrumentoAPIGeneral.as_view()),
+    path('sensors/<int:instrumento_id>', views.InstrumentoAPIDetallado.as_view()),
+    path('sensorsvehicle/', views.InstrumentoXAutoAPIGeneral.as_view()),
+    path('datasensors/', views.RegistroDatosAPIGeneral.as_view()),
+    path('datasensors/<int:registrodato_id>', views.RegistroDatosAPIDetallado.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

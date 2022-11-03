@@ -103,23 +103,31 @@ class Mantenimiento_man(models.Model):
         return self.tipo_matenimiento.tman_nombre
 
 #Relacionado a instrumento
+"""
 class InsNombre_ino(models.Model):
     ino_nombre = models.CharField(max_length=50)
 
 class InsCodigo_inc(models.Model):
     inc_nombre = models.ForeignKey(InsNombre_ino, on_delete=models.CASCADE)
     inc_codigo = models.CharField(max_length=20)
+"""
 
 class Instrumento_ins(models.Model):
-    ins_codigo = models.ForeignKey(InsCodigo_inc, on_delete=models.CASCADE)
+    ins_nombre = models.CharField(max_length=50, null=True)
+    ins_codigo = models.CharField(max_length=20)
     ins_unidad = models.CharField(max_length=5)
 
     def __str__(self):
-        return self.ins_codigo.inc_nombre
+        return "{} Unidad: {}".format(self.ins_nombre, self.ins_unidad)
 
 class InstrumentoXAuto_ixa(models.Model):
     auto = models.ForeignKey(Auto_aut, on_delete=models.CASCADE)
     instrumento = models.ForeignKey(Instrumento_ins, on_delete=models.CASCADE)
+    ixa_fecinstalacion = models.DateTimeField(auto_now_add=True)
+    ixa_fecmodificacion = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return "Auto: {} Sensor: {}".format(self.auto.aut_placa, self.instrumento.ins_nombre)
 
 #Relacionado a registro de datos
 class RegistroDatos_rda(models.Model):

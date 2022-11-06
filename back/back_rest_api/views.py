@@ -147,7 +147,6 @@ class AutoAPIGeneral(APIView):
             aut_imagen = request.data.get('aut_imagen')
             cloudinaryResponse = cloudinary.uploader.upload(aut_imagen)
 
-            print('hola')
             
             imagenUrl = {
                 'aut_imagen': '{}.{}'.format(cloudinaryResponse['public_id'], cloudinaryResponse['format']),
@@ -176,7 +175,7 @@ class AutoAPIGeneral(APIView):
             print(Error)
             return Response({
                 'status': False,
-                'content': None,
+                'content': 'Error',
                 'message': 'Internal server error'
             })    
 
@@ -194,14 +193,43 @@ class AutoAPIDetallado(APIView):
         return Response(autSerializer.data)
     
     def put(self, request, auto_id):
-        autListaDet = self.get_object(auto_id)
-        autSerializer = AutoSerializer(autListaDet, data=request.data)
 
-        if autSerializer.is_valid():
-            autSerializer.save()
-            return Response(autSerializer.data)
-        
-        return Response(autSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            aut_imagen = request.data.get('aut_imagen')
+            cloudinaryResponse = cloudinary.uploader.upload(aut_imagen)
+
+            
+            imagenUrl = {
+                'aut_imagen': '{}.{}'.format(cloudinaryResponse['public_id'], cloudinaryResponse['format']),
+                'aut_placa': request.data.get('aut_placa'),
+                'aut_color': request.data.get('aut_color'),
+                'aut_modelo': request.data.get('aut_modelo'),
+                'aut_descripcion': request.data.get('aut_descripcion'),
+                'aut_fecadquisicion': request.data.get('aut_fecadquisicion'),
+                'aut_marca': request.data.get('aut_marca'),
+                'aut_usuario': request.data.get('aut_usuario')
+            }
+            
+            
+            autListaDet = Auto_aut.objects.get(pk=auto_id)
+            autSerializer = AutoSerializer(autListaDet, data =imagenUrl )
+
+            print(autSerializer)
+
+            if autSerializer.is_valid():
+                autSerializer.save()
+                return Response(autSerializer.data, status=status.HTTP_201_CREATED)
+
+            return Response(autSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        except Exception as Error:
+            print(Error)
+            return Response({
+                'status': False,
+                'content': 'Error',
+                'message': 'Internal server error'
+            })   
+
     
     def delete(self, request, auto_id):
         autListaDet = self.get_object(auto_id)

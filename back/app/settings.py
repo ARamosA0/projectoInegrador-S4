@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-3l=n^gdd-r6#^_!#+7bi(6gjqcid75-c8yhgxu6h6u-r8u5jyf
 DEBUG = True
 
 
-#Se agrego que se pueda haceptar todos los puertos 
+
 ALLOWED_HOSTS = ['*']
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
@@ -96,7 +96,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'final_project_test',
         'USER': 'root',
-        'PASSWORD': 'password',
+        'PASSWORD': '1234',
         'HOST': 'localhost',
         'PORT': '3306',
     }

@@ -1,4 +1,4 @@
-package com.miempresa.myapplication.fragments
+package com.miempresa.myapplication.ui.telemetria
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.Historial">
+    tools:context=".ui.historial.Historial">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
@@ -13,13 +13,12 @@
         android:layout_marginEnd="32dp"
         android:orientation="vertical">
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/textHistorial"
             android:layout_width="match_parent"
             android:layout_gravity="center"
             android:layout_height="wrap_content"
-            android:text="Historial"
             android:textSize="32dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="30dp"
             android:fontFamily="@font/poppins_extrabold"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteY="40dp" />

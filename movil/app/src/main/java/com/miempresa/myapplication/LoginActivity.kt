@@ -10,26 +10,30 @@ import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
-import com.auth0.android.jwt.Claim
 import com.auth0.android.jwt.JWT
+import com.miempresa.myapplication.ui.autohome.AutoHome
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_login.textView
-import kotlinx.android.synthetic.main.activity_register.*
+import org.json.JSONException
 import org.json.JSONObject
-import java.util.*
 
 
 class LoginActivity : AppCompatActivity() {
 
     var JWTtoken = ""
     var user_name = ""
+    var user_email = ""
+    var user_id: Int? = null
+    var user_celular = ""
+    var user_imagen = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Thread.sleep(1000)
         setTheme(R.style.Theme_Final)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        supportActionBar?.hide()
 
         val policy =
             StrictMode.ThreadPolicy.Builder().permitAll().build()
@@ -61,8 +65,8 @@ class LoginActivity : AppCompatActivity() {
 
             else{
                 val queue = Volley.newRequestQueue(this)
-                val url = "http://10.0.2.2:8000/login/"
-                //val url = "http://192.168.1.8:8000/login/"
+                //val url = "http://10.0.2.2:8000/login/"
+                val url = "http://172.23.8.68:8000/login/"
                 val jsonObj = JSONObject()
                 jsonObj.put("email", email)
                 jsonObj.put("password",pass)
@@ -70,34 +74,36 @@ class LoginActivity : AppCompatActivity() {
                 val stringRequest =  JsonObjectRequest(
                     Request.Method.POST, url,jsonObj,
                     Response.Listener { response ->
-                        JWTtoken = response.getString("jwt")
-                        checkJson(JWTtoken)
-                        alertSuccess("Hola $user_name")
-                        openProfile()
-                    },
-                    Response.ErrorListener {
-                        alertFail("Usuario no existente")
+                        try {
+                            JWTtoken = response.getString("jwt")
+                            openProfile()
+                        } catch (e: JSONException){
+                            alertFail("Hey, estos datos no van")
+                        }
+                    }, Response.ErrorListener {
+                        alertFail("Revisa tu conexion a internet")
                     })
                 queue.add(stringRequest)
             }
         }
 
-
-
-
     }
     private fun openProfile(){
         val intent = Intent(this, MainActivity::class.java)
-        intent.putExtra("user_name", user_name)
+        intent.putExtra("JWTtoken", JWTtoken)
         startActivity(intent)
     }
 
 
+
     private fun checkJson(tk: String){
         var jwt: JWT = JWT(JWTtoken)
-        var claim = jwt.getClaim("name").asString()
-        var claim2 = jwt.getClaim("id").asString()
-        user_name = claim.toString()
+        user_id = jwt.getClaim("id").asInt()
+        user_name = jwt.getClaim("name").asString().toString()
+        user_email = jwt.getClaim("email").asString().toString()
+        user_celular = jwt.getClaim("celular").asInt().toString()
+        //user_imagen = jwt.getClaim("imagen").asInt().toString()
+
     }
 
 

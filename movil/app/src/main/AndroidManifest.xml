@@ -23,15 +23,15 @@
         </activity>
         <activity
             android:name=".AutoAdd"
-            android:exported="false">
+            android:exported="false"
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".RegisterActivity"
-            android:exported="false"
-            android:theme="@style/Theme.Final2">
+            android:exported="false">
 
             <meta-data
                 android:name="android.app.lib_name"
@@ -53,8 +53,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="false"
-            android:theme="@style/Theme.Final2">
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

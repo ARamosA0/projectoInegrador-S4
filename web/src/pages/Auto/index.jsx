@@ -109,7 +109,7 @@ const Auto = (props) => {
                 <SsidChartIcon sx={{fontSize:100, color:"#483D8B"}}/>
               </IconButton>
               <IconButton size="large" onClick={()=>handleClick("Historial")}>
-                <ManageSearchIcon sx={{fontSize:100, color:"#FFD700"} }/>
+                <ManageSearchIcon sx={{fontSize:100, color:"#FF4500"} }/>
               </IconButton>
               <IconButton size="large" onClick={()=>handleClick("Errores Manuales")}>
                 <ErrorIcon sx={{fontSize:100, color:"#DC143C"}}/>

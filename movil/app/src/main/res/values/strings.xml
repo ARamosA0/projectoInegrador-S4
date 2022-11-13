@@ -1,16 +1,17 @@
 <resources>
     <string name="app_name">movil</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="AutoHome">Estás en AutoHome</string>
-    <string name="Telemetria">Estás en Telemetria</string>
-    <string name="Historial">Estás en Historial</string>
-    <string name="Taller">Estás en Taller</string>
+    <string name="AutoHome">AutoHome</string>
+    <string name="Telemetria">Telemetria</string>
+    <string name="Historial">Historial</string>
+    <string name="Taller">Taller</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="fab_content_desc">Añadir auto</string>
 
     <string name="select_auto">Selecciona el vehículo</string>
     <string name="select_sensor">Selecciona el sensor</string>
+
     <string-array name="autos_usuario">
         <item>Sedan</item>
         <item>Chevrolet</item>

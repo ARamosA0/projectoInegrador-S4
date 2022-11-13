@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.Taller">
+    tools:context=".ui.taller.Taller">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,13 +13,12 @@
         android:layout_marginEnd="32dp"
         android:orientation="vertical">
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/textTaller"
             android:layout_width="match_parent"
             android:layout_gravity="center"
             android:layout_height="wrap_content"
-            android:text="Encuentranos en"
             android:textSize="32dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="30dp"
             android:fontFamily="@font/poppins_extrabold"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteY="40dp" />

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_autohome">
+
+    <fragment
+        android:id="@+id/navigation_autohome"
+        android:name="com.miempresa.myapplication.ui.autohome.AutoHome"
+        android:label="@string/AutoHome"
+        tools:layout="@layout/fragment_auto_home" />
+    <fragment
+        android:id="@+id/navigation_taller"
+        android:name="com.miempresa.myapplication.ui.taller.Taller"
+        android:label="@string/Taller"
+        tools:layout="@layout/fragment_taller" />
+    <fragment
+        android:id="@+id/navigation_historial"
+        android:name="com.miempresa.myapplication.ui.historial.Historial"
+        android:label="@string/Historial"
+        tools:layout="@layout/fragment_historial" />
+    <fragment
+        android:id="@+id/navigation_telemetria"
+        android:name="com.miempresa.myapplication.ui.telemetria.Telemetria"
+        android:label="@string/Telemetria"
+        tools:layout="@layout/fragment_telemetria" />
+</navigation>

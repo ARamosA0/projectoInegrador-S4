@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import { errmanualpost } from "../../service/erroresServices";
 import {
   Container,
   FormControl,
@@ -14,7 +14,7 @@ import {
 import AutoInfo from "../../components/AutoInfo";
 import Log from "../../components/Log";
 import Telemetria from "../../components/Telemetria";
-
+import ErrManual from "../../components/ErroresManuales";
 // CSS
 import "./index.css";
 
@@ -22,6 +22,8 @@ import "./index.css";
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import SsidChartIcon from '@mui/icons-material/SsidChart';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
+import ErrorIcon from '@mui/icons-material/Error';
+
 
 const Auto = (props) => {
   
@@ -30,6 +32,8 @@ const Auto = (props) => {
   const [datosContentVisible, setDatosContentVisible] = useState(false);
   const [teleContentVisible, setTeleContentVisible] = useState(false);
   const [histoContentVisible, setHistoContentVisible] = useState(false);
+  const [errmanualContentVisible, setErrmanualContentVisible] = useState(false);
+  
 
   const setAutoData = () =>{
     const autoData = JSON.parse(localStorage.getItem("car"));
@@ -45,6 +49,7 @@ const Auto = (props) => {
   const handleClick = (string) => {
     setTipo(string)
   }
+
 
 
   const renderResult = () => {
@@ -67,6 +72,9 @@ const Auto = (props) => {
     tipo === "Historial"
       ? setHistoContentVisible(true)
       : setHistoContentVisible(false);
+    tipo === "Errores Manuales"
+      ? setErrmanualContentVisible(true)
+      : setErrmanualContentVisible(false);
   }, [tipo]);
 
  
@@ -93,15 +101,18 @@ const Auto = (props) => {
         </Grid>
         <Grid item xs={12}>
           <Grid container className="icon-container">
-            <Grid item xs={4} >
+            <Grid item xs={6} >
               <IconButton size="large" onClick={()=>handleClick("Datos del Vehiculo")}>
                 <DirectionsCarIcon sx={{fontSize:100}}/>
               </IconButton>
-              <IconButton size="large" onClick={()=>handleClick("Telemetria")}>
-                <SsidChartIcon sx={{fontSize:100}}/>
+              <IconButton size="large"  onClick={()=>handleClick("Telemetria")}>
+                <SsidChartIcon sx={{fontSize:100, color:"#483D8B"}}/>
               </IconButton>
               <IconButton size="large" onClick={()=>handleClick("Historial")}>
-                <ManageSearchIcon sx={{fontSize:100}}/>
+                <ManageSearchIcon sx={{fontSize:100, color:"#FFD700"} }/>
+              </IconButton>
+              <IconButton size="large" onClick={()=>handleClick("Errores Manuales")}>
+                <ErrorIcon sx={{fontSize:100, color:"#DC143C"}}/>
               </IconButton>
             </Grid>
           </Grid>
@@ -114,10 +125,17 @@ const Auto = (props) => {
           )}
           
         </Grid>
+
         <Grid item xs={12}>
+
           {datosContentVisible && <AutoInfo auto={auto}/>}
+
           {teleContentVisible && <Telemetria auto={auto}/>}
+
           {histoContentVisible && <Log auto={auto}/>}
+
+          {errmanualContentVisible && <ErrManual auto={auto}/>}
+
         </Grid>
       </Grid>
     </Container>

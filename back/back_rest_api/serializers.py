@@ -57,3 +57,8 @@ class RegistroDatosSerializer(serializers.ModelSerializer):
     class Meta:
         model = RegistroDatos_rda
         fields = '__all__'
+
+class ErrManualSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RegistroManual_rma
+        fields = '__all__'

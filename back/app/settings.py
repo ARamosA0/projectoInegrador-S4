@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-3l=n^gdd-r6#^_!#+7bi(6gjqcid75-c8yhgxu6h6u-r8u5jyf
 DEBUG = True
 
 
-#Se agrego que se pueda haceptar todos los puertos 
+
 ALLOWED_HOSTS = ['*']
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
@@ -91,41 +91,29 @@ WSGI_APPLICATION = 'app.wsgi.application'
 
 #Si tienes errores con la base de datos talvez es por el password
 #borralo o cambialo
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'final_project_test',
-#         'USER': 'root',
-#         'PASSWORD': 'password',
-#         'HOST': 'localhost',
-#         'PORT': '3306',
-#     }
-# }
-
-
-# BD DIGITAL OCEAN
-#DATABASES = {
-    #'default': {
-       # 'ENGINE': 'django.db.backends.mysql',
-      #  'NAME': 'final_project_test',
-     #   'USER': 'root',
-    #    'PASSWORD': '',
-   #     'HOST': 'localhost',
-  #      'PORT': '3306',
- #   }
-#}
-
-# BD DIGITAL OCEAN
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'defaultdb',
-        'USER': 'doadmin',
-        'PASSWORD': 'AVNS_N1KB4on2mcZGbRDgSlu',
-        'HOST': 'db-mysql-nyc1-55843-do-user-12058349-0.b.db.ondigitalocean.com',
-        'PORT': '25060',
+        'NAME': 'final_project_test',
+        'USER': 'root',
+        'PASSWORD': '1234',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
+
+
+# BD DIGITAL OCEAN
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'defaultdb',
+#         'USER': 'doadmin',
+#         'PASSWORD': 'AVNS_N1KB4on2mcZGbRDgSlu',
+#         'HOST': 'db-mysql-nyc1-55843-do-user-12058349-0.b.db.ondigitalocean.com',
+#         'PORT': '25060',
+#     }
+# }
 
 
 # Password validation
@@ -207,5 +195,6 @@ AUTH_USER_MODEL = 'back_foundation.User'
 cloudinary.config( 
   cloud_name = "dm8aqmori", 
   api_key = "416938536925695", 
-  api_secret = "PDq8lrOVNA3hI3EwM3c3b1gosVU" 
+  api_secret = "PDq8lrOVNA3hI3EwM3c3b1gosVU", 
+  secure = True
 )

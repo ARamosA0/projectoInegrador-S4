@@ -1,22 +1,23 @@
 import axios from "axios";
 import URlS from "./URLS"
 
-export const registerCar = async(user) =>{
-    // try {
-    //     const response = await axios.post(`${URL_API}/users`, user);
-    //     return response.data
-    // } catch (error){
-    //     console.log(error)
-    // }
+export const registerCar = async(auto) =>{
+    try {
+        const response = await axios.post('http://127.0.0.1:8000/vehicles/', auto);
+        return response.data
+    } catch (error){
+        console.log(error)
+        return error
+    }
 }
 
-export const getCat = async(user) =>{
-    // try {
-    //     const response = await axios.get(`${URL_API}/users`, user);
-    //     return response.data
-    // } catch (error){
-    //     console.log(error)
-    // }
+export const getCar = async(userId) =>{
+    try {
+        const response = await axios.get(`http://127.0.0.1:8000/auto/${userId}`);
+        return response.data
+    } catch (error){
+        console.log(error)
+    }
 }
 
 

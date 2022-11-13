@@ -1,5 +1,6 @@
 from email.policy import default
 from enum import unique
+from unittest.util import _MAX_LENGTH
 from django.contrib.auth.models import User
 from django.db import models
 from django.contrib.auth.models import AbstractUser
@@ -22,7 +23,7 @@ class User(AbstractUser):
     password = models.CharField(max_length=255)
     celular = models.CharField(max_length=9)
     imagen = CloudinaryField('image',default='https://res.cloudinary.com/dm8aqmori/image/upload/v1666805714/usuario_tcf7ys.png')
-    username = models.CharField(max_length=255, default='admin')
+    username = None
     # is_staff = True
 
     USERNAME_FIELD = 'email'
@@ -41,13 +42,16 @@ class Marca_mar(models.Model):
     mar_nombre = models.CharField(max_length=20)
     mar_year = models.CharField(max_length=6)
 
+    def __str__(self):
+        return self.mar_nombre
+
 class Auto_aut(models.Model):
     aut_marca = models.ForeignKey(Marca_mar, related_name='marca', on_delete=models.CASCADE)
     aut_usuario = models.ForeignKey(User, related_name='usuario', on_delete=models.CASCADE)
     #Datos de auto
     aut_placa = models.CharField(max_length=7)
     aut_color = models.CharField(max_length=20)
-    aut_imagen = CloudinaryField('image', null=True, blank=True, default='https://res.cloudinary.com/dm8aqmori/image/upload/v1666805846/autoIcono_ljytgv.png')
+    aut_imagen = CloudinaryField('aut_imagen', null=True, blank=True, default='https://res.cloudinary.com/dm8aqmori/image/upload/v1666805846/autoIcono_ljytgv.png')
     aut_modelo = models.CharField(max_length=50)
     aut_descripcion = models.TextField()
     aut_fecadquisicion = models.DateField()
@@ -99,23 +103,31 @@ class Mantenimiento_man(models.Model):
         return self.tipo_matenimiento.tman_nombre
 
 #Relacionado a instrumento
+"""
 class InsNombre_ino(models.Model):
     ino_nombre = models.CharField(max_length=50)
 
 class InsCodigo_inc(models.Model):
     inc_nombre = models.ForeignKey(InsNombre_ino, on_delete=models.CASCADE)
     inc_codigo = models.CharField(max_length=20)
+"""
 
 class Instrumento_ins(models.Model):
-    ins_codigo = models.ForeignKey(InsCodigo_inc, on_delete=models.CASCADE)
+    ins_nombre = models.CharField(max_length=50, null=True)
+    ins_codigo = models.CharField(max_length=20)
     ins_unidad = models.CharField(max_length=5)
 
     def __str__(self):
-        return self.ins_codigo.inc_nombre
+        return "{} Unidad: {}".format(self.ins_nombre, self.ins_unidad)
 
 class InstrumentoXAuto_ixa(models.Model):
     auto = models.ForeignKey(Auto_aut, on_delete=models.CASCADE)
     instrumento = models.ForeignKey(Instrumento_ins, on_delete=models.CASCADE)
+    ixa_fecinstalacion = models.DateTimeField(auto_now_add=True)
+    ixa_fecmodificacion = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return "Auto: {} Sensor: {}".format(self.auto.aut_placa, self.instrumento.ins_nombre)
 
 #Relacionado a registro de datos
 class RegistroDatos_rda(models.Model):

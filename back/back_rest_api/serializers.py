@@ -20,7 +20,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        representation['imagen'] = instance.imagen
+        representation['imagen'] = instance.imagen.url
         return representation
 
 
@@ -33,10 +33,27 @@ class AutoSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        representation['aut_imagen'] = instance.aut_imagen
+        representation['aut_imagen'] = instance.aut_imagen.url
         return representation
 
 class MarcaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Marca_mar
+        fields = '__all__'
+
+#Relacionado a instrumentos (sensores) y registro de datos
+class InstrumentoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Instrumento_ins
+        fields = '__all__'
+
+class InstrumentoXAutoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InstrumentoXAuto_ixa
+        fields = '__all__'
+        read_only_fields = ['ixa_fecinstalacion', 'ixa_fecmodificacion']
+
+class RegistroDatosSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RegistroDatos_rda
         fields = '__all__'

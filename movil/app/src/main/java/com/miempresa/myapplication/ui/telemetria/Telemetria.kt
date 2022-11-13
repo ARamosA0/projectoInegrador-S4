@@ -1,4 +1,4 @@
-package com.miempresa.myapplication
+package com.miempresa.myapplication.ui.telemetria
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,9 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import com.miempresa.myapplication.R
 import com.miempresa.myapplication.databinding.FragmentTelemetriaBinding
-
-import kotlinx.android.synthetic.main.fragment_telemetria.*
 
 
 class Telemetria : Fragment() {
@@ -20,8 +19,8 @@ class Telemetria : Fragment() {
         super.onResume()
         val autos = resources.getStringArray(R.array.autos_usuario)
         val sensores = resources.getStringArray(R.array.autos_sensores)
-        val arrayAdapter = ArrayAdapter(requireContext(),R.layout.autos_usuario, autos)
-        val arrayAdapter2 = ArrayAdapter(requireContext(),R.layout.autos_usuario, sensores)
+        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.autos_usuario, autos)
+        val arrayAdapter2 = ArrayAdapter(requireContext(), R.layout.autos_usuario, sensores)
         binding.autoUsuario.setAdapter(arrayAdapter)
         binding.autoSensor.setAdapter(arrayAdapter2)
 

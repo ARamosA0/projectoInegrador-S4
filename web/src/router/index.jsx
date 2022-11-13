@@ -10,7 +10,7 @@ import User from "../layouts/User"
 //Pages
 import Index from "../pages/Index";
 import Ubicacion from "../pages/Ubicacion";
-import Inf_Usuario from "../components/InfoUsuario";
+import Inf_Usuario from "../pages/InfoUsuario";
 import Auto from "../pages/Auto"
 import RegAuto from "../components/nuevoregistroautovalidacion";
 
@@ -26,9 +26,9 @@ const Router = () =>{
                 <Route element={<User/>}>
                     <Route element={<Main/>}>
                         <Route path="/" element={<Index />}/>
-                        <Route path="/usuario" element={<Inf_Usuario/>}/>
-                        <Route path="/auto" element={<Auto/>}/>
-                        <Route path="/nregauto" element={<RegAuto/>}/>
+                        <Route path="/usuario/:usuarioId" element={<Inf_Usuario/>}/>
+                        <Route path="/auto/:autoId" element={<Auto/>}/>
+                        <Route path="/nregauto/:usuarioId" element={<RegAuto/>}/>
                     </Route>
                 </Route>
             </Routes>

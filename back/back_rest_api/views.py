@@ -342,4 +342,21 @@ class RegistroDatosAPIDetallado (APIView):
         registro_datos = self.get_object(registrodato_id)
         serializer = RegistroDatosSerializer(registro_datos)
         return Response(serializer.data)
-    
+
+
+class RegistroErroresManuales(APIView):
+    def get(self, request):
+        errmanuall = RegistroManual_rma.objects.all()
+        serializer = ErrManualSerializer(errmanuall, many=True)
+
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = ErrManualSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        
+        

@@ -57,3 +57,4 @@ class RegistroDatosSerializer(serializers.ModelSerializer):
     class Meta:
         model = RegistroDatos_rda
         fields = '__all__'
+        read_only_fields = ['rda_fecha', 'rda_hora']

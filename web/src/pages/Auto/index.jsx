@@ -23,7 +23,7 @@ import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import SsidChartIcon from '@mui/icons-material/SsidChart';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 
-const Auto = (props) => {
+const Auto = () => {
   
   const [auto, setAuto] = useState([])
 

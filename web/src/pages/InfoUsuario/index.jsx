@@ -138,6 +138,7 @@ const Inf_Usuario = () => {
                   </Grid>
                 ))}
               <Grid item xs={3}>
+                <center>
                 <Button
                   variant="contained"
                   className="navbar-btn-single"
@@ -145,6 +146,7 @@ const Inf_Usuario = () => {
                 >
                   Agregar Auto
                 </Button>
+                </center>
               </Grid>
             </Grid>
           </div>

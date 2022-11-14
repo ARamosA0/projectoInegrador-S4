@@ -133,11 +133,12 @@ class InstrumentoXAuto_ixa(models.Model):
 class RegistroDatos_rda(models.Model):
     ixa = models.ForeignKey(InstrumentoXAuto_ixa, on_delete=models.CASCADE)
     #Datos para registro de datos
-    rda_fecha = models.DateField()
-    rda_hora = models.TimeField()
+    rda_fecha = models.DateField(auto_now=True)
+    rda_hora = models.TimeField(auto_now=True)
+    rda_valor = models.DecimalField(max_digits=5, decimal_places=2)
 
     def __str__(self):
-        return self.ixa.instrumento.ins_codigo.inc_nombre
+        return "Instrumento: {}. Valor: {}.".format(self.ixa, self.rda_valor)
 
 class RegistroManual_rma(models.Model):
     auto = models.ForeignKey(Auto_aut, on_delete=models.CASCADE)

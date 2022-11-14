@@ -11,104 +11,149 @@ import {
   TextField,
   IconButton,
 } from "@mui/material";
-
 import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
-import { Line } from "react-chartjs-2";
-import { faker } from "@faker-js/faker";
+  LocalizationProvider,
+  DesktopDatePicker,
+  TimePicker,
+} from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
+//   CHARJS
+
+// import { ChartData, ChartArea } from 'chart.js';
 import {
-    LocalizationProvider,
-    DesktopDatePicker,
-    TimePicker,
-  } from "@mui/x-date-pickers";
-  import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend,
+    PointElement,
+    LineElement
+  } from 'chart.js';
 
-
+import { Line } from 'react-chartjs-2';
 ChartJS.register(
     CategoryScale,
     LinearScale,
-    PointElement,
-    LineElement,
+    BarElement,
     Title,
     Tooltip,
-    Legend
+    Legend,
+    PointElement,
+    LineElement
   );
-  
-  export const options = {
+
+  const options = {
+    indexAxis: 'y',
+    elements: {
+      bar: {
+        borderWidth: 2,
+      },
+    },
     responsive: true,
     plugins: {
       legend: {
-        position: "top",
+        position: 'right',
       },
       title: {
         display: true,
-        text: "Chart.js Line Chart",
+        text: 'Line',
       },
     },
   };
-  
-  const labels = ["January", "February", "March", "April", "May", "June", "July"];
-  
-  export const data = {
-    labels,
-    datasets: [
-      {
-        label: "Dataset 1",
-        data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-        borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
-      },
-    ],
+
+export const SensorTemp = () => {
+  // Select fecha/hora
+  const [fecha, setFecha] = useState(dayjs());
+  const [chartData, setChartData] = useState({
+    labels:['Sunday','Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+        datasets: [
+          {
+            label: "Dataset 1",
+            data: [],
+            borderColor: "rgb(255, 99, 132)",
+            backgroundColor: "rgba(255, 99, 132, 0.5)",
+          },
+        ],
+  });
+  const handleChangeFecha = (e) => {
+    setFecha(e);
   };
-  
 
-  
+  useEffect(()=> {
+    const fetchData= async()=> {
+        const url = 'https://jsonplaceholder.typicode.com/comments'
+        const labelSet = []
+        const dataSet1 = [];
+        const dataSet2 = [];
+      await fetch(url).then((data)=> {
+          console.log("Api data", data)
+          const res = data.json();
+          return res
+      }).then((res) => {
+          console.log("ressss", res)
+         for (const val of res) {
+             dataSet1.push(val.id);
+             dataSet2.push(val.postId)
+             // labelSet.push(val.name)
+         }
+         setChartData({
+             labels:['Sunday','Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+             datasets: [
+               {
+                 label: 'Dataset ID',
+                 data:dataSet1,
+                 borderColor: 'rgb(255, 99, 132)',
+                 backgroundColor: 'rgba(99, 132, 0.5)',
+               },
+               {
+                 label: 'Dataset ID2',
+                 data:dataSet2,
+                 borderColor: 'rgb(53, 162, 235)',
+                 backgroundColor: 'rgba(53, 235, 0.5)',
+               },
+             ],
+           })
+         console.log("arrData", dataSet1, dataSet2)
+      }).catch(e => {
+             console.log("error", e)
+         })
+     }
+     
+     fetchData();
+ },[])
 
-const SensorTemp = () =>{
-    // Select fecha/hora
-    const [fecha, setFecha] = useState(dayjs());
-    const handleChangeFecha = (e) => {
-      setFecha(e);
-    };
-  return(
-      <Grid container>
-          <Grid item xs={12} sx={{ marginBottom: 5, marginTop: 5 }}>
-            <Grid container>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <Grid item xs={6}>
-                  <DesktopDatePicker
-                    label="Escoge la Fecha"
-                    inputFormat="MM/DD/YYYY"
-                    value={fecha}
-                    onChange={handleChangeFecha}
-                    renderInput={(params) => <TextField {...params} />}
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <TimePicker
-                    label="Escoge la hora"
-                    value={fecha}
-                    onChange={handleChangeFecha}
-                    renderInput={(params) => <TextField {...params} />}
-                  />
-                </Grid>
-              </LocalizationProvider>
+  return (
+    <Grid container>
+      <Grid item xs={12} sx={{ marginBottom: 5, marginTop: 5 }}>
+        <Grid container>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <Grid item xs={6}>
+              <DesktopDatePicker
+                label="Escoge la Fecha"
+                inputFormat="MM/DD/YYYY"
+                value={fecha}
+                onChange={handleChangeFecha}
+                renderInput={(params) => <TextField {...params} />}
+              />
             </Grid>
-          </Grid>
-          <Grid item xs={12}>
-            <Line options={options} data={data} />
-          </Grid>
+            <Grid item xs={6}>
+              <TimePicker
+                label="Escoge la hora"
+                value={fecha}
+                onChange={handleChangeFecha}
+                renderInput={(params) => <TextField {...params} />}
+              />
+            </Grid>
+          </LocalizationProvider>
+        </Grid>
       </Grid>
-  )
-}
+      <Grid item xs={12}>
+        <Line options={options} data={chartData} />
+      </Grid>
+    </Grid>
+  );
+};
 
-export default SensorTemp

@@ -33,52 +33,54 @@ import {
   import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 
-ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend
-  );
-  
-  export const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "top",
-      },
-      title: {
-        display: true,
-        text: "Chart.js Line Chart",
-      },
-    },
-  };
-  
-  const labels = ["January", "February", "March", "April", "May", "June", "July"];
-  
-  export const data = {
-    labels,
-    datasets: [
-      {
-        label: "Dataset 1",
-        data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-        borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
-      },
-    ],
-  };
-  
-
-  
-
 const SensorElect = () =>{
     // Select fecha/hora
     const [fecha, setFecha] = useState(dayjs());
     const handleChangeFecha = (e) => {
       setFecha(e);
     };
+
+    ChartJS.register(
+        CategoryScale,
+        LinearScale,
+        PointElement,
+        LineElement,
+        Title,
+        Tooltip,
+        Legend
+      );
+      
+      const options = {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: "top",
+          },
+          title: {
+            display: true,
+            text: "Chart.js Line Chart",
+          },
+        },
+      };
+      
+      const labels = ["January", "February", "March", "April", "May", "June", "July"];
+      
+      const data = {
+        labels,
+        datasets: [
+          {
+            label: "Dataset 1",
+            data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+            borderColor: "rgb(255, 99, 132)",
+            backgroundColor: "rgba(255, 99, 132, 0.5)",
+          },
+        ],
+      };
+
+      useEffect(()=>{
+        
+      })
+
   return(
       <Grid container>
           <Grid item xs={12} sx={{ marginBottom: 5, marginTop: 5 }}>

@@ -7,13 +7,16 @@
 
 //For Wifi and connections
 char* networkName = "network (2.4GHz)";
-char* networkPassword = "password";
+char* networkPassword = "network password";
 
-char* url = "http://networkIP:8000/sensorvalues/";
+char* url = "http://network ip:8000/sensorvalues/";
 
 //For temperature sensor
 const float lineRegulation = 0.01;
-int pinAlertRequest = D2;
+int pinSucessRequest = 5;
+int pinFailureRequest = 16;
+int delayRequest = 3000;
+ 
 int sensor = A0;
 
 //For concurrency algorithm
@@ -24,7 +27,8 @@ unsigned long waitTime = 60000;
 WiFiServer server(80);
 
 void setup() {
-  pinMode(pinAlertRequest, OUTPUT);
+  pinMode(pinSucessRequest, OUTPUT);
+  pinMode(pinFailureRequest, OUTPUT);
 
   Serial.begin(115200);
   Serial.println();
@@ -56,9 +60,9 @@ void loop() {
     if(WiFi.status()== WL_CONNECTED) {
       int readSensor = analogRead(sensor);
       //Serial.println(readSensor);
-      float voltage = readSensor * (3.3 / 1023.0);
+      float voltage = readSensor * (3.2 / 1023.0);
       //Serial.println(voltage);
-      float temperature = voltage / 0.01;
+      float temperature = voltage / lineRegulation;
       //Serial.println(temperature);
       httpDataPostRequest(temperature);
       
@@ -94,13 +98,25 @@ void httpDataPostRequest(float temperatureValue) {
   //Checking if the response is a 200 code. 
   if(response > 0){
     Serial.println("Status code: " + String(response));
-
+    
+    //LED for successful requests
+    digitalWrite(pinSucessRequest, HIGH);
+    delay(delayRequest);
+    digitalWrite(pinSucessRequest, LOW);
+    delay(delayRequest);
+    
     if(response == 200){
       String reponse = http.getString();
       Serial.println(response);
     }
   } else {
     Serial.println(response);
+    
+    //LED for bad requests
+    digitalWrite(pinFailureRequest, HIGH);
+    delay(delayRequest);
+    digitalWrite(pinFailureRequest, LOW);
+    delay(delayRequest);
   }
 
   http.end();

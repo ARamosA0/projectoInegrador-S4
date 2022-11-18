@@ -128,7 +128,7 @@ const Inf_Usuario = () => {
                             <Button
                               variant="contained"
                               className="navbar-btn-single"
-                              id="singlee"
+                              id="single"
                               onClick={() => handleRedirectTo(cars.id)}
                             >
                               Ver
@@ -145,7 +145,6 @@ const Inf_Usuario = () => {
                           <Button
                             variant="contained"
                             className="navbar-btn-single"
-                            
                             onClick={() => handleDelete(cars.id)}
                           >
                             Eliminar

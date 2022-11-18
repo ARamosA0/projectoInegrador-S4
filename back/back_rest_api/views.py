@@ -250,7 +250,6 @@ class AutoMarca(APIView):
         if marcaSerializer.is_valid():
             marcaSerializer.save()
             return Response(marcaSerializer.data, status=status.HTTP_201_CREATED)
-
         return Response(marcaSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class AutoIdUsuario(APIView):

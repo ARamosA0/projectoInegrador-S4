@@ -26,6 +26,7 @@ import { color } from "@mui/system";
 
 import { userData } from "../../service/userServices";
 import { getCar } from "../../service/autoServices";
+import { deleteCar } from "../../service/autoServices";
 
 const Inf_Usuario = () => {
   const { usuarioId } = useParams();
@@ -66,6 +67,13 @@ const Inf_Usuario = () => {
   const handleRedirectTo = (id) => {
     filterCar(id);
   };
+
+  const handleDelete = async (id) => {
+    const a = await deleteCar(id)
+    console.log(a)
+    window.location.replace(`/usuario/${usuarioId}`);
+  };
+
 
   const filterCar = (id) => {
     const carData = userCars.filter((data) => data.id === id);
@@ -120,6 +128,7 @@ const Inf_Usuario = () => {
                             <Button
                               variant="contained"
                               className="navbar-btn-single"
+                              id="single"
                               onClick={() => handleRedirectTo(cars.id)}
                             >
                               Ver
@@ -131,6 +140,14 @@ const Inf_Usuario = () => {
                             onClick={() => handleOpenC(cars.id)}
                           >
                             Editar
+                          </Button>
+
+                          <Button
+                            variant="contained"
+                            className="navbar-btn-single"
+                            onClick={() => handleDelete(cars.id)}
+                          >
+                            Eliminar
                           </Button>
                         </div>
                       </CardContent>

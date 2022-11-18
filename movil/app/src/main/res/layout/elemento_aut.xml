@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="8dp"
+    app:cardCornerRadius="20dp"
+    android:layout_margin="10dp"
+    app:cardPreventCornerOverlap="true"
     android:layout_height="wrap_content">
 
     <LinearLayout
         android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
-        android:layout_height="160dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/customborder"
-        android:orientation="horizontal"
-        tools:ignore="MissingConstraints">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
 
         <ImageView
@@ -21,9 +21,7 @@
             android:layout_width="150dp"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
-            android:src="@drawable/ic_baseline_directions_car_24"
-            android:tint="#323232"
-            tools:ignore="UseAppTint" />
+            android:src="@drawable/ic_baseline_directions_car_24"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -58,15 +56,8 @@
                     tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck,TouchTargetSizeCheck,UseAppTint" />
             </LinearLayout>
 
-            <FrameLayout
-                android:id="@+id/FrameMain"
-                android:layout_width="0dp"
-                android:layout_height="0dp">
-
-            </FrameLayout>
-
             <TextView
-                android:id="@+id/autoMarca"
+                android:id="@+id/autoModelo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="15dp"
@@ -114,4 +105,4 @@
     </LinearLayout>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

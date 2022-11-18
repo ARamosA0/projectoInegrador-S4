@@ -68,8 +68,7 @@ class RegisterActivity : AppCompatActivity() {
             }
             else{
                 val queue = Volley.newRequestQueue(this)
-                val url = "http://10.0.2.2:8000/register/"
-                //val url = "http://192.168.1.8:8000/register/"
+                val url = getString(R.string.urlAPI) + "/register/"
                 val jsonObj = JSONObject()
                 jsonObj.put("name", name)
                 jsonObj.put("email", email)

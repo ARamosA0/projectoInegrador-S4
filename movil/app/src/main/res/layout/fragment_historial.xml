@@ -18,6 +18,7 @@
             android:layout_gravity="center"
             android:layout_height="wrap_content"
             android:textSize="32dp"
+            android:text="@string/Historial"
             android:layout_marginTop="30dp"
             android:fontFamily="@font/poppins_extrabold"
             tools:ignore="MissingConstraints"

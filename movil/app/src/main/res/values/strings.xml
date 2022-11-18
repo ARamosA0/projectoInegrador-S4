@@ -23,4 +23,6 @@
         <item>Kilometraje</item>
     </string-array>
 
+    <string name="urlAPI">http://192.168.43.92:8000</string>
+
 </resources>

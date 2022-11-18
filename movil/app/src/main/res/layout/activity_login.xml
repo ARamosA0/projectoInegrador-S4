@@ -89,7 +89,6 @@
         android:layout_width="0dp"
         android:layout_height="65dp"
         android:backgroundTint="@color/gris"
-
         android:drawableLeft="@drawable/icons8_google"
         android:paddingLeft="30dp"
         android:text="Acceder con Google"

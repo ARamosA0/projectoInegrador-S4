@@ -24,6 +24,7 @@
         <activity
             android:name=".AutoAdd"
             android:exported="false"
+            android:theme="@style/Theme.FinalConBar"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.app.lib_name"

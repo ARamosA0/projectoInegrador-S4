@@ -23,6 +23,7 @@
                 android:layout_gravity="center"
                 android:layout_height="wrap_content"
                 android:textSize="32dp"
+                android:text="@string/Telemetria"
                 android:layout_marginTop="30dp"
                 android:fontFamily="@font/poppins_extrabold"
                 tools:ignore="MissingConstraints"
@@ -134,16 +135,17 @@
                 android:textSize="8dp" />
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/imageView"
+        <com.echo.holographlibrary.LineGraph
+            android:id="@+id/lineGrafica"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+
+        <TextView
+            android:id="@+id/tvPuntos"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#1AFFFFFF"
-            android:src="@drawable/ic_baseline_line_axis_24"
-            android:tint="@color/gris_oscuro"
-            tools:layout_editor_absoluteX="103dp"
-            tools:ignore="UseAppTint" />
-
+            android:gravity="center_horizontal"
+            android:layout_margin="16dp" />
 
     </LinearLayout>
 </FrameLayout>

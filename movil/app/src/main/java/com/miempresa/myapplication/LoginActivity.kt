@@ -1,7 +1,6 @@
 package com.miempresa.myapplication
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.os.StrictMode
 import android.widget.TextView
@@ -10,10 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
-import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.auth0.android.jwt.JWT
-import com.miempresa.myapplication.ui.autohome.AutoHome
 import kotlinx.android.synthetic.main.activity_login.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -65,8 +62,7 @@ class LoginActivity : AppCompatActivity() {
 
             else{
                 val queue = Volley.newRequestQueue(this)
-                //val url = "http://10.0.2.2:8000/login/"
-                val url = "http://172.23.8.68:8000/login/"
+                val url = getString(R.string.urlAPI) + "/login/"
                 val jsonObj = JSONObject()
                 jsonObj.put("email", email)
                 jsonObj.put("password",pass)
@@ -76,7 +72,7 @@ class LoginActivity : AppCompatActivity() {
                     Response.Listener { response ->
                         try {
                             JWTtoken = response.getString("jwt")
-                            openProfile()
+                            openProfile(JWTtoken)
                         } catch (e: JSONException){
                             alertFail("Hey, estos datos no van")
                         }
@@ -88,23 +84,26 @@ class LoginActivity : AppCompatActivity() {
         }
 
     }
-    private fun openProfile(){
+    private fun openProfile(JWTtoken: String) {
         val intent = Intent(this, MainActivity::class.java)
-        intent.putExtra("JWTtoken", JWTtoken)
+        var jwt: JWT = JWT(this.JWTtoken)
+        val user_id = jwt.getClaim("id").asInt()
+        val user_name = jwt.getClaim("name").asString().toString()
+        val user_imagen = jwt.getClaim("imagen").asString().toString()
+        //val user_email = jwt.getClaim("email").asString().toString()
+        //val user_celular = jwt.getClaim("celular").asInt().toString()
+
+
+        val datos = getSharedPreferences("DatosUsuario", MODE_PRIVATE)
+        val editor = datos.edit()
+        editor.putString("id",user_id.toString())
+        editor.putString("user_name", user_name)
+        editor.putString("user_imagen", user_imagen)
+        editor.apply()
         startActivity(intent)
+        finish()
     }
 
-
-
-    private fun checkJson(tk: String){
-        var jwt: JWT = JWT(JWTtoken)
-        user_id = jwt.getClaim("id").asInt()
-        user_name = jwt.getClaim("name").asString().toString()
-        user_email = jwt.getClaim("email").asString().toString()
-        user_celular = jwt.getClaim("celular").asInt().toString()
-        //user_imagen = jwt.getClaim("imagen").asInt().toString()
-
-    }
 
 
     private fun alertSuccess(s: String) {

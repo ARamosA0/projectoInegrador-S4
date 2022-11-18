@@ -15,6 +15,7 @@ import com.miempresa.myapplication.ui.autohome.AutoHome
 import com.miempresa.myapplication.ui.historial.Historial
 import com.miempresa.myapplication.ui.taller.Taller
 import com.miempresa.myapplication.ui.telemetria.Telemetria
+import kotlinx.android.synthetic.main.activity_auto_add.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -34,21 +35,8 @@ class MainActivity : AppCompatActivity() {
             StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
 
-        val JWTtoken = intent.getStringExtra("JWTtoken").toString()
-        var jwt: JWT = JWT(JWTtoken)
-        val user_id = jwt.getClaim("id").asInt()
-        val user_name = jwt.getClaim("name").asString().toString()
-        val user_email = jwt.getClaim("email").asString().toString()
-        val user_celular = jwt.getClaim("celular").asInt().toString()
-        //user_imagen = jwt.getClaim("imagen").asInt().toString()
-        alertSuccess("Hola $user_name con email: $user_email ")
+        val bundle :Bundle ?=intent.extras
 
-        val fragment = AutoHome()
-        val args = Bundle()
-        args.putString("name",user_name)
-        fragment.arguments = args
-        supportFragmentManager.beginTransaction().replace(R.id.mainContainer, fragment)
-        .commit()
 
         binding.navView.setOnItemSelectedListener {
             when(it.itemId){
@@ -57,7 +45,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_historial -> replaceFragment(Historial())
                 R.id.navigation_telemetria -> replaceFragment(Telemetria())
                 else ->{
-
                 }
             }
             true

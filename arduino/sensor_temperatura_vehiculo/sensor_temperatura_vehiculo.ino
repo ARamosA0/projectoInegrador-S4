@@ -5,18 +5,21 @@
 #include <WiFiClientSecure.h>
 #include <ESP8266HTTPClient.h>
 
-//For Wifi and connections
+//Conexion a red WiFi (2.4GHz)
 char* networkName = "network (2.4GHz)";
-char* networkPassword = "password";
+char* networkPassword = "network password";
 
-char* url = "http://networkIP:8000/sensorvalues/";
+char* url = "http://network ip:8000/datasensors/";
 
-//For temperature sensor
+//Para el sensor de temperatura
 const float lineRegulation = 0.01;
-int pinAlertRequest = D2;
+int pinSucessRequest = 5;
+int pinFailureRequest = 16;
+int delayRequest = 3000;
+ 
 int sensor = A0;
 
-//For concurrency algorithm
+//Para aplicar concurrencia
 unsigned long lastTime = 0;
 unsigned long actualTime = 0;
 unsigned long waitTime = 60000;
@@ -24,12 +27,13 @@ unsigned long waitTime = 60000;
 WiFiServer server(80);
 
 void setup() {
-  pinMode(pinAlertRequest, OUTPUT);
+  pinMode(pinSucessRequest, OUTPUT);
+  pinMode(pinFailureRequest, OUTPUT);
 
   Serial.begin(115200);
   Serial.println();
 
-  //Connecting to WiFi network
+  //Conectando red WiFi
   WiFi.begin(networkName, networkPassword);
   
   Serial.println("Connecting");
@@ -52,13 +56,15 @@ void loop() {
   actualTime = millis();
 
   if(actualTime - lastTime >= waitTime){
-    //Veriyfing if ESP8266 is connected to WiFi
+    //Verificamos si esta conectado a WiFi
     if(WiFi.status()== WL_CONNECTED) {
       int readSensor = analogRead(sensor);
       //Serial.println(readSensor);
-      float voltage = readSensor * (3.3 / 1023.0);
+     
+      //Formula para calcular el voltaje y temperatura
+      float voltage = readSensor * (3.2 / 1023.0);
       //Serial.println(voltage);
-      float temperature = voltage / 0.01;
+      float temperature = voltage / lineRegulation;
       //Serial.println(temperature);
       httpDataPostRequest(temperature);
       
@@ -76,11 +82,11 @@ void httpDataPostRequest(float temperatureValue) {
   String jsonResult;
   int response;
 
-  //Starting a http client with the url defined at the beginning and the object of WiFiClient
+  //Inciamos un cliente HTTP y su header
   http.begin(client, url);
   http.addHeader("Content-Type", "application/json");
 
-  //Serializing values to a json format
+  //Serializamos los valores obtenidos. Sensor de temperatura tiene id de 1 (puede cambiar)
   DynamicJsonDocument doc(1024);
   doc["sensor"] = 1;
   doc["value"] = roundingTempValue(temperatureValue);
@@ -88,26 +94,38 @@ void httpDataPostRequest(float temperatureValue) {
 
   Serial.println(jsonResult);
 
-  //Making a http post request
+  //Se hace una peticion HTTP con el valor JSON
   response = http.POST(jsonResult);
 
-  //Checking if the response is a 200 code. 
+  //Vemos si la respuesta es 200 
   if(response > 0){
     Serial.println("Status code: " + String(response));
-
+    
+    //Si es 200, entonces se enciende un led "success"
+    digitalWrite(pinSucessRequest, HIGH);
+    delay(delayRequest);
+    digitalWrite(pinSucessRequest, LOW);
+    delay(delayRequest);
+    
     if(response == 200){
       String reponse = http.getString();
       Serial.println(response);
     }
   } else {
     Serial.println(response);
+    
+    //Caso contrario, entonces se enciende un led "failure"
+    digitalWrite(pinFailureRequest, HIGH);
+    delay(delayRequest);
+    digitalWrite(pinFailureRequest, LOW);
+    delay(delayRequest);
   }
 
   http.end();
   
 }
 
-//Function to round the float value obtained by the sensor
+//Funcion para redondear el valor obtenido en la temperatura
 double roundingTempValue(double value) {
    return (int)(value * 100 + 0.5) / 100.0;
 }

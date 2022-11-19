@@ -41,3 +41,13 @@ export const marcas = async()=>{
              console.log(error)
          }
 }
+
+export const deleteCar = async(id, auto) =>{
+    try {
+        const response = await axios.delete(`http://127.0.0.1:8000/vehicles/${id}`, auto);
+        
+             return response.data
+         } catch (error){
+             console.log(error)
+         }
+}

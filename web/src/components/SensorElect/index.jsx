@@ -63,14 +63,15 @@ const SensorElect = () =>{
         },
       };
       
-      const labels = ["January", "February", "March", "April", "May", "June", "July"];
+      const labels = ["00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "012:00"
+                      , "13:00", "14:00", "15:00", "16:00", "17:00", "18:00","19:00", "20:00", "21:00", "22:00", "23:00"];
       
       const data = {
         labels,
         datasets: [
           {
             label: "Dataset 1",
-            data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+            data: labels.map(() => faker.datatype.number({ min: 0, max: 150 })),
             borderColor: "rgb(255, 99, 132)",
             backgroundColor: "rgba(255, 99, 132, 0.5)",
           },
@@ -107,7 +108,11 @@ const SensorElect = () =>{
             </Grid>
           </Grid>
           <Grid item xs={12}>
-            <Line options={options} data={data} />
+            {fecha.$D!=dayjs().$D && 
+              fecha.$M != dayjs().$M?(
+              <>{fecha.$L}</>
+            ):
+            <Line options={options} data={data} />}
           </Grid>
       </Grid>
   )

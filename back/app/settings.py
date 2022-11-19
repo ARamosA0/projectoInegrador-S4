@@ -104,7 +104,7 @@ DATABASES = {
 
 
 
-#borralo o cambialo
+# #borralo o cambialo
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',

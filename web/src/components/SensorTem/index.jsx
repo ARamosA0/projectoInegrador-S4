@@ -17,114 +17,81 @@ import {
   TimePicker,
 } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { faker } from "@faker-js/faker";
 
-//   CHARJS
+  import ApexChart from "../Char" 
 
-// import { ChartData, ChartArea } from 'chart.js';
-import {
+  import {
     Chart as ChartJS,
     CategoryScale,
     LinearScale,
-    BarElement,
+    PointElement,
+    LineElement,
     Title,
     Tooltip,
     Legend,
-    PointElement,
-    LineElement
-  } from 'chart.js';
-
-import { Line } from 'react-chartjs-2';
-ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    BarElement,
-    Title,
-    Tooltip,
-    Legend,
-    PointElement,
-    LineElement
-  );
-
-  const options = {
-    indexAxis: 'y',
-    elements: {
-      bar: {
-        borderWidth: 2,
-      },
-    },
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'right',
-      },
-      title: {
-        display: true,
-        text: 'Line',
-      },
-    },
-  };
+  } from "chart.js";
+  import { Line } from "react-chartjs-2";
 
 export const SensorTemp = () => {
   // Select fecha/hora
   const [fecha, setFecha] = useState(dayjs());
-  const [chartData, setChartData] = useState({
-    labels:['Sunday','Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-        datasets: [
-          {
-            label: "Dataset 1",
-            data: [],
-            borderColor: "rgb(255, 99, 132)",
-            backgroundColor: "rgba(255, 99, 132, 0.5)",
-          },
-        ],
-  });
+  const [data, updateData] = useState([1, 2, 3, 4, 5, 6]);
+
+
+  ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend
+  );
+  
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+      },
+      title: {
+        display: true,
+        text: "Chart.js Line Chart",
+      },
+    },
+  };
+  
+  const labels = ["00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "012:00"
+                  , "13:00", "14:00", "15:00", "16:00", "17:00", "18:00","19:00", "20:00", "21:00", "22:00", "23:00"];
+  
+  const dataa = {
+    labels,
+    datasets: [
+      {
+        label: "Dataset 1",
+        data: labels.map(() => faker.datatype.number({ min: 0, max: 150 })),
+        borderColor: "rgb(255, 99, 132)",
+        backgroundColor: "rgba(255, 99, 132, 0.5)",
+      },
+    ],
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const val = Math.floor(Math.random() * (100 - 30 + 1)) + 30;
+      let array = [...data, val];
+      array.shift();
+      updateData(array);
+    }, 2000);
+    return () => {
+      window.clearInterval(interval);
+    };
+  }, [data]);
   const handleChangeFecha = (e) => {
     setFecha(e);
   };
-
-  useEffect(()=> {
-    const fetchData= async()=> {
-        const url = 'https://jsonplaceholder.typicode.com/comments'
-        const labelSet = []
-        const dataSet1 = [];
-        const dataSet2 = [];
-      await fetch(url).then((data)=> {
-          console.log("Api data", data)
-          const res = data.json();
-          return res
-      }).then((res) => {
-          console.log("ressss", res)
-         for (const val of res) {
-             dataSet1.push(val.id);
-             dataSet2.push(val.postId)
-             // labelSet.push(val.name)
-         }
-         setChartData({
-             labels:['Sunday','Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-             datasets: [
-               {
-                 label: 'Dataset ID',
-                 data:dataSet1,
-                 borderColor: 'rgb(255, 99, 132)',
-                 backgroundColor: 'rgba(99, 132, 0.5)',
-               },
-               {
-                 label: 'Dataset ID2',
-                 data:dataSet2,
-                 borderColor: 'rgb(53, 162, 235)',
-                 backgroundColor: 'rgba(53, 235, 0.5)',
-               },
-             ],
-           })
-         console.log("arrData", dataSet1, dataSet2)
-      }).catch(e => {
-             console.log("error", e)
-         })
-     }
-     
-     fetchData();
- },[])
-
+  
   return (
     <Grid container>
       <Grid item xs={12} sx={{ marginBottom: 5, marginTop: 5 }}>
@@ -151,7 +118,11 @@ export const SensorTemp = () => {
         </Grid>
       </Grid>
       <Grid item xs={12}>
-        <Line options={options} data={chartData} />
+        {fecha.$D!=dayjs().$D?(
+            <Line options={options} data={dataa} />
+        ):
+        <ApexChart data={data} title="Product Trends by Month" />}
+        
       </Grid>
     </Grid>
   );

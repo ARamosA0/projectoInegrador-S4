@@ -4,3 +4,4 @@ mysqlclient
 django-cors-headers
 cloudinary
 PyJWT==v1.7.1
+gunirn

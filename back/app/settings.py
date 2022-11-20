@@ -15,6 +15,8 @@ from datetime import timedelta
 
 import cloudinary
 
+import os
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -199,3 +201,6 @@ cloudinary.config(
   api_secret = "PDq8lrOVNA3hI3EwM3c3b1gosVU", 
   secure = True
 )
+
+STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')

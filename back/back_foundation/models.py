@@ -24,7 +24,7 @@ class User(AbstractUser):
     celular = models.CharField(max_length=9)
     imagen = CloudinaryField('image',default='https://res.cloudinary.com/dm8aqmori/image/upload/v1666805714/usuario_tcf7ys.png')
     username = None
-    # is_staff = True
+    is_staff = True
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

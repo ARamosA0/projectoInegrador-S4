@@ -36,7 +36,7 @@ import ThermostatIcon from "@mui/icons-material/Thermostat";
 import ElectricBoltIcon from "@mui/icons-material/ElectricBolt";
 
 import SensorElect from "../SensorElect";
-import {SensorTemp} from "../SensorTem";
+import SensorTemp from "../SensorTem";
 
 // Import CSS
 import "./index.css";

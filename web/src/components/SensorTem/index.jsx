@@ -19,78 +19,55 @@ import {
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { faker } from "@faker-js/faker";
 
-  import ApexChart from "../Char" 
+import RealMyCharts from "../Char";
+import Chart from "react-apexcharts";
 
-  import {
-    Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend,
-  } from "chart.js";
-  import { Line } from "react-chartjs-2";
-
-export const SensorTemp = () => {
+const SensorTemp = () => {
   // Select fecha/hora
   const [fecha, setFecha] = useState(dayjs());
-  const [data, updateData] = useState([1, 2, 3, 4, 5, 6]);
+  const [averageTemp, setAverageTemp] = useState([]);
+  const [date, setDate] = useState([]);
 
 
-  ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend
-  );
-  
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "top",
-      },
-      title: {
-        display: true,
-        text: "Chart.js Line Chart",
-      },
-    },
-  };
-  
-  const labels = ["00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "012:00"
-                  , "13:00", "14:00", "15:00", "16:00", "17:00", "18:00","19:00", "20:00", "21:00", "22:00", "23:00"];
-  
-  const dataa = {
-    labels,
-    datasets: [
-      {
-        label: "Dataset 1",
-        data: labels.map(() => faker.datatype.number({ min: 0, max: 150 })),
-        borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
-      },
-    ],
-  };
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const val = Math.floor(Math.random() * (100 - 30 + 1)) + 30;
-      let array = [...data, val];
-      array.shift();
-      updateData(array);
-    }, 2000);
-    return () => {
-      window.clearInterval(interval);
-    };
-  }, [data]);
   const handleChangeFecha = (e) => {
     setFecha(e);
   };
+
+  useEffect(() => {
+    const getData = async () => {
+    const url = 'http://localhost:9000/temperature';
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      // console.log(data);
+      setAverageTemp(data?.map((item) => item.average_temp));
+      setDate(data?.map((item) => item.date));
+    } catch (error) {
+        console.log(error);
+    }
+  };
+    getData();
+  }, []);
+
+ const series = [ //data on the y-axis
+    {
+      name: "Temperature in Celsius",
+      data: averageTemp
+    }
+  ];
+  const options = { //data on the x-axis
+  chart: { id: 'bar-chart'},
+  xaxis: {
+    categories: date
+  }
+
+  
+    }
+  
+
+  const labels = ["00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00", "07:00", "08:00", "09:00", "10:00", "11:00", "012:00"
+                  , "13:00", "14:00", "15:00", "16:00", "17:00", "18:00","19:00", "20:00", "21:00", "22:00", "23:00"];
+  
   
   return (
     <Grid container>
@@ -119,12 +96,22 @@ export const SensorTemp = () => {
       </Grid>
       <Grid item xs={12}>
         {fecha.$D!=dayjs().$D?(
-            <Line options={options} data={dataa} />
+            <Chart
+            options={options}
+            series={series}
+            type="line"
+            width="700"
+          />
         ):
-        <ApexChart data={data} title="Product Trends by Month" />}
+        <>
+          REAL TIME
+          <RealMyCharts />
+        </>
+        }
         
       </Grid>
     </Grid>
   );
 };
 
+export default SensorTemp;

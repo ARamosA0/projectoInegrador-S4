@@ -348,7 +348,7 @@ class RegistroDatosAPIDetallado (APIView):
         serializer = RegistroDatosSerializer(registro_datos)
         return Response(serializer.data)
 
-
+#Error manual
 class RegistroErroresManuales(APIView):
     def get(self, request):
         errmanuall = RegistroManual_rma.objects.all()

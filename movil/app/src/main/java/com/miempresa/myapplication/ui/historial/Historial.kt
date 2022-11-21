@@ -34,59 +34,13 @@ class Historial : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view: View = inflater.inflate(R.layout.fragment_historial, container, false)
-
-        var btnAddErr = view.findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(R.id.errAdd)
-        btnAddErr.setOnClickListener{
-            val intent = Intent (this@Historial.requireContext(), ErrorAdd::class.java)
-            startActivity(intent)
-        }
         return view
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         var listaError = view.findViewById<RecyclerView>(R.id.listaErr)
-        listaError.addItemDecoration(DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL))
-        listaError.layoutManager = LinearLayoutManager(getActivity())
-        var llenarLista = ArrayList<ErroresData>()
-        AsyncTask.execute {
-            val queue = Volley.newRequestQueue(getActivity() )
-            val url = getString(R.string.urlAPI) + "/errmanual/"
-            val stringRequest = JsonArrayRequest(url,
-                Response.Listener { response ->
-                    try {
-                        for (i in 0 until response.length()) {
-                            val auto =
-                                response.getJSONObject(i).getString("auto")
-                            val id =
-                                response.getJSONObject(i).getString("id")
-                            val rma_descripcion =
-                                response.getJSONObject(i).getString("rma_descripcion")
-                            val rma_fecha =
-                                response.getJSONObject(i).getString("rma_fecha")
-                            val rma_fecmodificacion =
-                                response.getJSONObject(i).getString("rma_fecmodificacion")
-                            val rma_fecregistro =
-                                response.getJSONObject(i).getString("rma_fecregistro")
-                            val rma_hora =
-                                response.getJSONObject(i).getString("rma_hora")
-                            val rma_nombre =
-                                response.getJSONObject(i).getString("rma_nombre")
-                            llenarLista.add(ErroresData(
-                                auto.toInt(), id.toInt(), rma_descripcion, rma_fecha, rma_fecmodificacion, rma_fecregistro, rma_hora, rma_nombre))
-                        }
-                        val adapter = AdaptadorErrores(llenarLista)
-                        listaError.adapter = adapter
 
-
-                    } catch (e: JSONException) {
-                        alertFail("Error al obtener los datos")
-                    }
-                }, Response.ErrorListener {
-                    alertFail("Error en la conexion")
-                })
-            queue.add(stringRequest)
-        }
     }
 
     private fun alertFail(s: String) {

@@ -64,9 +64,10 @@ class ErrorAdd : AppCompatActivity() {
             mTimePicker.show()
         })
 
-        val datosAuto = getSharedPreferences("IdAuto", Context.MODE_PRIVATE)
-        val auto = datosAuto?.getString("id", "id de auto").toString()
-        errorDescAdd.setText(auto)
+
+        val bundle :Bundle ?=intent.extras
+        val idvehiculo = bundle?.getString("idvehiculo").toString()
+        errorDescAdd.setText(idvehiculo)
 
         rgError.setOnClickListener(){
             val nombre = errorNombreAdd.text.toString().trim()
@@ -89,7 +90,7 @@ class ErrorAdd : AppCompatActivity() {
                 jsonObj.put("rma_nombre", nombre)
                 jsonObj.put("rma_hora", hora)
                 jsonObj.put("rma_fecha", fecha)
-                jsonObj.put("auto", auto)
+                jsonObj.put("auto", idvehiculo.toInt())
                 jsonObj.put("rma_descripcion", descripcion)
 
                 val stringRequest = JsonObjectRequest(

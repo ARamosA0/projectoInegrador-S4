@@ -8,10 +8,21 @@
     android:layout_height="wrap_content">
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+
+        android:layout_marginTop="15dp"
+        android:textColor="@color/gris_oscuro"
+        android:textSize="13dp"
+        android:text="Error del vehículo:"/>
+
+    <TextView
         android:id="@+id/errNombre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="22sp"
+        android:layout_marginTop="15dp"
         android:layout_marginHorizontal="32dp"
         android:textStyle="bold"
         android:text="Nombre del error"/>

@@ -1,4 +1,4 @@
-
+ 
 from django.http import Http404
 from django.shortcuts import render
 
@@ -138,8 +138,14 @@ class AutoAPIGeneral(APIView):
     def get(self, request):
         autLista = Auto_aut.objects.all()
         autSerializer = AutoSerializer(autLista, many=True)
+        # autoTotal = len(autLista)
+        # context = {
+        #     "message":"OK",
+        #     "tamano":autoTotal,
+        #     "autdata":autSerializer.data,
+        # }
 
-        return Response(autSerializer.data)
+        return Response(autSerializer)
 
     def post(self, request):
 
@@ -356,6 +362,18 @@ class RegistroErroresManuales(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class RegistroErroresManualesDetalle(APIView):
+    def get(self, request, autoid):
+        errmanual = RegistroManual_rma.get(auto=autoid)
+        serializer = ErrManualSerializer(errmanual, many=True)
+
+        return Response(serializer.data)
+
+    def delete(self, request, autoid, format=None):
+        errmanual = RegistroManual_rma.objects.get(pk=autoid)
+        errmanual.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
         
         

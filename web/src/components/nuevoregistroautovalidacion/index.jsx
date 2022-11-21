@@ -111,7 +111,7 @@ const RegAuto = ({ id, opcion }) => {
 
   return (
     <Container>
-      <form>
+      <form onSubmit={handleSubmitPost}>
         <Grid container spacing={3}>
           <Grid item xs={6} md={6}>
             <h2>Marca del vehiculo </h2>
@@ -226,7 +226,7 @@ const RegAuto = ({ id, opcion }) => {
               variant="contained"
               fullWidth
               endIcon={<AppRegistrationIcon />}
-              onClick={handleSubmitPost}
+              type="submit"
             >
               AGREGAR VEHICULO
             </ColorButton>)}

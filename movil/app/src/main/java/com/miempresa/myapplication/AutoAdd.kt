@@ -2,14 +2,14 @@ package com.miempresa.myapplication
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.database.Cursor
+import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.os.StrictMode
-import android.widget.Button
-import android.widget.ImageView
+import android.provider.MediaStore
 import androidx.appcompat.app.AlertDialog
-import androidx.activity.result.PickVisualMediaRequest
-import androidx.activity.result.contract.ActivityResultContracts.*
+import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
@@ -17,36 +17,47 @@ import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.activity_auto_add.*
 import org.json.JSONException
 import org.json.JSONObject
-
+import android.app.DatePickerDialog
+import android.util.AttributeSet
+import android.widget.DatePicker
+import java.text.SimpleDateFormat
+import java.util.*
 
 class AutoAdd : AppCompatActivity() {
 
-    val pickMedia = registerForActivityResult(PickVisualMedia()){ uri ->
-        if (uri!=null){
-            //imagen
-            ivImage.setImageURI(uri)
-        }else{
-            //no imagen
-        }
-
-    }
-    lateinit var  btnImagen: Button
-    lateinit var ivImage: ImageView
+    var cal = Calendar.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auto_add)
 
-        btnImagen = findViewById(R.id.btnImagen)
-        ivImage = findViewById(R.id.ivImage)
-        btnImagen.setOnClickListener{
-            //val git = "image/gif"
-            if (PickVisualMedia.isPhotoPickerAvailable())
-                pickMedia.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
+        autoModeloAdd.setText(autoModeloAdd.text)
+
+        btnImagen.setOnClickListener(){
+            cargarImagen()
         }
 
+        val dateSetListener = object : DatePickerDialog.OnDateSetListener {
+            override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int,
+                                   dayOfMonth: Int) {
+                cal.set(Calendar.YEAR, year)
+                cal.set(Calendar.MONTH, monthOfYear)
+                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                updateDateInView()
+            }
+        }
 
-        this.setTitle("Agregar vehiculo");
+        getDate.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(view: View) {
+                DatePickerDialog(this@AutoAdd,
+                    dateSetListener,
+                    // set DatePickerDialog to point to today's date when it loads up
+                    cal.get(Calendar.YEAR),
+                    cal.get(Calendar.MONTH),
+                    cal.get(Calendar.DAY_OF_MONTH)).show()
+            }
+
+        })
 
         val policy =
             StrictMode.ThreadPolicy.Builder().permitAll().build()
@@ -57,7 +68,13 @@ class AutoAdd : AppCompatActivity() {
 
         val bundle :Bundle ?=intent.extras
         val imagen = bundle?.getString("imagen").toString()
+        val idAuto = bundle?.getString("id").toString()
+
+
+
+
         if(bundle!=null){
+            this.setTitle("Modificar vehiculo");
             autoModeloAdd.setText(bundle.getString("modelo").toString())
             autoMarcaAdd.setText(bundle.getString("marca").toString())
             autoPlacaAdd.setText(bundle.getString("placa").toString())
@@ -68,8 +85,10 @@ class AutoAdd : AppCompatActivity() {
             rgAuto.setEnabled(false)
             modAuto.setEnabled(true)
         } else{
+            this.setTitle("Agregar vehiculo");
             rgAuto.setEnabled(true)
             modAuto.setEnabled(false)
+
         }
 
 
@@ -113,7 +132,6 @@ class AutoAdd : AppCompatActivity() {
                 auto_color.requestFocus()
                 return@setOnClickListener
             }
-
             if (descripcion.isEmpty()) {
                 autoDescAdd.error = "Se requiere descripcion"
                 autoDescAdd.requestFocus()
@@ -131,8 +149,7 @@ class AutoAdd : AppCompatActivity() {
                 jsonObj.put("aut_modelo", modelo)
                 jsonObj.put("aut_placa", numero_placa)
                 jsonObj.put("aut_usuario", userId)
-                jsonObj.put("aut_imagen", "https://i.ytimg.com/vi/PoN2brATJKk/hqdefault.jpg")
-                //  jsonObj.put("kilometraje", kilometraje)
+                jsonObj.put("aut_imagen", "https://www.proceso.com.mx/u/fotografias/m/2021/10/18/f638x638-144597_202764_7042.jpg")
                 jsonObj.put("aut_descripcion", descripcion)
                 jsonObj.put("aut_color", color)
                 jsonObj.put("aut_fecadquisicion", año_adquision)
@@ -205,7 +222,7 @@ class AutoAdd : AppCompatActivity() {
                 return@setOnClickListener
             } else {
                 val queue = Volley.newRequestQueue(this)
-                val url = getString(R.string.urlAPI) + "/vehicles/" + userId
+                val url = getString(R.string.urlAPI) + "/vehicles/" + idAuto
                 val jsonObj = JSONObject()
                 jsonObj.put("aut_marca", marca)
                 jsonObj.put("aut_modelo", modelo)
@@ -235,6 +252,42 @@ class AutoAdd : AppCompatActivity() {
 
     }
 
+    private fun updateDateInView() {
+        val myFormat = "yyy-MM-dd" // mention the format you need
+        val sdf = SimpleDateFormat(myFormat, Locale.US)
+        autoAdqfecAdd.setText(sdf.format(cal.getTime()))
+    }
+
+    private fun cargarImagen() {
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        intent.setType("image/")
+        startActivityForResult(intent,1)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode== RESULT_OK && requestCode == 1){
+            var imageUri: Uri? = data?.getData()
+            ivImage.setImageURI(imageUri)
+            val imageFile = imageUri?.let { getRealPathFromURI(it) }
+            //prueba.text = imageFile.toString()
+            linkImagen.setText(imageFile.toString())
+
+        }
+    }
+    private fun getRealPathFromURI(selectedImageURI: Uri): Any {
+        val result: String
+        val cursor: Cursor? = contentResolver.query(selectedImageURI, null, null, null, null)
+        if (cursor == null) { // Source is Dropbox or other similar local file path
+            result = selectedImageURI.getPath().toString()
+        } else {
+            cursor.moveToFirst()
+            val idx: Int = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
+            result = cursor.getString(idx)
+            cursor.close()
+        }
+        return result
+    }
 
     private fun alertSuccess(s: String) {
         val alertDialogBuilder = AlertDialog.Builder(this)
@@ -246,6 +299,7 @@ class AutoAdd : AppCompatActivity() {
             })
             .show()
     }
+
 
     private fun alertFail(s: String) {
         val alertDialogBuilder = AlertDialog.Builder(this)

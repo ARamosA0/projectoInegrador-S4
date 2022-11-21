@@ -67,12 +67,7 @@ class AutoHome : Fragment() {
         NameText.text=userName
         UserImage.load(userImage)
 
-        //Obtengo el id del vehiculo
-        val data = arguments
-        val idvehiculo = data?.get("idvehiculo")
-        if(data!=null){
-            eliminarVehiculo(idvehiculo.toString())
-        }
+
 
         var listaAut = view.findViewById<RecyclerView>(R.id.lista)
         listaAut.addItemDecoration(DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL))
@@ -136,29 +131,11 @@ class AutoHome : Fragment() {
         val alertDialogBuilder = getActivity()?.let {
             AlertDialog.Builder(it)
                 .setTitle("Error")
-                .setIcon(R.drawable.ic_baseline_warning_24)
                 .setMessage(s)
                 .setPositiveButton("OK", { dialog, whichButton ->
                     dialog.dismiss()
                 })
                 .show()
-        }
-    }
-
-    fun eliminarVehiculo(id:String) {
-        AsyncTask.execute {
-            val queue = Volley.newRequestQueue(getActivity())
-            var url = getString(R.string.urlAPI) + "/vehicles/" + id
-            val postRequest: StringRequest = object : StringRequest(
-                Request.Method.DELETE, url,
-                Response.Listener { response -> // response
-
-                },
-                Response.ErrorListener { response ->// error
-
-                }
-            ){}
-            queue.add(postRequest)
         }
     }
 

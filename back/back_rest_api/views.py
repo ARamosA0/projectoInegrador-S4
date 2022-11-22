@@ -366,7 +366,7 @@ class RegistroErroresManuales(APIView):
 
 class RegistroErroresManualesDetalle(APIView):
     def get(self, request, autoid):
-        errmanual = RegistroManual_rma.get(auto=autoid)
+        errmanual = RegistroManual_rma.objects.get(auto=autoid)
         serializer = ErrManualSerializer(errmanual, many=True)
 
         return Response(serializer.data)

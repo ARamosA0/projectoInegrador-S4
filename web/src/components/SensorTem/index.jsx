@@ -11,6 +11,7 @@ import {
   TextField,
   IconButton,
 } from "@mui/material";
+
 import {
   LocalizationProvider,
   DesktopDatePicker,
@@ -22,43 +23,49 @@ import { faker } from "@faker-js/faker";
 import RealMyCharts from "../Char";
 import Chart from "react-apexcharts";
 
+import {dataSensorGet} from "../../service/sensorServices"
+
 const SensorTemp = () => {
   // Select fecha/hora
   const [fecha, setFecha] = useState(dayjs());
   const [averageTemp, setAverageTemp] = useState([]);
-  const [date, setDate] = useState([]);
+  const [hour, setHour] = useState([]);
 
 
   const handleChangeFecha = (e) => {
     setFecha(e);
   };
-
+  
   useEffect(() => {
     const getData = async () => {
-    const url = 'http://localhost:9000/temperature';
     try {
-      const response = await fetch(url);
-      const data = await response.json();
-      // console.log(data);
-      setAverageTemp(data?.map((item) => item.average_temp));
-      setDate(data?.map((item) => item.date));
+      const response = await dataSensorGet();
+
+      // const ixa = response.map((item)=>item.ixa)
+      // console.log(ixa)
+
+      const data = response.filter(item=>parseInt(item.rda_fecha.slice(8)) === fecha.$D 
+                                     && parseInt(item.rda_fecha.slice(5,7)) !== fecha.$M)
+      setAverageTemp(data.map((item)=>item.rda_valor))
+      setHour(data.map((item)=>item.rda_hora))
+      
     } catch (error) {
         console.log(error);
     }
   };
     getData();
-  }, []);
+  }, [averageTemp]);
 
  const series = [ //data on the y-axis
     {
-      name: "Temperature in Celsius",
+      name: "Temperatura en Celsius",
       data: averageTemp
     }
   ];
   const options = { //data on the x-axis
   chart: { id: 'bar-chart'},
   xaxis: {
-    categories: date
+    categories: hour
   }
 
   
@@ -95,12 +102,13 @@ const SensorTemp = () => {
         </Grid>
       </Grid>
       <Grid item xs={12}>
-        {fecha.$D!=dayjs().$D?(
+        {fecha.$D!=dayjs().$D
+        && fecha.$M === dayjs().$M?(
             <Chart
             options={options}
             series={series}
             type="line"
-            width="700"
+            width="900"
           />
         ):
         <>

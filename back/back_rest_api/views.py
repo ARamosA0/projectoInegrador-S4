@@ -345,7 +345,8 @@ class RegistroDatosAPIDetallado (APIView):
     
     def get(self, request, registrodato_id):
         registro_datos = self.get_object(registrodato_id)
-        serializer = RegistroDatosSerializer(registro_datos)
+        inst = RegistroDatos_rda.objects.get(ixa=registro_datos)
+        serializer = RegistroDatosSerializer(inst)
         return Response(serializer.data)
 
 #Error manual

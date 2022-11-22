@@ -1,37 +1,28 @@
 import React, { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
 
-import { sensorDataPost } from "../../service/sensorServices";
+import { dataSensorGet } from "../../service/sensorServices";
 
 const RealMyCharts = () => {
   const [averageTemp, setAverageTemp] = useState([]);
   const [date, setDate] = useState([]);
-  const [dataPost, setDataPost] = useState({
-    data:"",
-    average_temp:"",
-    time:""
-  });
+  const [hour, setHour] = useState([]);
 
   useEffect(() => {
-    const getData = async () => {
-      const url = "http://localhost:9000/temperature";
-      
-
+    const getData = async () => {     
       try {
-        setInterval(async() => {
-            const postData = await sensorDataPost({date: "03/10/2022",
-            average_temp: 50, time:"10:00"})
-            console.log(postData)
-            
-          }, 20000);
-        ;
-        const response = await fetch(url);
-        const data = await response.json();
-        console.log(data);
-        setAverageTemp(data?.map((item) => item.average_temp));
-        setDate(data?.map((item) => item.date));
+        const response = await dataSensorGet();
+  
+        // const ixa = response.map((item)=>item.ixa)
+        // console.log(ixa)
+  
+        const data = response.filter(item=>parseInt(item.rda_fecha.slice(8)) === fecha.$D 
+                                       && parseInt(item.rda_fecha.slice(5,7)) !== fecha.$M)
+        setAverageTemp(data.map((item)=>item.rda_valor))
+        setHour(data.map((item)=>item.rda_hora))
+        
       } catch (error) {
-        console.log(error);
+          console.log(error);
       }
     };
     getData();
@@ -62,7 +53,7 @@ const RealMyCharts = () => {
   };
   return (
     <div>
-      <Chart options={options} series={series} type="line" width="700" />
+      <Chart options={options} series={series} type="line" width="900" />
     </div>
   );
 };

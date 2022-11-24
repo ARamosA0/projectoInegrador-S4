@@ -346,9 +346,19 @@ class RegistroDatosAPIDetallado (APIView):
     def get(self, request, registrodato_id):
         registro_datos = self.get_object(registrodato_id)
         inst = RegistroDatos_rda.objects.get(ixa=registro_datos)
+        print(inst)
         serializer = RegistroDatosSerializer(inst)
         return Response(serializer.data)
 
+
+
+class RegistroDatosPorAuto(APIView):
+    def get(self, request, auto_id):
+        insAuto = InstrumentoXAuto_ixa.objects.filter(auto=auto_id)
+        serializers = InstrumentoXAutoSerializer(insAuto)
+        print(insAuto)
+        # datosAuto = RegistroDatos_rda.objects.get()
+        return Response(serializers)
 #Error manual
 class RegistroErroresManuales(APIView):
     def get(self, request):

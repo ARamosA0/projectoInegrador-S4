@@ -75,6 +75,8 @@ class LoginView(APIView):
 
 #Usuarios
 class UsuarioAPIGeneral(APIView):
+
+
     def get(self, request):
         token = request.COOKIES.get('jwt')
 
@@ -89,6 +91,47 @@ class UsuarioAPIGeneral(APIView):
         serializer =  UserSerializer(user)
 
         return Response(serializer.data)
+
+    def put(self, request):
+
+        token = request.COOKIES.get('jwt')
+
+        if not token:
+            raise AuthenticationFailed('Usuario no autenticado')
+        try:
+            payload = jwt.decode(token, 'secret', algorithms=['HS256'])
+        except jwt.ExpiredSignatureError:
+            raise AuthenticationFailed('Usuario no autenticado')
+        user = User.objects.filter(id=payload['id']).first()
+
+        serializer = UserSerializer(user, data=request.data)
+
+        context = {
+            'status':True,
+            'content':serializer.data   
+        }
+
+        return Response(context) 
+
+    def delete(self, request):
+        token = request.COOKIES.get('jwt')
+
+        if not token:
+            raise AuthenticationFailed('Usuario no autenticado')
+        try:
+            payload = jwt.decode(token, 'secret', algorithm=['HS256'])
+        except jwt.ExpiredSignatureError:
+            raise AuthenticationFailed('Usuario no autenticado')
+        user = User.objects.filter(id=payload['id']).first()
+
+        user.delete()
+
+        context = {
+            'status': True,
+            'message':'Usuario Eliminado'
+        }
+
+        return Response(context)
 
 class LogoutView(APIView):
     def post(self, request):
@@ -344,11 +387,25 @@ class RegistroDatosAPIDetallado (APIView):
             raise Http404
     
     def get(self, request, registrodato_id):
-        registro_datos = self.get_object(registrodato_id)
-        serializer = RegistroDatosSerializer(registro_datos)
+        # registro_datos = self.get_object.get(pk=registrodato_id)
+        inst = RegistroDatos_rda.objects.get(ixa=registrodato_id)
+        print(inst)
+        serializer = RegistroDatosSerializer(inst, many=True)
         return Response(serializer.data)
 
 
+
+class RegistroDatosPorAuto(APIView):
+    def get(self, request, auto_id):
+        insAuto = InstrumentoXAuto_ixa.objects.get(auto=auto_id)
+        serializers = InstrumentoXAutoSerializer(insAuto)
+        print(insAuto.id)
+        return Response(serializers.data)
+
+    
+
+
+#Error manual
 class RegistroErroresManuales(APIView):
     def get(self, request):
         errmanuall = RegistroManual_rma.objects.all()
@@ -365,7 +422,7 @@ class RegistroErroresManuales(APIView):
 
 class RegistroErroresManualesDetalle(APIView):
     def get(self, request, autoid):
-        errmanual = RegistroManual_rma.get(auto=autoid)
+        errmanual = RegistroManual_rma.objects.filter(auto=autoid)
         serializer = ErrManualSerializer(errmanual, many=True)
 
         return Response(serializer.data)

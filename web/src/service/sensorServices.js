@@ -1,9 +1,13 @@
 import axios from "axios";
+import URLS from "./URLS"
 
-export const sensorDataPost = async(data) =>{
-    try {
-        const response = await axios.post('http://127.0.0.1:9000/temperature', data);
-        return response
+
+// GET DATA
+
+export const dataSensorGet = async() => {
+    try{
+        const response = await axios.get(`${URLS.URL_API}datasensors/`)
+        return response.data
     } catch (error){
         console.log(error)
     }

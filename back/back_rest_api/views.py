@@ -390,7 +390,7 @@ class RegistroDatosAPIDetallado (APIView):
         # registro_datos = self.get_object.get(pk=registrodato_id)
         inst = RegistroDatos_rda.objects.get(ixa=registrodato_id)
         print(inst)
-        serializer = RegistroDatosSerializer(inst)
+        serializer = RegistroDatosSerializer(inst, many=True)
         return Response(serializer.data)
 
 
@@ -399,8 +399,10 @@ class RegistroDatosPorAuto(APIView):
     def get(self, request, auto_id):
         insAuto = InstrumentoXAuto_ixa.objects.get(auto=auto_id)
         serializers = InstrumentoXAutoSerializer(insAuto)
-        print(insAuto)
+        print(insAuto.id)
         return Response(serializers.data)
+
+    
 
 
 #Error manual

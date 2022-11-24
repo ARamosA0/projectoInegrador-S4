@@ -21,7 +21,26 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 // Import CSS
 import "./index.css";
 
+import { geterrmanual } from "../../service/autoServices";
 const Log = () => {
+
+
+
+
+
+
+  const [userErroresm, setuserErroresm] = useState([]);
+  const ErroresManuales = async (id) => {
+    const a = 1234
+    console.log(a)
+    
+    
+    const data = await geterrmanual(8);
+    console.log(data)
+    setuserErroresm(data);
+  };
+
+
   // Select sensor
   const [sensor, setSensor] = useState("");
   const handleChange = (event) => {
@@ -64,17 +83,39 @@ const Log = () => {
                   renderInput={(params) => <TextField {...params} />}
                 />
               </Grid>
-              <Grid item xs={6}>
-                <TimePicker
-                  label="Escoge la hora"
-                  value={fecha}
-                  onChange={handleChangeFecha}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-              </Grid>
+
             </LocalizationProvider>
           </Grid>
         </Grid>
+
+        <button onClick={ErroresManuales}>prueba</button>
+
+        <div>
+
+        {userErroresm.length > 0 &&
+          userErroresm.map((errr) => (
+            <Grid item xs={3}>
+              <Card className="polea">
+                <CardContent className="Nombre del error">
+                  <div className="linea">
+
+                    <p className="parrafo">{errr.rma_nombre}</p>
+                  </div>
+                  <div className="descripcion del error">
+                    {/*errr.nombre del campo */}
+                    <p className="parrafo"> {errr.rma_descripcion}</p>
+
+                  </div>
+                  <div className="Fecha y hora del error">
+                    <p>Fecha: </p>
+                    <p className="parrafo"> {errr.rma_fecha}</p>
+                    <p>Hora: </p>
+                    <p className="parrafo"> {errr.rma_hora}</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}</div>
         <Grid item xs={12}></Grid>
       </Grid>
     </>

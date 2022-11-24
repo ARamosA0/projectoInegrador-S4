@@ -4,7 +4,7 @@ import URLS from "./URLS"
 
 export const createUser = async(user) =>{
     try {
-        const response = await axios.post(`${URLS.URL_API}`, user);
+        const response = await axios.post(`${URLS.URL_API}register/`, user);
         return response
     } catch (error){
         console.log(error)

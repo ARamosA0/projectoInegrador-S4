@@ -20,7 +20,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        representation['imagen'] = instance.imagen
+        representation['imagen'] = instance.imagen.url
         return representation
 
 

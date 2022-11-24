@@ -344,8 +344,8 @@ class RegistroDatosAPIDetallado (APIView):
             raise Http404
     
     def get(self, request, registrodato_id):
-        registro_datos = self.get_object(registrodato_id)
-        inst = RegistroDatos_rda.objects.get(ixa=registro_datos)
+        registro_datos = self.get_object.get(pk=registrodato_id)
+        inst = RegistroDatos_rda.objects.get(ixa=registro_datos.id)
         print(inst)
         serializer = RegistroDatosSerializer(inst)
         return Response(serializer.data)
@@ -358,7 +358,9 @@ class RegistroDatosPorAuto(APIView):
         serializers = InstrumentoXAutoSerializer(insAuto)
         print(insAuto)
         # datosAuto = RegistroDatos_rda.objects.get()
-        return Response(serializers)
+        return Response(serializers.data)
+
+
 #Error manual
 class RegistroErroresManuales(APIView):
     def get(self, request):

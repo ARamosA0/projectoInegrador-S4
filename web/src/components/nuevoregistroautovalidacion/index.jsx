@@ -70,6 +70,7 @@ const RegAuto = ({ id, opcion }) => {
     image.append("aut_color", valorInputs.aut_color);
     image.append("aut_usuario", id);
     console.log(image);
+    console.log(carImage)
     console.log(valorInputs);
     const register = await registerCar(image);
     console.log(register);
@@ -111,7 +112,7 @@ const RegAuto = ({ id, opcion }) => {
 
   return (
     <Container>
-      <form onSubmit={handleSubmitPost}>
+      <form >
         <Grid container spacing={3}>
           <Grid item xs={6} md={6}>
             <h2>Marca del vehiculo </h2>
@@ -226,7 +227,7 @@ const RegAuto = ({ id, opcion }) => {
               variant="contained"
               fullWidth
               endIcon={<AppRegistrationIcon />}
-              type="submit"
+              onClick={handleSubmitPost}
             >
               AGREGAR VEHICULO
             </ColorButton>)}

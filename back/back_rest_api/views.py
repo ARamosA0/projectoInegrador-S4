@@ -14,6 +14,8 @@ from rest_framework.exceptions import AuthenticationFailed
 import jwt, datetime
 
 import cloudinary.uploader
+
+import requests
 # Create your views here.
 
 #Index 
@@ -373,7 +375,33 @@ class RegistroDatosAPIGeneral(APIView):
         return Response(serializer.data)
     
     def post(self, request):
+
         serializer = RegistroDatosSerializer(data=request.data)
+        
+        print("request",request.data)
+
+        value = request.data.get("rda_valor")
+        sensor = request.data.get("axi")
+
+        if(sensor == 1 and value >= 30):
+            r = requests.post("https://projectoinegrador-s4-production.up.railway.app/errsensor", 
+                            data ={
+                                'registro_datos':request.data.get("id"),
+                                'rer_nombre': "Error de Temperatura",
+                                'rer_descripcion': "La temperatura exedio de 30"
+                            })
+
+        if(sensor == 2 and value>=5):
+            r = requests.post("https://projectoinegrador-s4-production.up.railway.app/errsensor", 
+                            data ={
+                                'registro_datos':request.data.get("id"),
+                                'rer_nombre': "Error de Voltaje",
+                                'rer_descripcion': "El voltaje exedio de 5"
+                            })
+            
+
+            print(r)
+
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -433,4 +461,16 @@ class RegistroErroresManualesDetalle(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
         
-        
+class RegistroErrores(APIView):
+    def get(self, request):
+        reg_error = RegistroError_rer.objects.all()
+        serializer = RegistroErrorSerializer(reg_error)
+
+        return Response(serializer)
+
+    def post(self, request):
+        serializer = ErrManualSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

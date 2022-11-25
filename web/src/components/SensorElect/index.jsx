@@ -21,12 +21,14 @@ import {
   TimePicker,
 } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import RealMyCharts from "../Char"; 
+import RealMyCharts from "../Char";
+import {dataSensorGet} from "../../service/sensorServices"
 const SensorElect = () => {
   // Select fecha/hora
   const [fecha, setFecha] = useState(dayjs());
-  const [averageTemp, setAverageTemp] = useState([]);
+  const [averageVolt, setAverageVolt] = useState([]);
   const [date, setDate] = useState([]);
+  const [hour, setHour] = useState([]);
 
   const handleChangeFecha = (e) => {
     setFecha(e);
@@ -34,32 +36,39 @@ const SensorElect = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const url = "http://localhost:9000/temperature";
-      try {
-        const response = await fetch(url);
-        const data = await response.json();
-        console.log(data);
-        setAverageTemp(data?.map((item) => item.average_temp));
-        setDate(data?.map((item) => item.date));
-      } catch (error) {
+    try {
+      const response = await dataSensorGet();
+
+      // const ixa = response.map((item)=>item.ixa)
+      // console.log(ixa)
+
+      const tipoSensor = response.filter(item=>item.ixa === 2)
+
+      const data = tipoSensor.filter(item=>parseInt(item.rda_fecha.slice(8)) === fecha.$D 
+                                     && parseInt(item.rda_fecha.slice(5,7)) !== fecha.$M
+                                     && parseInt(item.rda_hora.slice(0,2)) === fecha.$H)
+      setAverageVolt(data.map((item)=>item.rda_valor))
+      setHour(data.map((item)=>item.rda_hora))
+      
+    } catch (error) {
         console.log(error);
-      }
-    };
+    }
+  };
     getData();
-  }, []);
+  }, [averageVolt]);
 
   const series = [
     //data on the y-axis
     {
-      name: "Temperature in Celsius",
-      data: averageTemp,
+      name: "Voltaje",
+      data: averageVolt,
     },
   ];
   const options = {
     //data on the x-axis
     chart: { id: "bar-chart" },
     xaxis: {
-      categories: date,
+      categories: hour,
     },
   };
 
@@ -89,12 +98,25 @@ const SensorElect = () => {
         </Grid>
       </Grid>
       <Grid item xs={12}>
-        {fecha.$D != dayjs().$D ? (
-          <Chart options={options} series={series} type="line" width="700" />
+        {fecha.$D != dayjs().$D
+        && fecha.$M === dayjs().$M
+        && fecha.$H === dayjs().$H ? (
+          <Chart
+          options={options}
+          series={series}
+          type="line"
+          width="900"
+        />
         ) : (
           <>
             REAL TIME
-            <RealMyCharts />
+            <RealMyCharts sensor={2}/>
+            {/* <Chart
+            options={options}
+            series={series}
+            type="line"
+            width="900"
+          /> */}
           </>
         )}
       </Grid>

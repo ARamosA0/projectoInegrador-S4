@@ -30,6 +30,9 @@ urlpatterns = [
     path('errmanual/<int:registro_id>', views.RegistroErroresManuales.as_view()),
     path('errmanual/', views.RegistroErroresManuales.as_view()),
     path('errormanual/<int:autoid>', views.RegistroErroresManualesDetalle.as_view()),
+
+    #ErrorSensor
+    path('errsensor/', views.RegistroErrores.as_view())
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

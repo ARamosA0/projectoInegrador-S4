@@ -54,11 +54,17 @@ class InstrumentoXAutoSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ['ixa_fecinstalacion', 'ixa_fecmodificacion']
 
+
 class RegistroDatosSerializer(serializers.ModelSerializer):
     class Meta:
         model = RegistroDatos_rda
         fields = '__all__'
         read_only_fields = ['rda_fecha', 'rda_hora']
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation['ixa'] = instance.ixa.instrumento
+        return representation
 
 class ErrManualSerializer(serializers.ModelSerializer):
     class Meta:

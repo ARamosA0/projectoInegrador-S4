@@ -48,6 +48,8 @@ const SensorTemp = () => {
                                      && parseInt(item.rda_fecha.slice(5,7)) !== fecha.$M)
       setAverageTemp(data.map((item)=>item.rda_valor))
       setHour(data.map((item)=>item.rda_hora))
+
+      console.log(data)
       
     } catch (error) {
         console.log(error);
@@ -113,7 +115,12 @@ const SensorTemp = () => {
         ):
         <>
           REAL TIME
-          <RealMyCharts />
+          <Chart
+            options={options}
+            series={series}
+            type="line"
+            width="900"
+          />
         </>
         }
         

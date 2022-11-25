@@ -21,11 +21,11 @@ import {
   TimePicker,
 } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import RealMyCharts from "../Char"; 
+import RealMyCharts from "../Char";
 const SensorElect = () => {
   // Select fecha/hora
   const [fecha, setFecha] = useState(dayjs());
-  const [averageTemp, setAverageTemp] = useState([]);
+  const [averageVolt, setAverageVolt] = useState([]);
   const [date, setDate] = useState([]);
 
   const handleChangeFecha = (e) => {
@@ -34,19 +34,23 @@ const SensorElect = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const url = "http://localhost:9000/temperature";
-      try {
-        const response = await fetch(url);
-        const data = await response.json();
-        console.log(data);
-        setAverageTemp(data?.map((item) => item.average_temp));
-        setDate(data?.map((item) => item.date));
-      } catch (error) {
+    try {
+      const response = await dataSensorGet();
+
+      // const ixa = response.map((item)=>item.ixa)
+      // console.log(ixa)
+
+      const data = response.filter(item=>parseInt(item.rda_fecha.slice(8)) === fecha.$D 
+                                     && parseInt(item.rda_fecha.slice(5,7)) !== fecha.$M)
+      setAverageVolt(data.map((item)=>item.rda_valor))
+      setHour(data.map((item)=>item.rda_hora))
+      
+    } catch (error) {
         console.log(error);
-      }
-    };
+    }
+  };
     getData();
-  }, []);
+  }, [averageVolt]);
 
   const series = [
     //data on the y-axis
@@ -90,11 +94,21 @@ const SensorElect = () => {
       </Grid>
       <Grid item xs={12}>
         {fecha.$D != dayjs().$D ? (
-          <Chart options={options} series={series} type="line" width="700" />
+          <Chart
+          options={options}
+          series={series}
+          type="line"
+          width="900"
+        />
         ) : (
           <>
             REAL TIME
-            <RealMyCharts />
+            <Chart
+            options={options}
+            series={series}
+            type="line"
+            width="900"
+          />
           </>
         )}
       </Grid>

@@ -1,14 +1,7 @@
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 // material
-import { Grid, Button } from "@mui/material";
-
-import {
-  LocalizationProvider,
-  DesktopDatePicker,
-  TimePicker,
-} from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { Grid, Button, Checkbox } from "@mui/material";
 
 import { axiPost, axiGet } from "../../service/sensorServices";
 
@@ -30,7 +23,8 @@ const AutoInfo = ({ auto }) => {
     setFecha(e);
   };
 
-  const [sensorData, setSensorData] = useState([]);
+  const [sensorDataTemp, setSensorDataTemp] = useState();
+  const [sensorDataVolt, setSensorDataVolt] = useState();
 
   const handleClick = async (id) => {
     const axiPostData = await axiPost({
@@ -44,9 +38,15 @@ const AutoInfo = ({ auto }) => {
     const axiGetData = await axiGet();
     console.log(axiGetData);
     const getData = axiGetData.filter((item) => auto[0].id === item.auto);
-    setSensorData(getData);
+    getData.forEach((item) => {
+      console.log(item);
+      if (item.instrumento === 1) {
+        setSensorDataTemp(true);
+      } else if (item.instrumento === 2) {
+        setSensorDataVolt(true);
+      }
+    });
   };
-  console.log(sensorData);
 
   useEffect(() => {
     getAxiData();
@@ -135,72 +135,88 @@ const AutoInfo = ({ auto }) => {
                 </Grid>
               </Grid>
             </Grid>
-            {!sensorData.length > 0 ? (
-              <>
-                <Grid item xs={12}>
-                  <Grid container>
-                    <Grid item xs={6} className="auto-info-info-uno">
-                      <span>Registrar sensor de:</span>
-                    </Grid>
-                    <Grid item xs={6} className="auto-info-info-dos">
-                      <Button
-                        sx={{ background: "#EB3B3B" }}
-                        variant="contained"
-                        onClick={() => handleClick(1)}
-                      >
-                        Temperatura
-                      </Button>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <hr />
-                    </Grid>
+
+            {!sensorDataTemp ? (
+              <Grid item xs={12}>
+                <Grid container>
+                  <Grid item xs={6} className="auto-info-info-uno">
+                    <span>Registrar sensor de:</span>
+                  </Grid>
+                  <Grid item xs={6} className="auto-info-info-dos">
+                    <Button
+                      sx={{ background: "#EB3B3B" }}
+                      variant="contained"
+                      onClick={() => handleClick(1)}
+                    >
+                      Temperatura
+                    </Button>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <hr />
                   </Grid>
                 </Grid>
-                <Grid item xs={12}>
-                  <Grid container>
-                    <Grid item xs={6} className="auto-info-info-uno">
-                      <span>Registrar sensor de:</span>
-                    </Grid>
-                    <Grid item xs={6} className="auto-info-info-dos">
-                      <Button
-                        sx={{ background: "#EB3B3B" }}
-                        variant="contained"
-                        onClick={() => handleClick(2)}
-                      >
-                        Voltaje
-                      </Button>
-                    </Grid>
-                    <Grid item xs={12}></Grid>
-                  </Grid>
-                </Grid>
-              </>
+              </Grid>
             ) : (
-              <>
-                <Grid item xs={12}>
-                  <Grid container>
-                    <Grid item xs={6} className="auto-info-info-uno">
-                      <span>Sensor activado: </span>
-                    </Grid>
-                    <Grid item xs={6} className="auto-info-info-dos">
-                      <span>Temperatura</span>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <hr />
-                    </Grid>
+              <Grid item xs={12}>
+                <Grid container>
+                  <Grid item xs={6} className="auto-info-info-uno">
+                    <span>Temperatura </span>
+                  </Grid>
+                  <Grid item xs={6} className="auto-info-info-dos">
+                    <Checkbox
+                      defaultChecked
+                      sx={{
+                        color: "#EB3B3B",
+                        "&.Mui-checked": {
+                          color: "#EB3B3B",
+                        },
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <hr />
                   </Grid>
                 </Grid>
-                <Grid item xs={12}>
-                  <Grid container>
-                    <Grid item xs={6} className="auto-info-info-uno">
-                      <span>Sensor activado: </span>
-                    </Grid>
-                    <Grid item xs={6} className="auto-info-info-dos">
-                      <span>Voltaje</span>
-                    </Grid>
-                    <Grid item xs={12}></Grid>
+              </Grid>
+            )}
+            {!sensorDataVolt ? (
+              <Grid item xs={12}>
+                <Grid container>
+                  <Grid item xs={6} className="auto-info-info-uno">
+                    <span>Registrar sensor de:</span>
                   </Grid>
+                  <Grid item xs={6} className="auto-info-info-dos">
+                    <Button
+                      sx={{ background: "#EB3B3B" }}
+                      variant="contained"
+                      onClick={() => handleClick(2)}
+                    >
+                      Voltaje
+                    </Button>
+                  </Grid>
+                  <Grid item xs={12}></Grid>
                 </Grid>
-              </>
+              </Grid>
+            ) : (
+              <Grid item xs={12}>
+                <Grid container>
+                  <Grid item xs={6} className="auto-info-info-uno">
+                    <span>Voltaje </span>
+                  </Grid>
+                  <Grid item xs={6} className="auto-info-info-dos">
+                    <Checkbox
+                      defaultChecked
+                      sx={{
+                        color: "#EB3B3B",
+                        "&.Mui-checked": {
+                          color: "#EB3B3B",
+                        },
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={12}></Grid>
+                </Grid>
+              </Grid>
             )}
           </Grid>
         ))}

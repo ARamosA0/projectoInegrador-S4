@@ -2,14 +2,14 @@ package com.miempresa.myapplication
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.database.Cursor
+import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.os.StrictMode
-import android.widget.Button
-import android.widget.ImageView
+import android.provider.MediaStore
 import androidx.appcompat.app.AlertDialog
-import androidx.activity.result.PickVisualMediaRequest
-import androidx.activity.result.contract.ActivityResultContracts.*
+import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
@@ -17,33 +17,23 @@ import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.activity_auto_add.*
 import org.json.JSONException
 import org.json.JSONObject
+import android.app.DatePickerDialog
+import android.util.AttributeSet
+import android.widget.Button
+import android.widget.DatePicker
+import android.widget.ImageView
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class AutoAdd : AppCompatActivity() {
 
-    val pickMedia = registerForActivityResult(PickVisualMedia()){ uri ->
-        if (uri!=null){
-            //imagen
-            ivImage.setImageURI(uri)
-        }else{
-            //no imagen
-        }
 
-    }
-    lateinit var  btnImagen: Button
-    lateinit var ivImage: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auto_add)
 
-        btnImagen = findViewById(R.id.btnImagen)
-        ivImage = findViewById(R.id.ivImage)
-        btnImagen.setOnClickListener{
-            //val git = "image/gif"
-            if (PickVisualMedia.isPhotoPickerAvailable())
-                pickMedia.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
-        }
 
 
         this.setTitle("Agregar vehiculo");

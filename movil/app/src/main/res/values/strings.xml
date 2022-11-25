@@ -22,7 +22,15 @@
         <item>Temperatura</item>
         <item>Kilometraje</item>
     </string-array>
-
-    <string name="urlAPI">http://192.168.43.92:8000</string>
+    <string name="label_from">Direccion origen</string>
+    <string name="label_to">Direcion destino</string>
+    <string name="btn_change">Modificar</string>
+    <string name="urlAPI">http://172.23.10.230:8000</string>
+    <string name="android_sdk_places_api_key">AIzaSyCtqNrtkX4e1-eboyl8Cyz2moIjm0goIzA</string>
+    <string name="title_activity_mapa">mapa</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_activity_mapa_taller">mapa_taller</string>
 
 </resources>

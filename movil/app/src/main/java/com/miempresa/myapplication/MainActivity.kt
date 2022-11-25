@@ -9,7 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 
 import com.auth0.android.jwt.JWT
-import com.miempresa.myapplication.databinding.ActivityMainBinding
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.widget.Autocomplete
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
+
 
 import com.miempresa.myapplication.ui.autohome.AutoHome
 import com.miempresa.myapplication.ui.historial.Historial
@@ -17,13 +22,20 @@ import com.miempresa.myapplication.ui.taller.Taller
 import com.miempresa.myapplication.ui.telemetria.Telemetria
 import kotlinx.android.synthetic.main.activity_auto_add.*
 import kotlinx.android.synthetic.main.activity_main.*
-
+import com.miempresa.myapplication.databinding.ActivityMainBinding
+import com.miempresa.myapplication.databinding.ActivityMapaBinding
+import kotlinx.android.synthetic.main.activity_mapa.*
 
 
 class MainActivity : AppCompatActivity() {
 
+
+
     private lateinit var binding : ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
+
+
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         binding = ActivityMainBinding.inflate(layoutInflater)

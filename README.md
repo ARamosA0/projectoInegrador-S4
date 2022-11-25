@@ -13,6 +13,7 @@
 
 ### URLS del API
 - La URL principal es `**http://localhost:8000**`
+- La URL en la nube https://projectoinegrador-s4-production.up.railway.app/
 - Ver el archivo **back_rest_api/urls.py** para saber las urls de la API
 
 ## REACT

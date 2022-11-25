@@ -25,7 +25,7 @@ import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import ErrorIcon from '@mui/icons-material/Error';
 
 
-const Auto = (props) => {
+const Auto = () => {
   
   const [auto, setAuto] = useState([])
 

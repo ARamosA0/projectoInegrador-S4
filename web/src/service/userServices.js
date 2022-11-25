@@ -1,10 +1,10 @@
 import axios from "axios";
-import URL_API from "./URLS"
+import URLS from "./URLS"
 
 
 export const createUser = async(user) =>{
     try {
-        const response = await axios.post('http://127.0.0.1:8000/register/', user);
+        const response = await axios.post(`${URLS.URL_API}register/`, user);
         return response
     } catch (error){
         console.log(error)
@@ -13,7 +13,7 @@ export const createUser = async(user) =>{
 
 export const loginUser = async(user) =>{
     try {
-        const response = await axios.post('http://127.0.0.1:8000/login/', 
+        const response = await axios.post(`${URLS.URL_API}login/`, 
             user,  
             { withCredentials: true });
         return response.data
@@ -25,7 +25,7 @@ export const loginUser = async(user) =>{
 
 export const loginOut = async(user) =>{
     try {
-        const response = await axios.post('http://127.0.0.1:8000/logout/', user);
+        const response = await axios.post(`${URLS.URL_API}logout/`, user);
         return response.data
     } catch (error){
         console.log(error)
@@ -34,7 +34,7 @@ export const loginOut = async(user) =>{
 
 export const userData = async(id) => {
     try {
-        const response = await axios.get(`http://127.0.0.1:8000/usuario/${id}`);
+        const response = await axios.get(`${URLS.URL_API}usuario/${id}`);
         return response.data
     } catch (error){
         console.log(error)

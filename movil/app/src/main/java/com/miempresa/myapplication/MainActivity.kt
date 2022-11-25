@@ -8,12 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 
-import com.auth0.android.jwt.JWT
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.libraries.places.api.Places
-import com.google.android.libraries.places.api.model.Place
-import com.google.android.libraries.places.widget.Autocomplete
-import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 
 
 import com.miempresa.myapplication.ui.autohome.AutoHome

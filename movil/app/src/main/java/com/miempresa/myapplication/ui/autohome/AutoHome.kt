@@ -103,7 +103,7 @@ class AutoHome : Fragment() {
                                 response.getJSONObject(i).getString("aut_fecadquisicion")
                             val usuario =
                                 response.getJSONObject(i).getString("aut_usuario")
-                            llenarLista.add(AutoData(id.toInt(),imagen,placa, modelo, descripcion, marca.toInt(), color, fecAd, usuario.toInt()))
+                            llenarLista.add(AutoData(id.toInt(),imagen,placa, modelo, descripcion, marca, color, fecAd, usuario.toInt()))
                         }
                         val adapter = AdaptadorAutos(llenarLista)
                         listaAut.adapter = adapter

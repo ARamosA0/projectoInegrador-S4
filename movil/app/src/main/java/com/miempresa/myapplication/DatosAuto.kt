@@ -58,7 +58,7 @@ class DatosAuto : AppCompatActivity() {
         var llenarLista = ArrayList<ErroresData>()
         AsyncTask.execute {
             val queue = Volley.newRequestQueue(this )
-            val url = getString(R.string.urlAPI) + "/errmanual/"
+            val url = getString(R.string.urlAPI) + "/errormanual/" + idvehiculo
             val stringRequest = JsonArrayRequest(url,
                 Response.Listener { response ->
                     try {

@@ -2,7 +2,9 @@ package com.miempresa.myapplication
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Environment
 import android.os.StrictMode
+import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -26,6 +28,10 @@ class LoginActivity : AppCompatActivity() {
     var user_imagen = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val imageFile2 = Environment.getExternalStorageDirectory().toString()
+        Log.e("yy",imageFile2)
+
+
         Thread.sleep(1000)
         setTheme(R.style.Theme_Final)
         super.onCreate(savedInstanceState)

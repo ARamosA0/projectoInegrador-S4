@@ -1,15 +1,25 @@
 package com.miempresa.myapplication
 
+import android.Manifest
+import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.database.Cursor
+import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
-import android.view.View
 import android.os.StrictMode
 import android.provider.MediaStore
+import android.util.*
+import android.util.Base64
+import android.view.View
+import android.widget.DatePicker
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
@@ -17,19 +27,28 @@ import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.activity_auto_add.*
 import org.json.JSONException
 import org.json.JSONObject
-import android.app.DatePickerDialog
-import android.util.AttributeSet
-import android.widget.DatePicker
+import java.io.ByteArrayOutputStream
+import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 class AutoAdd : AppCompatActivity() {
 
     var cal = Calendar.getInstance()
+    var bitmap: Bitmap? = null
+    private var imageData: ByteArray? = null
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auto_add)
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+            == PackageManager.PERMISSION_GRANTED) {
+        } else {
+            requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 123);
+        }
 
         autoModeloAdd.setText(autoModeloAdd.text)
 
@@ -100,6 +119,7 @@ class AutoAdd : AppCompatActivity() {
             val color = auto_color.text.toString().trim()
             val descripcion = autoDescAdd.text.toString().trim()
             val año_adquision = autoAdqfecAdd.text.toString().trim()
+            val imagen_aut = getStringImagen(bitmap);
 
             if (marca.isEmpty() || modelo.isEmpty() || numero_placa.isEmpty() || color.isEmpty() ||descripcion.isEmpty() || año_adquision.isEmpty()) {
                 alertFail("Todos los campos deben ser llenados")
@@ -149,7 +169,7 @@ class AutoAdd : AppCompatActivity() {
                 jsonObj.put("aut_modelo", modelo)
                 jsonObj.put("aut_placa", numero_placa)
                 jsonObj.put("aut_usuario", userId)
-                jsonObj.put("aut_imagen", "https://www.proceso.com.mx/u/fotografias/m/2021/10/18/f638x638-144597_202764_7042.jpg")
+                jsonObj.put("aut_imagen", imagen_aut)
                 jsonObj.put("aut_descripcion", descripcion)
                 jsonObj.put("aut_color", color)
                 jsonObj.put("aut_fecadquisicion", año_adquision)
@@ -252,29 +272,55 @@ class AutoAdd : AppCompatActivity() {
 
     }
 
-    private fun updateDateInView() {
-        val myFormat = "yyy-MM-dd" // mention the format you need
-        val sdf = SimpleDateFormat(myFormat, Locale.US)
-        autoAdqfecAdd.setText(sdf.format(cal.getTime()))
+
+    private fun getStringImagen(bitmap: Bitmap?): Any {
+        val baos = ByteArrayOutputStream()
+        bitmap?.compress(Bitmap.CompressFormat.JPEG, 50, baos)
+        val imageBytes: ByteArray = baos.toByteArray()
+        return Base64.encodeToString(imageBytes, Base64.DEFAULT).toString()
     }
 
     private fun cargarImagen() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        intent.setType("image/")
+        intent.setType("image/*")
         startActivityForResult(intent,1)
     }
-
+    //IMG_20221120_020605.jpg
+    //resultCode== RESULT_OK && requestCode == 1
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode== RESULT_OK && requestCode == 1){
-            var imageUri: Uri? = data?.getData()
-            ivImage.setImageURI(imageUri)
-            val imageFile = imageUri?.let { getRealPathFromURI(it) }
-            //prueba.text = imageFile.toString()
-            linkImagen.setText(imageFile.toString())
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null){
+            var filePath: Uri? = data?.getData()
+            try{
+
+                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath)
+                ivImage.setImageBitmap(bitmap)
+
+                /*
+                ivImage.setImageURI(imageUri)
+                val imageFile = imageUri?.let { getRealPathFromURI(it) }
+                val imageFile2 = Environment.getExternalStorageDirectory() + "/Pictures/" + "IMG_20221120_020605.jpg"
+                prueba.text = imageFile.toString()
+
+
+                 */
+                linkImagen.setText(filePath.toString())
+            } catch (e: IOException){
+                e.printStackTrace()
+            }
+
 
         }
     }
+
+    @Throws(IOException::class)
+    private fun createImageData(uri: Uri) {
+        val inputStream = contentResolver.openInputStream(uri)
+        inputStream?.buffered()?.use {
+            imageData = it.readBytes()
+        }
+    }
+
     private fun getRealPathFromURI(selectedImageURI: Uri): Any {
         val result: String
         val cursor: Cursor? = contentResolver.query(selectedImageURI, null, null, null, null)
@@ -289,10 +335,15 @@ class AutoAdd : AppCompatActivity() {
         return result
     }
 
+    private fun updateDateInView() {
+        val myFormat = "yyy-MM-dd" // mention the format you need
+        val sdf = SimpleDateFormat(myFormat, Locale.US)
+        autoAdqfecAdd.setText(sdf.format(cal.getTime()))
+    }
+
     private fun alertSuccess(s: String) {
         val alertDialogBuilder = AlertDialog.Builder(this)
             .setTitle("Felicidades")
-            .setIcon(R.drawable.ic_baseline_check_24)
             .setMessage(s)
             .setPositiveButton("OK", { dialog, whichButton ->
                 dialog.dismiss()
@@ -304,7 +355,6 @@ class AutoAdd : AppCompatActivity() {
     private fun alertFail(s: String) {
         val alertDialogBuilder = AlertDialog.Builder(this)
             .setTitle("Error")
-            .setIcon(R.drawable.ic_baseline_warning_24)
             .setMessage(s)
             .setPositiveButton("OK", { dialog, whichButton ->
                 dialog.dismiss()

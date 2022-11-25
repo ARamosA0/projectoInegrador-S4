@@ -92,7 +92,6 @@ WSGI_APPLICATION = 'app.wsgi.application'
 
 
 #Si tienes errores con la base de datos talvez es por el password
-<<<<<<< HEAD
 #borralo o cambialo
 DATABASES = {
     'default': {
@@ -106,8 +105,6 @@ DATABASES = {
 }
 
 
-=======
->>>>>>> 5f1428da90f35e58ec7873c242cee8390935fb63
 #BD DIGITAL OCEAN
 #DATABASES = {
  #    'default': {

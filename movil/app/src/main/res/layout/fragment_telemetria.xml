@@ -78,62 +78,12 @@
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/linearLayout4"
+        <TextView
+            android:id="@+id/pruebaText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"
-            android:layout_gravity="center"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/temperatura"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:drawableTop="@drawable/ic_baseline_device_thermostat_24"
-                android:backgroundTint="#FF9800"
-                android:padding="5dp"
-                android:text="Temperatura"
-                android:textSize="8dp" />
-
-            <Button
-                android:id="@+id/humedad"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:drawableTop="@drawable/ic_baseline_water_drop_24"
-                android:backgroundTint="@color/gris_oscuro"
-                android:padding="5dp"
-                android:text="Humedad"
-                android:textSize="8dp" />
-
-            <Button
-                android:id="@+id/minTemperatura"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:drawableTop="@drawable/ic_baseline_severe_cold_24"
-                android:backgroundTint="#03A9F4"
-                android:padding="5dp"
-                android:text="Min.\nTemperatura"
-                android:textSize="8dp" />
-            <Button
-                android:id="@+id/maxTemperatura"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:drawableTop="@drawable/ic_baseline_whatshot_24"
-                android:backgroundTint="@color/purple_500"
-                android:padding="5dp"
-                android:text="Max.\nTemperatura"
-                android:textSize="8dp" />
-        </LinearLayout>
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Holo"/>
 
         <com.echo.holographlibrary.LineGraph
             android:id="@+id/lineGrafica"

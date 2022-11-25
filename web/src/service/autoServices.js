@@ -55,7 +55,7 @@ export const deleteCar = async(id, auto) =>{
 
 export const geterrmanual= async(id, auto) =>{
     try {
-        const response = await axios.get(`http://127.0.0.1:8000/errormanual/${id}`, auto);
+        const response = await axios.get(`${URLS.URL_API}errormanual/${id}`, auto);
         
              return response.data
          } catch (error){

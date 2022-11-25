@@ -34,6 +34,7 @@ class AutoSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         representation = super().to_representation(instance)
         representation['aut_imagen'] = instance.aut_imagen.url
+        representation['aut_marca'] = instance.aut_marca.mar_nombre
         return representation
 
 class MarcaSerializer(serializers.ModelSerializer):

@@ -15,3 +15,7 @@ body{
     text-align: end;
     padding-right: 2rem;
 }
+
+.auto-info-info-dos button:hover{
+    background-color: #a01c1c !important;
+}

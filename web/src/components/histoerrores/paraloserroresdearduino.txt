@@ -1,0 +1,25 @@
+  <div>
+            {userErrores.length > 0 &&
+                userErrores.map((err) => (
+                    <Grid item xs={3}>
+                        <Card className="polea">
+                            <CardContent className="Nombre del error">
+                                <div className="linea">
+                                    
+                                    <p className="parrafo">{err.rer_nombre}</p>
+                                </div>
+                                <div className="descripcion del error">
+                                    {/*errr.nombre del campo */}
+                                    <p className="parrafo"> {err.rer_descripcion}</p>
+                                   
+                                </div>
+                                <div className="Fecha y hora del error">
+                                <p>Fecha: </p>
+                                <p className="parrafo"> {err.rer_fecha}</p>
+                                <p>Hora: </p>
+                                <p className="parrafo"> {err.rer_hora}</p>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                ))}</div>

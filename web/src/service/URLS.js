@@ -1,5 +1,5 @@
 const URLS = {
-    URL_API:'http://127.0.0.1:8000/'
+    URL_API:'https://projectoinegrador-s4-production.up.railway.app/'
   }
   
   export default URLS

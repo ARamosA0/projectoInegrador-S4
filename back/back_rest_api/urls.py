@@ -24,6 +24,8 @@ urlpatterns = [
     path('sensorsvehicle/', views.InstrumentoXAutoAPIGeneral.as_view()),
     path('datasensors/', views.RegistroDatosAPIGeneral.as_view()),
     path('datasensors/<int:registrodato_id>', views.RegistroDatosAPIDetallado.as_view()),
+    path('data/<int:auto_id>', views.RegistroDatosPorAuto.as_view()),
+    
     #ErroresManuales
     path('errmanual/<int:registro_id>', views.RegistroErroresManuales.as_view()),
     path('errmanual/', views.RegistroErroresManuales.as_view()),

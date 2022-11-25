@@ -63,7 +63,7 @@ class RegistroDatosSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        representation['ixa'] = instance.ixa.instrumento
+        representation['ixa'] = instance.ixa.instrumento.id
         return representation
 
 class ErrManualSerializer(serializers.ModelSerializer):

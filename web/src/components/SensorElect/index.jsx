@@ -22,11 +22,13 @@ import {
 } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import RealMyCharts from "../Char";
+import {dataSensorGet} from "../../service/sensorServices"
 const SensorElect = () => {
   // Select fecha/hora
   const [fecha, setFecha] = useState(dayjs());
   const [averageVolt, setAverageVolt] = useState([]);
   const [date, setDate] = useState([]);
+  const [hour, setHour] = useState([]);
 
   const handleChangeFecha = (e) => {
     setFecha(e);
@@ -40,8 +42,11 @@ const SensorElect = () => {
       // const ixa = response.map((item)=>item.ixa)
       // console.log(ixa)
 
-      const data = response.filter(item=>parseInt(item.rda_fecha.slice(8)) === fecha.$D 
-                                     && parseInt(item.rda_fecha.slice(5,7)) !== fecha.$M)
+      const tipoSensor = response.filter(item=>item.ixa === 2)
+
+      const data = tipoSensor.filter(item=>parseInt(item.rda_fecha.slice(8)) === fecha.$D 
+                                     && parseInt(item.rda_fecha.slice(5,7)) !== fecha.$M
+                                     && parseInt(item.rda_hora.slice(0,2)) === fecha.$H)
       setAverageVolt(data.map((item)=>item.rda_valor))
       setHour(data.map((item)=>item.rda_hora))
       
@@ -55,15 +60,15 @@ const SensorElect = () => {
   const series = [
     //data on the y-axis
     {
-      name: "Temperature in Celsius",
-      data: averageTemp,
+      name: "Voltaje",
+      data: averageVolt,
     },
   ];
   const options = {
     //data on the x-axis
     chart: { id: "bar-chart" },
     xaxis: {
-      categories: date,
+      categories: hour,
     },
   };
 
@@ -93,7 +98,9 @@ const SensorElect = () => {
         </Grid>
       </Grid>
       <Grid item xs={12}>
-        {fecha.$D != dayjs().$D ? (
+        {fecha.$D != dayjs().$D
+        && fecha.$M === dayjs().$M
+        && fecha.$H === dayjs().$H ? (
           <Chart
           options={options}
           series={series}
@@ -103,12 +110,13 @@ const SensorElect = () => {
         ) : (
           <>
             REAL TIME
-            <Chart
+            <RealMyCharts sensor={2}/>
+            {/* <Chart
             options={options}
             series={series}
             type="line"
             width="900"
-          />
+          /> */}
           </>
         )}
       </Grid>

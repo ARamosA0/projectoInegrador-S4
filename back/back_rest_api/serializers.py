@@ -70,3 +70,9 @@ class ErrManualSerializer(serializers.ModelSerializer):
     class Meta:
         model = RegistroManual_rma
         fields = '__all__'
+
+
+class RegistroErrorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RegistroError_rer
+        fields = '__all__'

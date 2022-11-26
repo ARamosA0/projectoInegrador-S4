@@ -390,7 +390,6 @@ class RegistroDatosAPIGeneral(APIView):
 
         if serializer.is_valid():
             serializer.save()
-            print(serializer)
             if(sensor == 1 and float(value) >= 30):
                 print("entro")
 

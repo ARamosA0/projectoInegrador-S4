@@ -51,7 +51,6 @@ class LoginActivity : AppCompatActivity() {
 
 
         btnLogin.setOnClickListener(){
-            val textView = findViewById<TextView>(R.id.userEmaileditLog)
             val email = userEmaileditLog.text.toString()
             val pass =  userPasswordeditLog.text.toString()
 

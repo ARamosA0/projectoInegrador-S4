@@ -50,43 +50,6 @@
                     android:background="@drawable/btn_bg"
                     android:backgroundTint="@color/titbtn" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="16dp"
-                    android:fontFamily="@font/poppins_extrabold"
-                    android:text="Foto del vehículo:"
-                    app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
-
-                <androidx.cardview.widget.CardView
-                    app:cardElevation="8dp"
-                    app:cardCornerRadius="20dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="10dp"
-                    app:cardPreventCornerOverlap="true"
-                    android:layout_gravity="center"
-
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content">
-                    <ImageView
-                        android:id="@+id/ivImage"
-                        android:scaleType="fitXY"
-                        android:layout_width="170dp"
-                        android:layout_height="170dp"/>
-                </androidx.cardview.widget.CardView>
-
-
-                <Button
-
-                    android:id="@+id/btnImagen"
-                    android:layout_width="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_height="wrap_content"
-                    android:text="Editar"
-                    android:backgroundTint="@color/gris_oscuro"
-                    android:drawableTint="@color/white"
-                    android:drawableLeft="@drawable/ic_baseline_edit_24"/>
 
             </LinearLayout>
 

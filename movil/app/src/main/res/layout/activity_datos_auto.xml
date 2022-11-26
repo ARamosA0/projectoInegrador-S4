@@ -30,7 +30,7 @@
                 android:layout_marginBottom="34dp"
                 android:layout_weight="1"
                 android:layout_gravity="center"
-                android:src="@drawable/car"
+                android:src="@drawable/ic_baseline_directions_car_24"
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView

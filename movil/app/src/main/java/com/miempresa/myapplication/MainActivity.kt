@@ -1,10 +1,13 @@
 package com.miempresa.myapplication
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.StrictMode
 import androidx.appcompat.app.AlertDialog
 
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 
@@ -28,10 +31,30 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        createNotificationChannel()
+        val CHANNEL_ID = "com.miempresa.myapplication"
+        val builder = NotificationCompat.Builder(this,CHANNEL_ID)
 
+        builder.apply {
+            setContentTitle("Revision de bateria")
+            setContentText("Se ha notado un alarmante bajon de energía en su bateria," +
+                    " se recomienda llevarla a mantenimiento")
+            setSmallIcon(R.mipmap.ic_launcher_round)
+            priority = NotificationCompat.PRIORITY_DEFAULT
+        }
 
+        var idNotify = 10001
+        fun notificar (){
+            NotificationManagerCompat.from(this).
+                notify(idNotify, builder.build())
+        }
+        val timer = object : CountDownTimer(5000, 1000){
+            override fun onTick(p0: Long) {}
 
+            override fun onFinish() {
+                notificar()
+            }
+
+        }
 
         replaceFragment(AutoHome())
 
@@ -55,15 +78,6 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
-    /*
-    private fun createNotificationChannel() {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            val importance = Noti
-        }
-    }
-
- */
 
 
     private fun replaceFragment(fragment: Fragment){

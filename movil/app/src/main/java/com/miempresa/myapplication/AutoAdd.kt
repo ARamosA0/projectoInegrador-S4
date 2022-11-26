@@ -52,9 +52,6 @@ class AutoAdd : AppCompatActivity() {
 
         autoModeloAdd.setText(autoModeloAdd.text)
 
-        btnImagen.setOnClickListener(){
-            cargarImagen()
-        }
 
         val dateSetListener = object : DatePickerDialog.OnDateSetListener {
             override fun onDateSet(view: DatePicker, year: Int, monthOfYear: Int,
@@ -119,7 +116,6 @@ class AutoAdd : AppCompatActivity() {
             val color = auto_color.text.toString().trim()
             val descripcion = autoDescAdd.text.toString().trim()
             val año_adquision = autoAdqfecAdd.text.toString().trim()
-            val imagen_aut = getStringImagen(bitmap);
 
             if (marca.isEmpty() || modelo.isEmpty() || numero_placa.isEmpty() || color.isEmpty() ||descripcion.isEmpty() || año_adquision.isEmpty()) {
                 alertFail("Todos los campos deben ser llenados")
@@ -169,7 +165,7 @@ class AutoAdd : AppCompatActivity() {
                 jsonObj.put("aut_modelo", modelo)
                 jsonObj.put("aut_placa", numero_placa)
                 jsonObj.put("aut_usuario", userId)
-                jsonObj.put("aut_imagen", imagen_aut)
+                jsonObj.put("aut_imagen", "https://i.imgur.com/ivI611s.jpeg" )
                 jsonObj.put("aut_descripcion", descripcion)
                 jsonObj.put("aut_color", color)
                 jsonObj.put("aut_fecadquisicion", año_adquision)
@@ -268,72 +264,8 @@ class AutoAdd : AppCompatActivity() {
 
             }
         }
-
-
     }
 
-
-    private fun getStringImagen(bitmap: Bitmap?): Any {
-        val baos = ByteArrayOutputStream()
-        bitmap?.compress(Bitmap.CompressFormat.JPEG, 50, baos)
-        val imageBytes: ByteArray = baos.toByteArray()
-        return Base64.encodeToString(imageBytes, Base64.DEFAULT).toString()
-    }
-
-    private fun cargarImagen() {
-        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-        intent.setType("image/*")
-        startActivityForResult(intent,1)
-    }
-    //IMG_20221120_020605.jpg
-    //resultCode== RESULT_OK && requestCode == 1
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null){
-            var filePath: Uri? = data?.getData()
-            try{
-
-                bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath)
-                ivImage.setImageBitmap(bitmap)
-
-                /*
-                ivImage.setImageURI(imageUri)
-                val imageFile = imageUri?.let { getRealPathFromURI(it) }
-                val imageFile2 = Environment.getExternalStorageDirectory() + "/Pictures/" + "IMG_20221120_020605.jpg"
-                prueba.text = imageFile.toString()
-
-
-                 */
-                linkImagen.setText(filePath.toString())
-            } catch (e: IOException){
-                e.printStackTrace()
-            }
-
-
-        }
-    }
-
-    @Throws(IOException::class)
-    private fun createImageData(uri: Uri) {
-        val inputStream = contentResolver.openInputStream(uri)
-        inputStream?.buffered()?.use {
-            imageData = it.readBytes()
-        }
-    }
-
-    private fun getRealPathFromURI(selectedImageURI: Uri): Any {
-        val result: String
-        val cursor: Cursor? = contentResolver.query(selectedImageURI, null, null, null, null)
-        if (cursor == null) { // Source is Dropbox or other similar local file path
-            result = selectedImageURI.getPath().toString()
-        } else {
-            cursor.moveToFirst()
-            val idx: Int = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA)
-            result = cursor.getString(idx)
-            cursor.close()
-        }
-        return result
-    }
 
     private fun updateDateInView() {
         val myFormat = "yyy-MM-dd" // mention the format you need

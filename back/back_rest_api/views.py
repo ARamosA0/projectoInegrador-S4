@@ -377,33 +377,57 @@ class RegistroDatosAPIGeneral(APIView):
     def post(self, request):
 
         serializer = RegistroDatosSerializer(data=request.data)
-        
-        print("request",request.data)
+        lastId = RegistroDatos_rda.objects.latest('id')
 
         value = request.data.get("rda_valor")
-        sensor = request.data.get("axi")
+        sensor = request.data.get("ixa")
 
-        if(sensor == 1 and value >= 30):
-            r = requests.post("https://projectoinegrador-s4-production.up.railway.app/errsensor", 
-                            data ={
-                                'registro_datos':request.data.get("id"),
-                                'rer_nombre': "Error de Temperatura",
-                                'rer_descripcion': "La temperatura exedio de 30"
-                            })
 
-        if(sensor == 2 and value>=5):
-            r = requests.post("https://projectoinegrador-s4-production.up.railway.app/errsensor", 
-                            data ={
-                                'registro_datos':request.data.get("id"),
-                                'rer_nombre': "Error de Voltaje",
-                                'rer_descripcion': "El voltaje exedio de 5"
-                            })
-            
+        print("sensor",sensor)
+        print("value",value)
 
-            print(r)
+        
 
         if serializer.is_valid():
             serializer.save()
+            print(serializer)
+            if(sensor == 1 and float(value) >= 30):
+                print("entro")
+
+                try :
+                    r = requests.post("https://projectoinegrador-s4-production.up.railway.app/errsensor/", 
+                                data ={
+                                    'registro_datos':lastId.pk+1,
+                                    'rer_nombre': "Error de Temperatura",
+                                    'rer_descripcion': "La temperatura exedio de 30"
+                                })
+                    print(r)
+                except Exception as Error:
+                    print(Error)
+                    return Response({
+                        'status': False,
+                        'content': 'Error',
+                        'message': 'Internal server error'
+                    })  
+
+            if(sensor == 2 and float(value)>=5):
+                try:
+                    r = requests.post("https://projectoinegrador-s4-production.up.railway.app/errsensor/", 
+                                    data ={
+                                        'registro_datos':lastId.pk+1,
+                                        'rer_nombre': "Error de Voltaje",
+                                        'rer_descripcion': "El voltaje exedio de 5"
+                                    })
+
+                except Exception as Error:
+                    print(Error)
+                    return Response({
+                        'status': False,
+                        'content': 'Error',
+                        'message': 'Internal server error'
+                    })  
+
+                print(r)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -463,13 +487,16 @@ class RegistroErroresManualesDetalle(APIView):
         
 class RegistroErrores(APIView):
     def get(self, request):
-        reg_error = RegistroError_rer.objects.all()
-        serializer = RegistroErrorSerializer(reg_error)
+        registro_error = RegistroError_rer.objects.all()
+        serializer = RegistroErrorSerializer(registro_error, many=True)
 
-        return Response(serializer)
+        return Response(serializer.data)
 
     def post(self, request):
-        serializer = ErrManualSerializer(data = request.data)
+        serializer = RegistroErrorSerializer(data = request.data)
+
+        
+
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)

@@ -14,6 +14,8 @@ from rest_framework.exceptions import AuthenticationFailed
 import jwt, datetime
 
 import cloudinary.uploader
+
+import requests
 # Create your views here.
 
 #Index 
@@ -75,6 +77,8 @@ class LoginView(APIView):
 
 #Usuarios
 class UsuarioAPIGeneral(APIView):
+
+
     def get(self, request):
         token = request.COOKIES.get('jwt')
 
@@ -89,6 +93,47 @@ class UsuarioAPIGeneral(APIView):
         serializer =  UserSerializer(user)
 
         return Response(serializer.data)
+
+    def put(self, request):
+
+        token = request.COOKIES.get('jwt')
+
+        if not token:
+            raise AuthenticationFailed('Usuario no autenticado')
+        try:
+            payload = jwt.decode(token, 'secret', algorithms=['HS256'])
+        except jwt.ExpiredSignatureError:
+            raise AuthenticationFailed('Usuario no autenticado')
+        user = User.objects.filter(id=payload['id']).first()
+
+        serializer = UserSerializer(user, data=request.data)
+
+        context = {
+            'status':True,
+            'content':serializer.data   
+        }
+
+        return Response(context) 
+
+    def delete(self, request):
+        token = request.COOKIES.get('jwt')
+
+        if not token:
+            raise AuthenticationFailed('Usuario no autenticado')
+        try:
+            payload = jwt.decode(token, 'secret', algorithm=['HS256'])
+        except jwt.ExpiredSignatureError:
+            raise AuthenticationFailed('Usuario no autenticado')
+        user = User.objects.filter(id=payload['id']).first()
+
+        user.delete()
+
+        context = {
+            'status': True,
+            'message':'Usuario Eliminado'
+        }
+
+        return Response(context)
 
 class LogoutView(APIView):
     def post(self, request):
@@ -330,9 +375,58 @@ class RegistroDatosAPIGeneral(APIView):
         return Response(serializer.data)
     
     def post(self, request):
+
         serializer = RegistroDatosSerializer(data=request.data)
+        lastId = RegistroDatos_rda.objects.latest('id')
+
+        value = request.data.get("rda_valor")
+        sensor = request.data.get("ixa")
+
+
+        print("sensor",sensor)
+        print("value",value)
+
+        
+
         if serializer.is_valid():
             serializer.save()
+            if(sensor == 1 and float(value) >= 30):
+                print("entro")
+
+                try :
+                    r = requests.post("https://projectoinegrador-s4-production.up.railway.app/errsensor/", 
+                                data ={
+                                    'registro_datos':lastId.pk+1,
+                                    'rer_nombre': "Error de Temperatura",
+                                    'rer_descripcion': "La temperatura exedio de 30"
+                                })
+                    print(r)
+                except Exception as Error:
+                    print(Error)
+                    return Response({
+                        'status': False,
+                        'content': 'Error',
+                        'message': 'Internal server error'
+                    })  
+
+            if(sensor == 2 and float(value)>=5):
+                try:
+                    r = requests.post("https://projectoinegrador-s4-production.up.railway.app/errsensor/", 
+                                    data ={
+                                        'registro_datos':lastId.pk+1,
+                                        'rer_nombre': "Error de Voltaje",
+                                        'rer_descripcion': "El voltaje exedio de 5"
+                                    })
+
+                except Exception as Error:
+                    print(Error)
+                    return Response({
+                        'status': False,
+                        'content': 'Error',
+                        'message': 'Internal server error'
+                    })  
+
+                print(r)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -344,11 +438,25 @@ class RegistroDatosAPIDetallado (APIView):
             raise Http404
     
     def get(self, request, registrodato_id):
-        registro_datos = self.get_object(registrodato_id)
-        serializer = RegistroDatosSerializer(registro_datos)
+        # registro_datos = self.get_object.get(pk=registrodato_id)
+        inst = RegistroDatos_rda.objects.get(ixa=registrodato_id)
+        print(inst)
+        serializer = RegistroDatosSerializer(inst, many=True)
         return Response(serializer.data)
 
 
+
+class RegistroDatosPorAuto(APIView):
+    def get(self, request, auto_id):
+        insAuto = InstrumentoXAuto_ixa.objects.get(auto=auto_id)
+        serializers = InstrumentoXAutoSerializer(insAuto)
+        print(insAuto.id)
+        return Response(serializers.data)
+
+    
+
+
+#Error manual
 class RegistroErroresManuales(APIView):
     def get(self, request):
         errmanuall = RegistroManual_rma.objects.all()
@@ -365,7 +473,7 @@ class RegistroErroresManuales(APIView):
 
 class RegistroErroresManualesDetalle(APIView):
     def get(self, request, autoid):
-        errmanual = RegistroManual_rma.get(auto=autoid)
+        errmanual = RegistroManual_rma.objects.filter(auto=autoid)
         serializer = ErrManualSerializer(errmanual, many=True)
 
         return Response(serializer.data)
@@ -376,4 +484,19 @@ class RegistroErroresManualesDetalle(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
         
+class RegistroErrores(APIView):
+    def get(self, request):
+        registro_error = RegistroError_rer.objects.all()
+        serializer = RegistroErrorSerializer(registro_error, many=True)
+
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = RegistroErrorSerializer(data = request.data)
+
         
+
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

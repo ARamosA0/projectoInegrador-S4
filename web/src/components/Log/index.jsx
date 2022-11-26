@@ -9,7 +9,21 @@ import {
   MenuItem,
   Grid,
   TextField,
+  IconButton,
 } from "@mui/material";
+
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
+import { Line } from "react-chartjs-2";
+import { faker } from "@faker-js/faker";
 
 import {
   LocalizationProvider,
@@ -18,64 +32,107 @@ import {
 } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
+
+//ICONOS
+import ThermostatAutoIcon from '@mui/icons-material/ThermostatAuto';
+import ElectricMeterIcon from '@mui/icons-material/ElectricMeter';
+import ReportGmailerrorredIcon from '@mui/icons-material/ReportGmailerrorred';
+import GppBadIcon from '@mui/icons-material/GppBad';
+
+
+
+import SensorElect from "../SensorElect";
+import SensorTemp from "../SensorTem";
+import Inf_errores from "../histoerrores";
+
 // Import CSS
 import "./index.css";
 
-const Log = () => {
+
+const Log = ({auto}) => {
   // Select sensor
   const [sensor, setSensor] = useState("");
+  const [tipo, setTipo] = useState("Tipo");
+
+  const [tempContentVisible, setTempContentVisible] = useState(false);
+  const [eleContentVisible, setEleContentVisible] = useState(false);
+  const [manuContentVisible, setManuContentVisible] = useState(false);
+
   const handleChange = (event) => {
     setSensor(event.target.value);
   };
 
-  // Select fecha/hora
-  const [fecha, setFecha] = useState(dayjs());
-  const handleChangeFecha = (e) => {
-    setFecha(e);
+  const handleClick = (string) => {
+    setTipo(string);
   };
+
+  const renderResult = () => {
+    let result;
+    tipo === "Tipo" ? (result = "Tipo") : (result = tipo);
+    return result;
+  };
+  useEffect(() => {
+    tipo === "Tipo"
+      ? setTempContentVisible(true)
+      : setTempContentVisible(false);
+    tipo === "Temperatura"
+      ? setTempContentVisible(true)
+      : setTempContentVisible(false);
+    tipo === "Electricidad"
+      ? setEleContentVisible(true)
+      : setEleContentVisible(false);
+    tipo === "Manual"
+      ? setManuContentVisible(true)
+      : setManuContentVisible(false);
+  }, [tipo]);
+
   return (
     <>
       <Grid container>
-        <Grid item xs={12}></Grid>
         <Grid item xs={12}>
-          <FormControl variant="standard" sx={{ m: 1, minWidth: 200 }}>
-            <InputLabel id="demo-simple-select-label">Sensor</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={sensor}
-              label="Sensor"
-              onChange={handleChange}
-            >
-              <MenuItem value={10}>Temperatura</MenuItem>
-              <MenuItem value={20}>Velocidad</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
-        <Grid item xs={12} sx={{ marginBottom: 5, marginTop: 5 }}>
-          <Grid container>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <Grid item xs={6}>
-                <DesktopDatePicker
-                  label="Escoge la Fecha"
-                  inputFormat="MM/DD/YYYY"
-                  value={fecha}
-                  onChange={handleChangeFecha}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <TimePicker
-                  label="Escoge la hora"
-                  value={fecha}
-                  onChange={handleChangeFecha}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-              </Grid>
-            </LocalizationProvider>
+          <Grid cotainer className="icon-container">
+            <Grid item xs={2}>
+              <IconButton
+                size="large"
+                onClick={() => handleClick("Temperatura")}
+              >
+                <ThermostatAutoIcon  sx={{ fontSize: 100, color: '#8D0B0B' }} />
+              </IconButton>
+            </Grid>
+            <Grid item xs={2}>
+              <IconButton
+                size="large"
+                onClick={() => handleClick("Electricidad")}
+              >
+                <ElectricMeterIcon  sx={{ fontSize: 100, color: '#EAC614' }} />
+              </IconButton>
+            </Grid>
+
+            <Grid item xs={2}>
+              <IconButton
+                size="large"
+                onClick={() => handleClick("Manual")}
+              >
+                <GppBadIcon  sx={{ fontSize: 100, color: 'black' }} />
+              </IconButton>
+            </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={12}></Grid>
+        <Grid item xs={12} sx={{ textAlign: "center" }}>
+          {renderResult() === 'Tipo' ? (
+            <></>
+          ) : (
+            <h1 className="titulo">{renderResult()}</h1>
+          )}
+
+        </Grid>
+        <Grid item xs={12}>
+          {tempContentVisible && <SensorTemp />}
+          {eleContentVisible && <SensorElect />}
+          {manuContentVisible && <Inf_errores auto={auto}/>}
+        </Grid>
+
+
       </Grid>
     </>
   );

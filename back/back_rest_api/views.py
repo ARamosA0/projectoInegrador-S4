@@ -29,6 +29,13 @@ class Index(APIView):
         }
         return Response(context)
 
+#Obtener datos especificos del sensor
+class GettingDataSensors(APIView):
+    def get(self, request, ins_id):
+        datos_sensor = RegistroDatos_rda.objects.filter(ixa=ins_id)
+        
+        serializer = RegistroDatosSerializer(datos_sensor, many=True)
+        return Response(serializer.data)
 
 #Registro
 class RegisterView(APIView):

@@ -439,10 +439,13 @@ class RegistroDatosAPIDetallado (APIView):
     
     def get(self, request, registrodato_id):
         # registro_datos = self.get_object.get(pk=registrodato_id)
-        inst = RegistroDatos_rda.objects.get(ixa=registrodato_id)
-        print(inst)
+        inst = RegistroDatos_rda.objects.filter(ixa=registrodato_id)
         serializer = RegistroDatosSerializer(inst, many=True)
+        print(serializer.data)
         return Response(serializer.data)
+
+    # def get(self, request, id_isntrumento):
+    #     fil_instrumento = RegistroDatos_rda.objects.filter()
 
 
 

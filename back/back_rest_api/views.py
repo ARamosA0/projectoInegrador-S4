@@ -32,8 +32,8 @@ class Index(APIView):
 #Obtener datos especificos del sensor
 class GettingDataSensors(APIView):
     def get(self, request, ins_id):
-        datos_sensor = RegistroDatos_rda.objects.filter(ixa=ins_id)
-        
+        datos_sensor = RegistroDatos_rda.objects.filter(ixa__instrumento=ins_id)
+        print(datos_sensor)
         serializer = RegistroDatosSerializer(datos_sensor, many=True)
         return Response(serializer.data)
 
@@ -446,10 +446,13 @@ class RegistroDatosAPIDetallado (APIView):
     
     def get(self, request, registrodato_id):
         # registro_datos = self.get_object.get(pk=registrodato_id)
-        inst = RegistroDatos_rda.objects.get(ixa=registrodato_id)
-        print(inst)
+        inst = RegistroDatos_rda.objects.filter(ixa=registrodato_id)
         serializer = RegistroDatosSerializer(inst, many=True)
+        print(serializer.data)
         return Response(serializer.data)
+
+    # def get(self, request, id_isntrumento):
+    #     fil_instrumento = RegistroDatos_rda.objects.filter()
 
 
 
@@ -507,3 +510,4 @@ class RegistroErrores(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+

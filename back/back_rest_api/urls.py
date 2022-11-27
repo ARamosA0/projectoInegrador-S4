@@ -36,6 +36,7 @@ urlpatterns = [
 
     #Datos por id del sensor
     path('datapersensor/<int:ins_id>', views.GettingDataSensors.as_view()),
+
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

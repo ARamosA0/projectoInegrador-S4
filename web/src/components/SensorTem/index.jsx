@@ -117,7 +117,6 @@ const SensorTemp = () => {
           />
         ):
         <>
-          REAL TIME
           <RealMyCharts sensor={1}/>
           {/* <Chart
             options={options}

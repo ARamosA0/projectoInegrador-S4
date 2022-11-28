@@ -5,10 +5,11 @@
     android:layout_height="match_parent"
     tools:context=".ui.graficosFragments.GraficoTemperatura">
 
-    <com.jjoe64.graphview.GraphView
-        android:id="@+id/grafico"
+
+    <com.github.mikephil.charting.charts.LineChart
         android:layout_width="match_parent"
-        android:layout_marginHorizontal="10dp"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"
+        android:id="@+id/graphTemp"
+        android:layout_marginHorizontal="10dp"/>
 
 </FrameLayout>

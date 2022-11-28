@@ -52,7 +52,6 @@ class AutoHome : Fragment() {
         menuInfo: ContextMenu.ContextMenuInfo?
     ) {
         super.onCreateContextMenu(menu, v, menuInfo)
-        menu.setHeaderTitle("Opciones")
         requireActivity().menuInflater.inflate(R.menu.usuario_menu, menu)
     }
 

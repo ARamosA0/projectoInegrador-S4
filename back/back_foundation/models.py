@@ -158,9 +158,10 @@ class RegistroManual_rma(models.Model):
 
 class RegistroError_rer(models.Model):
     registro_datos = models.ForeignKey(RegistroDatos_rda, on_delete=models.CASCADE)
-    rer_nombre = models.CharField(max_length=100)
+    rer_nombre = models.CharField(max_length=200)
     rer_descripcion = models.TextField()
-    rer_fecregistro = models.DateTimeField(auto_now_add=True)
+    rer_fecregistro = models.DateField(auto_now=True)
+    rer_horaregistro = models.TimeField(auto_now=True)
 
     def __str__(self):
         return self.rer_nombre

@@ -511,3 +511,10 @@ class RegistroErrores(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+class RegistroErroresDetalle(APIView):
+    def get(self, request, sensor):
+        registro_error = RegistroError_rer.objects.filter(registro_datos__ixa=sensor)
+        serializer = RegistroErrorSerializer(registro_error, many=True)
+
+        return Response(serializer.data)

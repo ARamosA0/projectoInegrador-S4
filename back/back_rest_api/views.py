@@ -397,7 +397,7 @@ class RegistroDatosAPIGeneral(APIView):
                 print("entro")
                 try :
 
-                    r = requests.post("https://ms-error.up.railway.app//errsensor/", 
+                    r = requests.post("https://ms-error.up.railway.app/errsensor/", 
                                 data ={
                                     'registro_datos':lastId.pk+1,
                                     'rer_nombre': "Error de Temperatura",
@@ -414,7 +414,7 @@ class RegistroDatosAPIGeneral(APIView):
 
             if(sensor == 2 and float(value)>=5):
                 try:
-                    r = requests.post("https://ms-error.up.railway.app//errsensor/", 
+                    r = requests.post("https://ms-error.up.railway.app/errsensor/", 
                                     data ={
                                         'registro_datos':lastId.pk+1,
                                         'rer_nombre': "Error de Voltaje",

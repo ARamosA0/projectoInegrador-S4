@@ -99,7 +99,6 @@ const Inf_errores = ({ auto }) => {
                                     <Card className="polea">
                                         <CardContent className="Ojo">
                                             <div className="linea">
-
                                                 <p className="parrafouno"><b>{errr.rma_nombre}</b></p>
                                             </div>
                                             <div className="descripcion del error">

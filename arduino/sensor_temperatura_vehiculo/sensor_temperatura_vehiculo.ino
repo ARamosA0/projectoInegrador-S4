@@ -94,7 +94,7 @@ void httpDataPostRequest(float temperatureValue) {
   
    //Serializamos los valores obtenidos. Sensor de temperatura tiene id de 1 (puede cambiar)
    DynamicJsonDocument doc(1024);
-   doc["ixa"] = 2;
+   doc["ixa"] = 1;
    doc["rda_valor"] = roundingTempValue(temperatureValue);
    serializeJson(doc, jsonResult);
   

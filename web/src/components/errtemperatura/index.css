@@ -12,7 +12,6 @@
     align-items: center;
     display: grid;
     grid-template-columns:1fr 1fr 1fr;
-    
     grid-gap: 1em;
     width: 650px;
     height: 190px;
@@ -54,10 +53,21 @@
     margin-left: 100px;    
 }
 
-.parrafouno{
-    margin-top:60px;
-    margin-left: 10px;
-    text-shadow: 10px;
-    font-size: 19px;
-    
+.noerrores{
+    text-align: center;
+}
+
+.noerrorescontent{
+   
+    height: 100px;
+}
+
+.ContenedorErrr{
+   
+    margin-left: 452px;
+    margin-right: 0px;
+}
+
+.icono{
+    margin-left: 60px;
 }

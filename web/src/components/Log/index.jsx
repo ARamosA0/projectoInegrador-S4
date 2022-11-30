@@ -44,6 +44,9 @@ import GppBadIcon from '@mui/icons-material/GppBad';
 import SensorElect from "../SensorElect";
 import SensorTemp from "../SensorTem";
 import Inf_errores from "../histoerrores";
+import Inf_Err_Temp from "../errtemperatura";
+import Inf_Err_Volt from "../errvoltaje";
+
 
 // Import CSS
 import "./index.css";
@@ -127,8 +130,8 @@ const Log = ({auto}) => {
 
         </Grid>
         <Grid item xs={12}>
-          {tempContentVisible && <SensorTemp />}
-          {eleContentVisible && <SensorElect />}
+          {tempContentVisible && <Inf_Err_Temp />}
+          {eleContentVisible && <Inf_Err_Volt/>}
           {manuContentVisible && <Inf_errores auto={auto}/>}
         </Grid>
 

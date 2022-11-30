@@ -4,19 +4,15 @@ import RegAuto from "../../components/nuevoregistroautovalidacion";
 import {
   Container,
   Card,
-  CardActions,
-  CardMedia,
   CardContent,
-  CardHeader,
   Grid,
-  Modal,
-  Box,
-  Typography,
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogActions,
+  Box
 } from "@mui/material";
+
+import CircularProgress from "@mui/material/CircularProgress";
 
 import { Link, useParams } from "react-router-dom";
 
@@ -69,11 +65,10 @@ const Inf_Usuario = () => {
   };
 
   const handleDelete = async (id) => {
-    const a = await deleteCar(id)
-    console.log(a)
+    const a = await deleteCar(id);
+    console.log(a);
     window.location.replace(`/usuario/${usuarioId}`);
   };
-
 
   const filterCar = (id) => {
     const carData = userCars.filter((data) => data.id === id);
@@ -100,7 +95,9 @@ const Inf_Usuario = () => {
               </div>
             </div>
           ) : (
-            <></>
+            <Box sx={{ display: "flex" }}>
+              <CircularProgress />
+            </Box>
           )}
 
           <div className="tipos-elementos-container">
@@ -156,13 +153,13 @@ const Inf_Usuario = () => {
                 ))}
               <Grid item xs={3}>
                 <center>
-                <Button
-                  variant="contained"
-                  className="navbar-btn-single"
-                  onClick={handleOpenA}
-                >
-                  Agregar Auto
-                </Button>
+                  <Button
+                    variant="contained"
+                    className="navbar-btn-single"
+                    onClick={handleOpenA}
+                  >
+                    Agregar Auto
+                  </Button>
                 </center>
               </Grid>
             </Grid>

@@ -11,6 +11,7 @@ import {
 import "./index.css";
 
 import { geterrmanual } from "../../service/autoServices";
+import YoutubeSearchedForIcon from '@mui/icons-material/YoutubeSearchedFor';
 
 
 import {
@@ -88,36 +89,58 @@ const Inf_errores = ({ auto }) => {
                     </LocalizationProvider>
                 </Grid>
             </Grid>
+            {
+                userErroresm.length > 0 ?
 
+                    <div className="paraerrores">
+                        {userErroresm.length > 0 &&
+                            userErroresm.map((errr) => (
+                                <Grid item xs={7}>
+                                    <Card className="polea">
+                                        <CardContent className="Ojo">
+                                            <div className="linea">
 
-            <div className="paraerrores">
-                {userErroresm.length > 0 &&
-                    userErroresm.map((errr) => (
-                        <Grid item xs={7}>
-                            <Card className="polea">
-                                <CardContent className="Ojo">
-                                    <div className="linea">
+                                                <p className="parrafouno"><b>{errr.rma_nombre}</b></p>
+                                            </div>
+                                            <div className="descripcion del error">
+                                                <h3>Descripcion: </h3>
+                                                <p className="parrafo"> {errr.rma_descripcion}</p>
 
-                                        <p className="parrafo">{errr.rma_nombre}</p>
-                                    </div>
-                                    <div className="descripcion del error">
-                                        <h3>Descripcion: </h3>
-                                        <p className="parrafo"> {errr.rma_descripcion}</p>
+                                            </div>
+                                            <div className="botones">
+                                                <h3>Fecha: </h3>
+                                                <p className="parrafo"> {errr.rma_fecha}</p>
+                                                <h3>Hora: </h3>
+                                                <p className="parrafo"> {errr.rma_hora}</p>
+                                            </div>
+                                        </CardContent>
+                                    </Card>
+                                    <br /><br /><br />
+                                </Grid>
 
-                                    </div>
-                                    <div className="botones">
-                                        <h3>Fecha: </h3>
-                                        <p className="parrafo"> {errr.rma_fecha}</p>
-                                        <h3>Hora: </h3>
-                                        <p className="parrafo"> {errr.rma_hora}</p>
+                            ))}
+                    </div>
+
+                    :
+                    <div className="ContenedorErrr">
+
+                        <div className="icono">
+                            <YoutubeSearchedForIcon sx={{ fontSize: 100, color: '#FF5733' }} />
+                        </div>
+                        <Grid item xs={4}>
+                            <Card className="noerrorescontent">
+                                <CardContent className="noerrores">
+                                    <div >
+                                        <p>No hay ningun error en esta fecha</p>
                                     </div>
                                 </CardContent>
                             </Card>
                             <br /><br /><br />
-                        </Grid>
+                        </Grid></div>
+            }
 
-                    ))}
-            </div>
+
+
 
 
         </>

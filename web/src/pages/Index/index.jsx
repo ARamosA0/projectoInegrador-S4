@@ -23,7 +23,7 @@ const Index = () =>{
         <>
             <Container maxWidth="md" className="index-container">
                 <div className="index-titulo">
-                    <h1>Taller</h1>
+                    <h1>AUTOMAT</h1>
                 </div>
                 <div className="index-titulo-descripcion">
                     <div className="index-titulo-uno">

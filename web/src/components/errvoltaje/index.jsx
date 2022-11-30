@@ -11,6 +11,7 @@ import {
 import "./index.css";
 
 import { geterrsensor } from "../../service/autoServices";
+import YoutubeSearchedForIcon from '@mui/icons-material/YoutubeSearchedFor';
 
 
 import {
@@ -27,7 +28,7 @@ const Inf_Err_Volt = () => {
 
     //Constante para obtener la data de errores 
     const ErroresVoltaje = async () => {
-        const data = await geterrsensor();
+        const data = await geterrsensor(2);
         console.log(data)
         setuserErroresm(data);
     };
@@ -45,7 +46,7 @@ const Inf_Err_Volt = () => {
         console.log(fecha)
         console.log(e)
         try {
-            const response = await geterrsensor();
+            const response = await geterrsensor(2);
             console.log("para la fecha")
             console.log(response[0].rer_fecregistro)
             const data = response.filter(item => parseInt(item.rer_fecregistro.slice(8)) === e.$D
@@ -81,33 +82,53 @@ const Inf_Err_Volt = () => {
             </Grid>
 
 
-            <div className="paraerrores">
-                {userErroresm.length > 0 &&
-                    userErroresm.map((errr) => (
-                        <Grid item xs={7}>
-                            <Card className="polea">
-                                <CardContent className="Ojo">
-                                    <div className="linea">
-                                    <h3>Motivo: </h3>
-                                        <p className="parrafo">{errr.rer_nombre}</p>
-                                    </div>
-                                    <div className="descripcion del error">
-                                        <h3>Descripcion: </h3>
-                                        <p className="parrafo"> {errr.rer_descripcion}</p>
+            {
+                userErroresm.length > 0 ?
 
-                                    </div>
-                                    <div className="botones">
-                                        <h3>Fecha: </h3>
-                                        <p className="parrafo"> {errr.rer_fecregistro}</p>
-                                    
-                                    </div>
-                                </CardContent>
-                            </Card>
-                            <br /><br /><br />
-                        </Grid>
+                    <div className="paraerrores">
+                        {userErroresm.length > 0 &&
+                            userErroresm.map((errr) => (
+                                <Grid item xs={7}>
+                                    <Card className="polea">
+                                        <CardContent className="Ojo">
+                                            <div className="linea">
+                                                <h3>Motivo: </h3>
+                                                <p className="parrafo">{errr.rer_nombre}</p>
+                                            </div>
+                                            <div className="descripcion del error">
+                                                <h3>Descripcion: </h3>
+                                                <p className="parrafo"> {errr.rer_descripcion}</p>
 
-                    ))}
-            </div>
+                                            </div>
+                                            <div className="botones">
+                                                <h3>Fecha: </h3>
+                                                <p className="parrafo"> {errr.rer_fecregistro}</p>
+                                                <h3>Hora: </h3>
+                                                <p className="parrafo"> {errr.rer_horaregistro}</p>
+                                            </div>
+                                        </CardContent>
+                                    </Card>
+                                    <br /><br /><br />
+                                </Grid>
+
+                            ))}
+                    </div> :
+                    <div className="ContenedorErrr">
+
+                    <div className="icono">
+                    <YoutubeSearchedForIcon  sx={{ fontSize: 100, color: '#FF5733' }}/>
+                    </div>
+                    <Grid item xs={4}>
+                    <Card className="noerrorescontent">
+                        <CardContent className="noerrores">
+                            <div >
+                               <p>No hay ningun error en esta fecha</p>
+                            </div>
+                        </CardContent>
+                    </Card>
+                    <br /><br /><br />
+                </Grid></div>
+            }
 
 
         </>

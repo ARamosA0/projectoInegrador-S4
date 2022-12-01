@@ -54,7 +54,7 @@ class GraficoVoltaje : Fragment() {
             val graphRequest = JsonArrayRequest(url,
                 Response.Listener { response ->
                     try {
-                        for (i in 15 until response.length()) {
+                        for (i in 0 until response.length()) {
                             val id =
                                 response.getJSONObject(i).getInt("id")
                             val rda_fecha =
@@ -94,9 +94,6 @@ class GraficoVoltaje : Fragment() {
                         initLineChart(graph)
 
                         setDataToLineChart(graph)
-
-                        alertFail("Okey... Si se logró")
-
                         swipeEnd(swipe)
 
                     } catch (e: JSONException) {
@@ -104,6 +101,7 @@ class GraficoVoltaje : Fragment() {
                     }
                 }, Response.ErrorListener {
                     alertFail("No eres tu, soy yo. No podemos obtener los datos")
+                    swipeEnd(swipe)
                 })
             queue.add(graphRequest)
         }

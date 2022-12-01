@@ -126,7 +126,8 @@ class AutoAdd : AppCompatActivity() {
         if(bundle!=null){
             this.setTitle("Modificar vehiculo");
             autoModeloAdd.setText(bundle.getString("modelo").toString())
-            autoMarcaAdd.setText(bundle.getString("marca").toString())
+            autoMarcaAdd.setAdapter(MarcasAdapter)
+            //autoMarcaAdd.setText(bundle.getString("marca").toString())
             autoPlacaAdd.setText(bundle.getString("placa").toString())
             auto_color.setText(bundle.getString("color").toString())
             autoAdqfecAdd.setText(bundle.getString("fecAd").toString())

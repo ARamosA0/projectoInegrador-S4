@@ -34,7 +34,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="30dp"
                     android:fontFamily="@font/poppins_extrabold"
                     android:text="Ingresa los datos de tu vehículo"
                     android:textSize="32dp"
@@ -50,48 +50,23 @@
                     android:background="@drawable/btn_bg"
                     android:backgroundTint="@color/titbtn" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="16dp"
-                    android:fontFamily="@font/poppins_extrabold"
-                    android:text="Foto del vehículo:"
-                    app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
-
-                <ImageView
-                    android:id="@+id/ivImage"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/customborder_rounded"
-                    android:padding="35dp"
-                    android:src="@android:drawable/ic_menu_camera" />
-                <Button
-                    android:layout_margin="5dp"
-                    android:id="@+id/btnImagen"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Seleccionar imagen" />
 
             </LinearLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/TxtautoMarcaAdd"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="32dp"
-                android:hint="Marca del vehiculo"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
+                android:layout_marginHorizontal="32dp"
+                android:hint="Marca del vehículo"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
 
-                <com.google.android.material.textfield.TextInputEditText
+                <AutoCompleteTextView
                     android:id="@+id/autoMarcaAdd"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:inputType="none"/>
+
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -146,22 +121,51 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/TxtautoAdqfecAdd"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <TextView
+                android:id="@+id/textView6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
-                android:hint="Año de adquisicion"
-                app:layout_constraintTop_toBottomOf="@+id/TxtautoKmAdd">
+                android:text="Año de adquisición"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/estadoVehiculo" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/autoAdqfecAdd"
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ImageButton
+                    android:id="@+id/getDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="65dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="32dp"
+                    android:backgroundTint="@color/titbtn"
+                    android:src="@drawable/ic_baseline_calendar_month_24"
+                    />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/TxtautoAdqfecAdd"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="32dp"
+                    android:hint="YYY-MM-dd"
+                    app:layout_constraintTop_toBottomOf="@+id/TxtautoKmAdd">
+
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/autoAdqfecAdd"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
 
 
             <TextView
@@ -186,7 +190,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
 
-                android:hint="Descripción des vehículo">
+                android:hint="Descripción del vehículo">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/autoDescAdd"
@@ -194,6 +198,7 @@
                     android:layout_height="match_parent"
                     android:gravity="top" />
             </com.google.android.material.textfield.TextInputLayout>
+
 
             <Button
                 android:id="@+id/rgAuto"
@@ -203,8 +208,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="5dp"
-                android:text="Registrar vehículo"
-/>
+                android:text="Registrar vehículo" />
 
             <Button
                 android:id="@+id/modAuto"

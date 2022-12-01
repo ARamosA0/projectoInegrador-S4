@@ -119,6 +119,7 @@ class Instrumento_ins(models.Model):
 
     def __str__(self):
         return "{} Unidad: {}".format(self.ins_nombre, self.ins_unidad)
+        # return self.ins_nombre
 
 class InstrumentoXAuto_ixa(models.Model):
     auto = models.ForeignKey(Auto_aut, on_delete=models.CASCADE)
@@ -127,7 +128,8 @@ class InstrumentoXAuto_ixa(models.Model):
     ixa_fecmodificacion = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return "Auto: {} Sensor: {}".format(self.auto.aut_placa, self.instrumento.ins_nombre)
+        return "Auto: {} Sensor: {}".format(self.auto.aut_placa, self.instrumento.id)
+        # return self.ixa_fecinstalacion
 
 #Relacionado a registro de datos
 class RegistroDatos_rda(models.Model):
@@ -138,7 +140,8 @@ class RegistroDatos_rda(models.Model):
     rda_valor = models.DecimalField(max_digits=5, decimal_places=2)
 
     def __str__(self):
-        return "Instrumento: {}. Valor: {}.".format(self.ixa, self.rda_valor)
+        return "Instrumento: {}.".format(self.ixa.instrumento.id)
+        # return "Instrumento: {}. Valor: {}.".format(self.ixa.instrumento.id, self.rda_valor)
 
 class RegistroManual_rma(models.Model):
     auto = models.ForeignKey(Auto_aut, on_delete=models.CASCADE)
@@ -155,14 +158,10 @@ class RegistroManual_rma(models.Model):
 
 class RegistroError_rer(models.Model):
     registro_datos = models.ForeignKey(RegistroDatos_rda, on_delete=models.CASCADE)
-    registro_manual = models.ForeignKey(RegistroManual_rma, on_delete=models.CASCADE)
-    #Datos de registro de error
-    rer_nombre = models.CharField(max_length=100)
+    rer_nombre = models.CharField(max_length=200)
     rer_descripcion = models.TextField()
-    rer_fecha = models.DateField()
-    rer_hora = models.TimeField()
-    rer_fecregistro = models.DateTimeField(auto_now_add=True)
-    rer_fecmodificacion = models.DateTimeField(auto_now=True)
+    rer_fecregistro = models.DateField(auto_now=True)
+    rer_horaregistro = models.TimeField(auto_now=True)
 
     def __str__(self):
         return self.rer_nombre

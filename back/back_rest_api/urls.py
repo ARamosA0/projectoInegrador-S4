@@ -30,6 +30,15 @@ urlpatterns = [
     path('errmanual/<int:registro_id>', views.RegistroErroresManuales.as_view()),
     path('errmanual/', views.RegistroErroresManuales.as_view()),
     path('errormanual/<int:autoid>', views.RegistroErroresManualesDetalle.as_view()),
+
+    #ErrorSensor
+    path('errsensor/', views.RegistroErrores.as_view()),
+    path('errsensor/<int:sensor>', views.RegistroErroresDetalle.as_view()),
+
+
+    #Datos por id del sensor
+    path('datapersensor/<int:ins_id>', views.GettingDataSensors.as_view()),
+
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

@@ -9,12 +9,13 @@
 char* networkName = "network (2.4GHz)";
 char* networkPassword = "network password";
 
-char* url = "http://network ip:8000/datasensors/";
+char* url = "https://projectoinegrador-s4-production.up.railway.app/datasensors/";
+const int urlPort = 443;
 
 //Para el sensor de temperatura
 const float lineRegulation = 0.01;
-int pinSucessRequest = 5;
-int pinFailureRequest = 16;
+int pinSucessRequest = D4;
+int pinFailureRequest = D5;
 int delayRequest = 3000;
  
 int sensor = A0;
@@ -22,7 +23,7 @@ int sensor = A0;
 //Para aplicar concurrencia
 unsigned long lastTime = 0;
 unsigned long actualTime = 0;
-unsigned long waitTime = 60000;
+unsigned long waitTime = 5000;
 
 WiFiServer server(80);
 
@@ -76,52 +77,57 @@ void loop() {
 }
 
 void httpDataPostRequest(float temperatureValue) {
-  WiFiClient client;  
+  WiFiClientSecure client;
+  //WiFiClient client;  
   HTTPClient http;
 
   String jsonResult;
   int response;
 
-  //Inciamos un cliente HTTP y su header
-  http.begin(client, url);
-  http.addHeader("Content-Type", "application/json");
-
-  //Serializamos los valores obtenidos. Sensor de temperatura tiene id de 1 (puede cambiar)
-  DynamicJsonDocument doc(1024);
-  doc["sensor"] = 1;
-  doc["value"] = roundingTempValue(temperatureValue);
-  serializeJson(doc, jsonResult);
-
-  Serial.println(jsonResult);
-
-  //Se hace una peticion HTTP con el valor JSON
-  response = http.POST(jsonResult);
-
-  //Vemos si la respuesta es 200 
-  if(response > 0){
-    Serial.println("Status code: " + String(response));
-    
-    //Si es 200, entonces se enciende un led "success"
-    digitalWrite(pinSucessRequest, HIGH);
-    delay(delayRequest);
-    digitalWrite(pinSucessRequest, LOW);
-    delay(delayRequest);
-    
-    if(response == 200){
-      String reponse = http.getString();
-      Serial.println(response);
-    }
-  } else {
-    Serial.println(response);
-    
-    //Caso contrario, entonces se enciende un led "failure"
-    digitalWrite(pinFailureRequest, HIGH);
-    delay(delayRequest);
-    digitalWrite(pinFailureRequest, LOW);
-    delay(delayRequest);
-  }
-
-  http.end();
+  //Iniciamos la conexion con el servidor HTTPS
+  client.setInsecure();
+  client.connect(url, urlPort);
+  
+   //Iniciamos un cliente HTTP y su header
+   http.begin(client, url);
+   http.addHeader("Content-Type", "application/json");
+  
+   //Serializamos los valores obtenidos. Sensor de temperatura tiene id de 1 (puede cambiar)
+   DynamicJsonDocument doc(1024);
+   doc["ixa"] = 1;
+   doc["rda_valor"] = roundingTempValue(temperatureValue);
+   serializeJson(doc, jsonResult);
+  
+   Serial.println(jsonResult);
+  
+   //Se hace una peticion HTTP con el valor JSON
+   response = http.POST(jsonResult);
+  
+   //Vemos si la respuesta es 200 
+   if(response > 0){
+     Serial.println("Status code: " + String(response));
+      
+     //Si es 200, entonces se enciende un led "success"
+     digitalWrite(pinSucessRequest, HIGH);
+     delay(delayRequest);
+     digitalWrite(pinSucessRequest, LOW);
+     delay(delayRequest);
+      
+     if(response == 200){
+       String reponse = http.getString();
+       Serial.println(response);
+     }
+   } else {
+     Serial.println(response);
+      
+     //Caso contrario, entonces se enciende un led "failure"
+     digitalWrite(pinFailureRequest, HIGH);
+     delay(delayRequest);
+     digitalWrite(pinFailureRequest, LOW);
+     delay(delayRequest);
+   }
+  
+   http.end();
   
 }
 

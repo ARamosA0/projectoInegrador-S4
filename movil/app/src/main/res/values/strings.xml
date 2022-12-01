@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">movil</string>
+    <string name="app_name">Automat</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="AutoHome">AutoHome</string>
     <string name="Telemetria">Telemetria</string>
@@ -10,6 +10,7 @@
     <string name="fab_content_desc">Añadir auto</string>
 
     <string name="select_auto">Selecciona el vehículo</string>
+
     <string name="select_sensor">Selecciona el sensor</string>
 
     <string-array name="autos_usuario">
@@ -22,19 +23,22 @@
         <item>Temperatura</item>
         <item>Kilometraje</item>
     </string-array>
+
     <string name="label_from">Direccion origen</string>
     <string name="label_to">Direcion destino</string>
     <string name="btn_change">Modificar</string>
-<<<<<<< HEAD
-    <string name="urlAPI">http://192.168.1.102:8000</string>
-=======
+
+
+
     <string name="urlAPI">https://projectoinegrador-s4-production.up.railway.app</string>
->>>>>>> 6f86fb6ac2cfe9b09ffbb95d28e6c49e8fc6e2ae
+
     <string name="android_sdk_places_api_key">AIzaSyCtqNrtkX4e1-eboyl8Cyz2moIjm0goIzA</string>
     <string name="title_activity_mapa">mapa</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_mapa_taller">mapa_taller</string>
+
+
 
 </resources>

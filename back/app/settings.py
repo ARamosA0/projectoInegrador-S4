@@ -91,6 +91,19 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 #Si tienes errores con la base de datos talvez es por el password
+#borralo o cambialo
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'final_project_test',
+        'USER': 'root',
+        'PASSWORD': '123456',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
+}
+
+
 #BD DIGITAL OCEAN
 #DATABASES = {
  #    'default': {
@@ -106,16 +119,7 @@ WSGI_APPLICATION = 'app.wsgi.application'
 
 
 # #borralo o cambialo
-DATABASES = {
-    'default': {
-         'ENGINE': 'django.db.backends.mysql',
-         'NAME': 'final_project_test',
-         'USER': 'root',
-         'PASSWORD': '123456',
-         'HOST': 'localhost',
-         'PORT': '3306',
-    }
-}
+
 
 
 # Password validation

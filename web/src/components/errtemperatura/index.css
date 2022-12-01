@@ -1,0 +1,73 @@
+.item1{
+    padding:0px;
+    margin-bottom: 10px;
+    width: 200px;
+    height: 200px;
+    border-radius: 120px;
+    align-items: center;
+    text-align:center;
+}
+
+.Ojo{
+    align-items: center;
+    display: grid;
+    grid-template-columns:1fr 1fr 1fr;
+    grid-gap: 1em;
+    width: 650px;
+    height: 190px;
+}
+
+
+
+.ola{
+    margin-left: 4px;
+    border-left: 1px solid black;   
+   
+}
+
+
+.linea{
+    
+    border-right: 1px solid rgb(255, 255, 255);   
+    
+   
+}
+
+.botones{
+    margin-left: 20px;
+    
+}
+
+.parrafo{
+ margin-bottom: 1px;
+ margin-top: 1px;
+}
+
+#single{
+    width: 197px;
+    margin-bottom: 10px;
+
+}
+
+.paraerrores{
+    margin-left: 100px;    
+}
+
+.noerrores{
+    text-align: center;
+}
+
+.noerrorescontent{
+   
+    height: 100px;
+}
+
+.ContenedorErrr{
+   
+    margin-left: 452px;
+    margin-right: 0px;
+}
+
+.icono{
+    margin-left: 60px;
+}

@@ -41,13 +41,17 @@ const SensorTemp = () => {
     try {
       const response = await dataSensorGet();
 
-      // const ixa = response.map((item)=>item.ixa)
-      // console.log(ixa)
+      console.log(response[0].rda_hora.slice(0,2))
 
-      const data = response.filter(item=>parseInt(item.rda_fecha.slice(8)) === fecha.$D 
-                                     && parseInt(item.rda_fecha.slice(5,7)) !== fecha.$M)
+      const tipoSensor = response.filter(item=>item.ixa === 1)
+
+      const data = tipoSensor.filter(item=>parseInt(item.rda_fecha.slice(8)) === fecha.$D 
+                                     && parseInt(item.rda_fecha.slice(5,7)) !== fecha.$M
+                                     && parseInt(item.rda_hora.slice(0,2)) === fecha.$H)
       setAverageTemp(data.map((item)=>item.rda_valor))
       setHour(data.map((item)=>item.rda_hora))
+
+      console.log(data)
       
     } catch (error) {
         console.log(error);
@@ -58,7 +62,7 @@ const SensorTemp = () => {
 
  const series = [ //data on the y-axis
     {
-      name: "Temperatura en Celsius",
+      name: "Temperatura",
       data: averageTemp
     }
   ];
@@ -103,7 +107,8 @@ const SensorTemp = () => {
       </Grid>
       <Grid item xs={12}>
         {fecha.$D!=dayjs().$D
-        && fecha.$M === dayjs().$M?(
+        && fecha.$M === dayjs().$M
+        && fecha.$H === dayjs().$H?(
             <Chart
             options={options}
             series={series}
@@ -112,8 +117,13 @@ const SensorTemp = () => {
           />
         ):
         <>
-          REAL TIME
-          <RealMyCharts />
+          <RealMyCharts sensor={1}/>
+          {/* <Chart
+            options={options}
+            series={series}
+            type="line"
+            width="900"
+          /> */}
         </>
         }
         

@@ -34,6 +34,7 @@ class AutoSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         representation = super().to_representation(instance)
         representation['aut_imagen'] = instance.aut_imagen.url
+        representation['aut_marca'] = instance.aut_marca.mar_nombre
         return representation
 
 class MarcaSerializer(serializers.ModelSerializer):
@@ -53,13 +54,25 @@ class InstrumentoXAutoSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ['ixa_fecinstalacion', 'ixa_fecmodificacion']
 
+
 class RegistroDatosSerializer(serializers.ModelSerializer):
     class Meta:
         model = RegistroDatos_rda
         fields = '__all__'
         read_only_fields = ['rda_fecha', 'rda_hora']
 
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation['ixa'] = instance.ixa.instrumento.id
+        return representation
+
 class ErrManualSerializer(serializers.ModelSerializer):
     class Meta:
         model = RegistroManual_rma
+        fields = '__all__'
+
+
+class RegistroErrorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RegistroError_rer
         fields = '__all__'

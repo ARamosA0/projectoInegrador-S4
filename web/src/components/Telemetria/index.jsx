@@ -2,38 +2,15 @@ import { useEffect, useState } from "react";
 import dayjs from "dayjs";
 // material
 import {
-  Container,
-  InputLabel,
-  FormControl,
-  Select,
-  MenuItem,
   Grid,
-  TextField,
   IconButton,
 } from "@mui/material";
 
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
-import { Line } from "react-chartjs-2";
-import { faker } from "@faker-js/faker";
 
-import {
-  LocalizationProvider,
-  DesktopDatePicker,
-  TimePicker,
-} from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
-import ThermostatIcon from "@mui/icons-material/Thermostat";
-import ElectricBoltIcon from "@mui/icons-material/ElectricBolt";
+
+import ThermostatAutoIcon from '@mui/icons-material/ThermostatAuto';
+import ElectricMeterIcon from '@mui/icons-material/ElectricMeter';
 
 import SensorElect from "../SensorElect";
 import SensorTemp from "../SensorTem";
@@ -88,7 +65,7 @@ const Telemetria = () => {
                 size="large"
                 onClick={() => handleClick("Temperatura")}
               >
-                <ThermostatIcon sx={{ fontSize: 100, color:'#8D0B0B' }} />
+                <ThermostatAutoIcon sx={{ fontSize: 100, color:'#8D0B0B' }} />
               </IconButton>
             </Grid>
             <Grid item xs={2}>
@@ -96,7 +73,7 @@ const Telemetria = () => {
                 size="large"
                 onClick={() => handleClick("Electricidad")}
               >
-                <ElectricBoltIcon sx={{ fontSize: 100, color:'#EAC614' }} />
+                <ElectricMeterIcon sx={{ fontSize: 100, color:'#EAC614' }} />
               </IconButton>
             </Grid>
           </Grid>

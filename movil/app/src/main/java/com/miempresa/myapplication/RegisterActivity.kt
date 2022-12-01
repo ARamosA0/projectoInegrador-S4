@@ -82,7 +82,7 @@ class RegisterActivity : AppCompatActivity() {
                         sendRegister()
                     },
                     Response.ErrorListener {
-                        alertFail("Usuario ya existente")
+                        alertFail("Quiza este usuario ya este registrado, inténtalo otra vez")
                     })
                 queue.add(stringRequest)
 
@@ -112,8 +112,7 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun alertFail(s: String) {
         val alertDialogBuilder = AlertDialog.Builder(this)
-            .setTitle("Error")
-            .setIcon(R.drawable.ic_baseline_warning_24)
+            .setTitle("Ups! Algo salió mal")
             .setMessage(s)
             .setPositiveButton("OK", { dialog, whichButton ->
                 dialog.dismiss()

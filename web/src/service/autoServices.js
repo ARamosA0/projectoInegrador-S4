@@ -62,3 +62,15 @@ export const geterrmanual= async(id, auto) =>{
              console.log(error)
          }
 }
+
+
+
+export const geterrsensor= async(id) =>{
+    try {
+        const response = await axios.get(`${URLS.URL_API}errsensor/${id}`);
+        
+             return response.data
+         } catch (error){
+             console.log(error)
+         }
+}

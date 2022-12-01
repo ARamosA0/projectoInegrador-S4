@@ -3,35 +3,37 @@ import Chart from "react-apexcharts";
 
 import { dataSensorGet } from "../../service/sensorServices";
 
-const RealMyCharts = () => {
+const RealMyCharts = ({sensor}) => {
   const [averageTemp, setAverageTemp] = useState([]);
-  const [date, setDate] = useState([]);
   const [hour, setHour] = useState([]);
 
   useEffect(() => {
-    const getData = async () => {     
-      try {
-        const response = await dataSensorGet();
-  
-        // const ixa = response.map((item)=>item.ixa)
-        // console.log(ixa)
-  
-        const data = response.filter(item=>parseInt(item.rda_fecha.slice(8)) === fecha.$D 
-                                       && parseInt(item.rda_fecha.slice(5,7)) !== fecha.$M)
-        setAverageTemp(data.map((item)=>item.rda_valor))
-        setHour(data.map((item)=>item.rda_hora))
-        
-      } catch (error) {
-          console.log(error);
-      }
-    };
+    const getData = async () => {
+    try {
+      const response = await dataSensorGet();
+
+      // console.log(response[0].rda_hora.slice(0,2))
+
+      const tipoSensor = response.filter(item=>item.ixa === sensor)
+
+      // const data = tipoSensor.filter(item=>parseInt(item.rda_fecha.slice(8)) === fecha.$D 
+      //                                && parseInt(item.rda_fecha.slice(5,7)) !== fecha.$M)
+      setAverageTemp(tipoSensor.map((item)=>item.rda_valor))
+      setHour(tipoSensor.map((item)=>item.rda_hora))
+
+      // console.log(data)
+      
+    } catch (error) {
+        console.log(error);
+    }
+  };
     getData();
   }, [averageTemp]);
 
   const series = [
     //data on the y-axis
     {
-      name: "Temperature in Celsius",
+      name: "Valor",
       data: averageTemp,
     },
   ];
@@ -43,12 +45,12 @@ const RealMyCharts = () => {
         enabled: true,
         easing: "linear",
         dynamicAnimation: {
-          speed: 1000,
+          speed: 2000,
         },
       },
     },
     xaxis: {
-      categories: date,
+      categories: hour,
     },
   };
   return (

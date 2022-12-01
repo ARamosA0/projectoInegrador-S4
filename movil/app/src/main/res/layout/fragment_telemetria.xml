@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginBottom="56dp"
     tools:context=".ui.telemetria.Telemetria">
 
 
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:orientation="vertical">
@@ -46,23 +54,9 @@
             android:orientation="vertical"
             android:gravity="center">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="@string/select_auto"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
-
-                <AutoCompleteTextView
-                    android:id="@+id/autoUsuario"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="none"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
-
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/autoSensorText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -78,74 +72,17 @@
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/linearLayout4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"
-            android:layout_gravity="center"
-            android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/temperatura"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:drawableTop="@drawable/ic_baseline_device_thermostat_24"
-                android:backgroundTint="#FF9800"
-                android:padding="5dp"
-                android:text="Temperatura"
-                android:textSize="8dp" />
-
-            <Button
-                android:id="@+id/humedad"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:drawableTop="@drawable/ic_baseline_water_drop_24"
-                android:backgroundTint="@color/gris_oscuro"
-                android:padding="5dp"
-                android:text="Humedad"
-                android:textSize="8dp" />
-
-            <Button
-                android:id="@+id/minTemperatura"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:drawableTop="@drawable/ic_baseline_severe_cold_24"
-                android:backgroundTint="#03A9F4"
-                android:padding="5dp"
-                android:text="Min.\nTemperatura"
-                android:textSize="8dp" />
-            <Button
-                android:id="@+id/maxTemperatura"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:layout_weight="1"
-                android:drawableTop="@drawable/ic_baseline_whatshot_24"
-                android:backgroundTint="@color/purple_500"
-                android:padding="5dp"
-                android:text="Max.\nTemperatura"
-                android:textSize="8dp" />
-        </LinearLayout>
-
-        <com.echo.holographlibrary.LineGraph
-            android:id="@+id/lineGrafica"
-            android:layout_width="match_parent"
-            android:layout_height="200dp" />
-
-        <TextView
-            android:id="@+id/tvPuntos"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_horizontal"
-            android:layout_margin="16dp" />
 
     </LinearLayout>
-</FrameLayout>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <FrameLayout
+        android:id="@+id/contenedor_grafico"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

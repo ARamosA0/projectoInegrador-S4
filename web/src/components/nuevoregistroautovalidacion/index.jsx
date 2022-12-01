@@ -14,11 +14,16 @@ import {
   InputLabel,
 } from "@mui/material";
 
-import { marcas, registerCar, editCar } from "../../service/autoServices";
+import {
+  marcas,
+  registerCar,
+  editCar,
+  getCar,
+} from "../../service/autoServices";
 
 const RegAuto = ({ id, opcion }) => {
-//   console.log(id);
-//   console.log(opcion);
+  //   console.log(id);
+  //   console.log(opcion);
   // console.log("carId",carId)
 
   const [count, setcount] = useState([]);
@@ -49,15 +54,11 @@ const RegAuto = ({ id, opcion }) => {
     setCarImage(event.target.files[0]);
   };
 
-
-
   //API
   const fetchApi = async () => {
     const marcasdata = await marcas();
     setcount(marcasdata);
   };
-
-
 
   const handleSubmitPost = async () => {
     const image = new FormData();
@@ -70,16 +71,17 @@ const RegAuto = ({ id, opcion }) => {
     image.append("aut_color", valorInputs.aut_color);
     image.append("aut_usuario", id);
     console.log(image);
+    console.log(carImage);
     console.log(valorInputs);
     const register = await registerCar(image);
     console.log(register);
   };
 
-  const handleSubmitChange = async () =>{
+  const handleSubmitChange = async () => {
     const autoData = JSON.parse(localStorage.getItem("car"));
-    console.log(autoData[0].id)
+    console.log(autoData[0].id);
     setAuto(autoData);
-    console.log(auto)
+    console.log(auto);
     const image = new FormData();
     image.append("aut_marca", valorInputs.aut_marca);
     image.append("aut_modelo", valorInputs.aut_modelo);
@@ -91,8 +93,9 @@ const RegAuto = ({ id, opcion }) => {
     image.append("aut_usuario", id);
     console.log(image);
     const change = await editCar(autoData[0].id, image);
-    console.log(change)
-  }
+    console.log(change);
+    window.location.replace(`/usuario/${id}`);
+  };
 
   const ColorButton = styled(Button)(({ theme }) => ({
     backgroundColor: "#EB3B3B",
@@ -107,6 +110,12 @@ const RegAuto = ({ id, opcion }) => {
   //API
   useEffect(() => {
     fetchApi();
+    if (opcion === "editar") {
+      const autoData = JSON.parse(localStorage.getItem("car"));
+      console.log(autoData[0])
+      setAuto(autoData[0]);
+    }
+    // console.log(auto[0])
   }, []);
 
   return (
@@ -141,6 +150,7 @@ const RegAuto = ({ id, opcion }) => {
               type="text"
               fullWidth
               onChange={handleInputValue}
+              value={auto.aut_modelo}
             />
           </Grid>
           <Grid item xs={6} md={6}>
@@ -152,6 +162,7 @@ const RegAuto = ({ id, opcion }) => {
               color="warning"
               label="Placa del vehiculo"
               type="text"
+              value={auto.aut_placa}
               fullWidth
               onChange={handleInputValue}
             />
@@ -179,6 +190,7 @@ const RegAuto = ({ id, opcion }) => {
               label=""
               type="date"
               onChange={handleInputValue}
+              value={auto.aut_fecadquisicion}
               fullWidth
             />
           </Grid>
@@ -193,6 +205,7 @@ const RegAuto = ({ id, opcion }) => {
               label="Color del vehiculo"
               type="text"
               onChange={handleInputValue}
+              value={auto.aut_color}
               fullWidth
             />
           </Grid>
@@ -207,29 +220,31 @@ const RegAuto = ({ id, opcion }) => {
               label="Descripcion del vehiculo"
               type="text"
               onChange={handleInputValue}
+              value={auto.aut_descripcion}
               fullWidth
             />
           </Grid>
         </Grid>
-        { opcion === 'editar'?(
-        <ColorButton
-          variant="contained"
-          fullWidth
-          endIcon={<AppRegistrationIcon />}
-          onClick={handleSubmitChange}
-        >
-          EDITAR VEHICULO
-        </ColorButton>
-
-        ):(
-            <ColorButton
-              variant="contained"
-              fullWidth
-              endIcon={<AppRegistrationIcon />}
-              type="submit"
-            >
-              AGREGAR VEHICULO
-            </ColorButton>)}
+        {opcion === "editar" ? (
+          <ColorButton
+            variant="contained"
+            fullWidth
+            endIcon={<AppRegistrationIcon />}
+            onClick={handleSubmitChange}
+          >
+            EDITAR VEHICULO
+          </ColorButton>
+        ) : (
+          <ColorButton
+            variant="contained"
+            fullWidth
+            endIcon={<AppRegistrationIcon />}
+            type="submit"
+            // onClick={handleSubmitPost}
+          >
+            AGREGAR VEHICULO
+          </ColorButton>
+        )}
       </form>
     </Container>
   );

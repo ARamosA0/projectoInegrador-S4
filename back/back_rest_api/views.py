@@ -14,6 +14,8 @@ from rest_framework.exceptions import AuthenticationFailed
 import jwt, datetime
 
 import cloudinary.uploader
+
+import requests
 # Create your views here.
 
 #Index 
@@ -27,6 +29,13 @@ class Index(APIView):
         }
         return Response(context)
 
+#Obtener datos especificos del sensor
+class GettingDataSensors(APIView):
+    def get(self, request, ins_id):
+        datos_sensor = RegistroDatos_rda.objects.filter(ixa__instrumento=ins_id)
+        print(datos_sensor)
+        serializer = RegistroDatosSerializer(datos_sensor, many=True)
+        return Response(serializer.data)
 
 #Registro
 class RegisterView(APIView):
@@ -373,9 +382,54 @@ class RegistroDatosAPIGeneral(APIView):
         return Response(serializer.data)
     
     def post(self, request):
+
         serializer = RegistroDatosSerializer(data=request.data)
+        lastId = RegistroDatos_rda.objects.latest('id')
+
+        value = request.data.get("rda_valor")
+        sensor = request.data.get("ixa")
+        print("sensor",sensor)
+        print("value",value)
         if serializer.is_valid():
             serializer.save()
+            print("id", lastId.pk)
+            if(sensor == 1 and float(value) >= 30):
+                print("entro")
+                try :
+
+                    r = requests.post("https://ms-error.up.railway.app/errsensor/", 
+                                data ={
+                                    'registro_datos':lastId.pk+1,
+                                    'rer_nombre': "Error de Temperatura",
+                                    'rer_descripcion': "La temperatura exedio de 30"
+                                })
+                    print(r)
+                except Exception as Error:
+                    print(Error)
+                    return Response({
+                        'status': False,
+                        'content': 'Error',
+                        'message': 'Internal server error'
+                    })  
+
+            if(sensor == 2 and float(value)>=5):
+                try:
+                    r = requests.post("https://ms-error.up.railway.app/errsensor/", 
+                                    data ={
+                                        'registro_datos':lastId.pk+1,
+                                        'rer_nombre': "Error de Voltaje",
+                                        'rer_descripcion': "El voltaje exedio de 5"
+                                    })
+
+                except Exception as Error:
+                    print(Error)
+                    return Response({
+                        'status': False,
+                        'content': 'Error',
+                        'message': 'Internal server error'
+                    })  
+
+                print(r)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -387,11 +441,13 @@ class RegistroDatosAPIDetallado (APIView):
             raise Http404
     
     def get(self, request, registrodato_id):
-        # registro_datos = self.get_object.get(pk=registrodato_id)
-        inst = RegistroDatos_rda.objects.get(ixa=registrodato_id)
-        print(inst)
+        inst = RegistroDatos_rda.objects.filter(ixa=registrodato_id)
         serializer = RegistroDatosSerializer(inst, many=True)
+        print(serializer.data)
         return Response(serializer.data)
+
+    # def get(self, request, id_isntrumento):
+    #     fil_instrumento = RegistroDatos_rda.objects.filter()
 
 
 
@@ -433,4 +489,24 @@ class RegistroErroresManualesDetalle(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
         
-        
+class RegistroErrores(APIView):
+    def get(self, request):
+        registro_error = RegistroError_rer.objects.all()
+        serializer = RegistroErrorSerializer(registro_error, many=True)
+
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = RegistroErrorSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class RegistroErroresDetalle(APIView):
+    def get(self, request, sensor):
+        registro_error = RegistroError_rer.objects.filter(registro_datos__ixa=sensor)
+        serializer = RegistroErrorSerializer(registro_error, many=True)
+
+        return Response(serializer.data)

@@ -71,7 +71,7 @@ const Navbar = () =>{
         
         <div className="navbar-container">
             <div>
-                <Link to={"/"}><h2>Taller</h2></Link>
+                <Link to={"/"}><h2>AUTOMAT</h2></Link>
             </div>
             
             <div className="navbar-btn-group">

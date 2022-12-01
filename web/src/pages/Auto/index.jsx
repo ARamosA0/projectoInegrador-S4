@@ -107,10 +107,10 @@ const Auto = () => {
                 size="large"
                 onClick={() => handleClick("Telemetria")}
               >
-                <SsidChartIcon sx={{ fontSize: 100, color: "#483D8B" }} />
+                <SsidChartIcon sx={{ fontSize: 100}} />
               </IconButton>
               <IconButton size="large" onClick={() => handleClick("Historial")}>
-                <ManageSearchIcon sx={{ fontSize: 100, color: "#FF4500" }} />
+                <ManageSearchIcon sx={{ fontSize: 100}} />
               </IconButton>
               <IconButton
                 size="large"
@@ -129,7 +129,7 @@ const Auto = () => {
           )}
         </Grid>
 
-        <Grid item xs={12}>
+        <Grid item xs={12} className="tele-container">
           {datosContentVisible && <AutoInfo auto={auto} />}
 
           {teleContentVisible && <Telemetria auto={auto} />}

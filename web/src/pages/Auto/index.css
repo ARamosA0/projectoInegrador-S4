@@ -30,6 +30,12 @@ body{
     /* align-items: center !important; */
     justify-content: space-evenly !important;
     
+}
 
+.tele-conteiner{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 1300px !important;
 }
 

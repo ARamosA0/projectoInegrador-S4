@@ -33,6 +33,8 @@ urlpatterns = [
 
     #ErrorSensor
     path('errsensor/', views.RegistroErrores.as_view()),
+    path('errsensor/<int:sensor>', views.RegistroErroresDetalle.as_view()),
+
 
     #Datos por id del sensor
     path('datapersensor/<int:ins_id>', views.GettingDataSensors.as_view()),

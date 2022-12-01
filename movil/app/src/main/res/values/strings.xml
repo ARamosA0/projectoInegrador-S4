@@ -25,7 +25,11 @@
     <string name="label_from">Direccion origen</string>
     <string name="label_to">Direcion destino</string>
     <string name="btn_change">Modificar</string>
+<<<<<<< HEAD
     <string name="urlAPI">http://192.168.1.102:8000</string>
+=======
+    <string name="urlAPI">https://projectoinegrador-s4-production.up.railway.app</string>
+>>>>>>> 6f86fb6ac2cfe9b09ffbb95d28e6c49e8fc6e2ae
     <string name="android_sdk_places_api_key">AIzaSyCtqNrtkX4e1-eboyl8Cyz2moIjm0goIzA</string>
     <string name="title_activity_mapa">mapa</string>
     <string name="title_home">Home</string>

@@ -93,29 +93,29 @@ WSGI_APPLICATION = 'app.wsgi.application'
 
 #Si tienes errores con la base de datos talvez es por el password
 #borralo o cambialo
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'final_project_test',
-        'USER': 'root',
-        'PASSWORD': '1234',
-        'HOST': 'localhost',
-        'PORT': '3306',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'final_project_test',
+#         'USER': 'root',
+#         'PASSWORD': '1234',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#     }
+# }
 
 
 #BD DIGITAL OCEAN
-#DATABASES = {
- #    'default': {
-  #       'ENGINE': 'django.db.backends.mysql',
-   #      'NAME': 'defaultdb',
-    #     'USER': 'doadmin',
-     #    'PASSWORD': 'AVNS_N1KB4on2mcZGbRDgSlu',
-      #   'HOST': 'db-mysql-nyc1-55843-do-user-12058349-0.b.db.ondigitalocean.com',
-       #  'PORT': '25060',
-     #}
-#}
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'defaultdb',
+        'USER': 'doadmin',
+        'PASSWORD': 'AVNS_N1KB4on2mcZGbRDgSlu',
+        'HOST': 'db-mysql-nyc1-55843-do-user-12058349-0.b.db.ondigitalocean.com',
+        'PORT': '25060',
+     }
+}
 
 
 

@@ -102,7 +102,7 @@ class ErrorAdd : AppCompatActivity() {
                             alertFail("Hey, estos datos no van")
                         }
                     }, Response.ErrorListener {
-                        alertFail("Revisa tu conexion a internet")
+                        alertFail("Revisa los datos ingresados o tu conexión a internet")
                     })
                 queue.add(stringRequest)
             }
@@ -130,8 +130,7 @@ class ErrorAdd : AppCompatActivity() {
 
     private fun alertFail(s: String) {
         val alertDialogBuilder = AlertDialog.Builder(this)
-            .setTitle("Error")
-            .setIcon(R.drawable.ic_baseline_warning_24)
+            .setTitle("Ups! Algo salió mal")
             .setMessage(s)
             .setPositiveButton("OK", { dialog, whichButton ->
                 dialog.dismiss()

@@ -15,6 +15,7 @@ import android.provider.MediaStore
 import android.util.*
 import android.util.Base64
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.DatePicker
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
@@ -24,6 +25,8 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.miempresa.myapplication.ui.graficosFragments.GraficoTemperatura
+import com.miempresa.myapplication.ui.graficosFragments.GraficoVoltaje
 import kotlinx.android.synthetic.main.activity_auto_add.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -31,26 +34,48 @@ import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class AutoAdd : AppCompatActivity() {
 
     var cal = Calendar.getInstance()
-    var bitmap: Bitmap? = null
-    private var imageData: ByteArray? = null
+    var id_marca:Int? = null
+
+
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auto_add)
-
+/*
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
             == PackageManager.PERMISSION_GRANTED) {
         } else {
             requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 123);
         }
 
-        autoModeloAdd.setText(autoModeloAdd.text)
+ */
+        var listaMarcas = ArrayList<String>()
+        listaMarcas.add("Ferrari")
+        listaMarcas.add("Mercedes")
+        listaMarcas.add("toyota")
+
+        val MarcasAdapter = ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item, listaMarcas)
+
+        autoMarcaAdd.setAdapter(MarcasAdapter)
+
+        autoMarcaAdd.setOnItemClickListener{ adapterView, view, i, l ->
+            if (i == 0) {
+                id_marca = i+1
+            }
+            if (i == 1){
+                id_marca = i+1
+            }
+            if (i == 2){
+                id_marca = i+1
+            }
+        }
 
 
         val dateSetListener = object : DatePickerDialog.OnDateSetListener {
@@ -67,7 +92,6 @@ class AutoAdd : AppCompatActivity() {
             override fun onClick(view: View) {
                 DatePickerDialog(this@AutoAdd,
                     dateSetListener,
-                    // set DatePickerDialog to point to today's date when it loads up
                     cal.get(Calendar.YEAR),
                     cal.get(Calendar.MONTH),
                     cal.get(Calendar.DAY_OF_MONTH)).show()
@@ -83,10 +107,8 @@ class AutoAdd : AppCompatActivity() {
         val userId = datos?.getString("id", "id de usuario").toString()
 
         val bundle :Bundle ?=intent.extras
-        val imagen = bundle?.getString("imagen").toString()
+        val imagenAut = bundle?.getString("imagen").toString()
         val idAuto = bundle?.getString("id").toString()
-
-
 
 
         if(bundle!=null){
@@ -125,8 +147,6 @@ class AutoAdd : AppCompatActivity() {
                 auto_color.error = "Kilometraje required"
                 autoAdqfecAdd.error = "Año_adquisicion required"
                 autoDescAdd.error = "Descripcion required"
-
-
             }
             if (marca.isEmpty()) {
                 autoMarcaAdd.error = "Se requiere marca del vehiculo"
@@ -161,7 +181,8 @@ class AutoAdd : AppCompatActivity() {
                 val queue = Volley.newRequestQueue(this)
                 val url = getString(R.string.urlAPI) + "/vehicles/"
                 val jsonObj = JSONObject()
-                jsonObj.put("aut_marca", marca)
+
+                jsonObj.put("aut_marca", id_marca)
                 jsonObj.put("aut_modelo", modelo)
                 jsonObj.put("aut_placa", numero_placa)
                 jsonObj.put("aut_usuario", userId)
@@ -179,7 +200,7 @@ class AutoAdd : AppCompatActivity() {
                             alertFail("Hey, estos datos no van")
                         }
                     }, Response.ErrorListener {
-                        alertFail("Revisa tu conexion a internet")
+                        alertFail("Revisa los datos colocados o tu conexion a internet")
                     })
                 queue.add(stringRequest)
 
@@ -194,6 +215,7 @@ class AutoAdd : AppCompatActivity() {
             val color = auto_color.text.toString().trim()
             val descripcion = autoDescAdd.text.toString().trim()
             val año_adquision = autoAdqfecAdd.text.toString().trim()
+
 
             if (marca.isEmpty() || modelo.isEmpty() || numero_placa.isEmpty() || color.isEmpty() || descripcion.isEmpty() || año_adquision.isEmpty()) {
                 alertFail("Todos los campos deben ser llenados")
@@ -240,11 +262,11 @@ class AutoAdd : AppCompatActivity() {
                 val queue = Volley.newRequestQueue(this)
                 val url = getString(R.string.urlAPI) + "/vehicles/" + idAuto
                 val jsonObj = JSONObject()
-                jsonObj.put("aut_marca", marca)
+                jsonObj.put("aut_marca", id_marca)
                 jsonObj.put("aut_modelo", modelo)
                 jsonObj.put("aut_placa", numero_placa)
                 jsonObj.put("aut_usuario", userId)
-                jsonObj.put("aut_imagen", imagen)
+                jsonObj.put("aut_imagen", imagenAut)
                 jsonObj.put("aut_descripcion", descripcion)
                 jsonObj.put("aut_color", color)
                 jsonObj.put("aut_fecadquisicion", año_adquision)
@@ -258,7 +280,7 @@ class AutoAdd : AppCompatActivity() {
                             alertFail("Hey, estos datos no van")
                         }
                     }, Response.ErrorListener {
-                        alertFail("Revisa tu conexion a internet")
+                        alertFail("Algo salió mal")
                     })
                 queue.add(stringRequest)
 
@@ -286,7 +308,7 @@ class AutoAdd : AppCompatActivity() {
 
     private fun alertFail(s: String) {
         val alertDialogBuilder = AlertDialog.Builder(this)
-            .setTitle("Error")
+            .setTitle("Ups! Algo salio mal")
             .setMessage(s)
             .setPositiveButton("OK", { dialog, whichButton ->
                 dialog.dismiss()

@@ -18,6 +18,7 @@ import com.android.volley.toolbox.Volley
 import com.miempresa.myapplication.ui.graficosFragments.GraficoTemperatura
 import com.miempresa.myapplication.R
 import com.miempresa.myapplication.databinding.FragmentTelemetriaBinding
+import com.miempresa.myapplication.models.Temperatura
 import com.miempresa.myapplication.ui.autohome.AutoHome
 import com.miempresa.myapplication.ui.graficosFragments.GraficoVacio
 import com.miempresa.myapplication.ui.graficosFragments.GraficoVoltaje
@@ -40,7 +41,7 @@ class Telemetria : Fragment() {
 
         val listaSensores = ArrayList<String>()
         var selectorSensor =  view.findViewById<AutoCompleteTextView>(R.id.autoSensor)
-        var pruebaT = view.findViewById<EditText>(R.id.prueba)
+        //var pruebaT = view.findViewById<EditText>(R.id.prueba)
 
         AsyncTask.execute {
             val queue = Volley.newRequestQueue(getActivity() )
@@ -60,10 +61,7 @@ class Telemetria : Fragment() {
                             var sensor = ""
 
                             selectorSensor.setAdapter(OpAdapter)
-                            selectorSensor.setOnItemClickListener{ adapterView, view, i, l ->
-                                sensor = adapterView.getItemAtPosition(i).toString()
-                                pruebaT.setText(sensor)
-                            }
+
                         }
                     } catch (e: JSONException) {
                         alertFail("Error al obtener los datos")
@@ -74,16 +72,18 @@ class Telemetria : Fragment() {
             queue.add(stringRequest)
         }
 
+        replaceFragment(GraficoVacio())
 
-        var opSensor = pruebaT.getText().toString()
-
-
-        if (opSensor.isEmpty()) {
-            replaceFragment(GraficoTemperatura())
+        selectorSensor.setOnItemClickListener{ adapterView, view, i, l ->
+            //var opSensor = adapterView.getItemAtPosition(i).toString()
+            if (i == 0) {
+                replaceFragment(GraficoTemperatura())
+            }
+            if (i == 1){
+                replaceFragment(GraficoVoltaje())
+            }
         }
-        if (opSensor.isNotEmpty()){
-            replaceFragment(GraficoTemperatura())
-        }
+
 
         return view
     }

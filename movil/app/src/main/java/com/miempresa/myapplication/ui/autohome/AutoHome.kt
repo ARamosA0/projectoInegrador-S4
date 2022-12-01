@@ -4,17 +4,20 @@ import android.content.Context
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
+import android.os.Handler
 import android.view.*
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.*
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import coil.load
 import com.android.volley.Response
 import com.android.volley.toolbox.*
 import com.miempresa.myapplication.*
 import com.miempresa.myapplication.databinding.FragmentTelemetriaBinding
 import com.miempresa.myapplication.models.AutoData
+import kotlinx.android.synthetic.main.fragment_historial.*
 import org.json.JSONException
 
 
@@ -36,11 +39,11 @@ class AutoHome : Fragment() {
         }
 
         val btnCerrar = view.findViewById<ImageButton>(R.id.btn_cerrarsesion)
+
+
         registerForContextMenu(btnCerrar)
 
         registerForContextMenu(btnCerrar)
-
-
 
 
         return view
@@ -66,7 +69,9 @@ class AutoHome : Fragment() {
 
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
-            //datos de usuario
+
+            val swipe = view.findViewById<SwipeRefreshLayout>(R.id.swipeAutoHome)
+            swipe.setColorSchemeResources(R.color.purple_200)
 
             var NameText = view.findViewById<TextView>(R.id.userName)
             var UserImage = view.findViewById<ImageView>(R.id.userImage)
@@ -89,6 +94,7 @@ class AutoHome : Fragment() {
             listaAut.layoutManager = LinearLayoutManager(getActivity())
             var llenarLista = ArrayList<AutoData>()
             AsyncTask.execute {
+                swipeconfig(swipe)
                 val queue = Volley.newRequestQueue(getActivity())
                 val url = getString(R.string.urlAPI) + "/auto/" + userId
                 val stringRequest = JsonArrayRequest(url,
@@ -113,8 +119,7 @@ class AutoHome : Fragment() {
                                     response.getJSONObject(i).getString("aut_fecadquisicion")
                                 val usuario =
                                     response.getJSONObject(i).getString("aut_usuario")
-                                llenarLista.add(
-                                    AutoData(
+                                llenarLista.add(AutoData(
                                         id.toInt(),
                                         color,
                                         descripcion,
@@ -130,6 +135,8 @@ class AutoHome : Fragment() {
                             val adapter = AdaptadorAutos(llenarLista)
                             listaAut.adapter = adapter
 
+                            swipeEnd(swipe)
+
 
                         } catch (e: JSONException) {
                             alertFail("Error al obtener los datos")
@@ -141,7 +148,20 @@ class AutoHome : Fragment() {
             }
         }
 
-        private fun alertSuccess(s: String) {
+
+
+
+    private fun swipeconfig(swipe: SwipeRefreshLayout) {
+        swipe.isEnabled = true
+        swipe.isRefreshing = true
+    }
+
+    private fun swipeEnd(swipe: SwipeRefreshLayout) {
+        swipe.isRefreshing = false
+        swipe.isEnabled = false
+    }
+
+    private fun alertSuccess(s: String) {
             val alertDialogBuilder = getActivity()?.let {
                 AlertDialog.Builder(it)
                     .setTitle("Felicidades")

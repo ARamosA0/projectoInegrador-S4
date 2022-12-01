@@ -72,10 +72,7 @@
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 
-        <EditText
-            android:id="@+id/prueba"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+
 
     </LinearLayout>
 
@@ -86,7 +83,6 @@
     <FrameLayout
         android:id="@+id/contenedor_grafico"
         android:layout_width="match_parent"
-        android:layout_marginTop="25dp"
         android:layout_height="match_parent"/>
 
 </LinearLayout>

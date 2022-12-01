@@ -63,20 +63,27 @@
 
         <TextView
             android:id="@+id/userName"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
-            android:layout_gravity="center"
+            android:layout_marginHorizontal="32dp"
+            android:gravity="center"
             android:text="Jhon Doe"
             android:textSize="24dp"
             android:fontFamily="@font/poppins_medium"/>
 
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/lista"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeAutoHome"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/lista"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
 
 
     </LinearLayout>

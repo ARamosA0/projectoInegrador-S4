@@ -1,13 +1,18 @@
 package com.miempresa.myapplication
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
-import android.os.AsyncTask
-import android.os.Bundle
-import android.os.StrictMode
+import android.os.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import coil.load
 import com.android.volley.Request
 import com.android.volley.Response
@@ -21,10 +26,17 @@ import org.json.JSONException
 
 class DatosAuto : AppCompatActivity() {
 
+    companion object {
+        const val MY_CHANNEL_ID = "com.miempresa.myapplication"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_datos_auto)
         this.setTitle("Datos del vehículo");
+
+
+
         val policy =
             StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
@@ -85,7 +97,6 @@ class DatosAuto : AppCompatActivity() {
                         val adapter = AdaptadorErrores(llenarLista)
                         listaErr.adapter = adapter
 
-
                     } catch (e: JSONException) {
                         alertFail("Error al obtener los datos")
                     }
@@ -97,6 +108,7 @@ class DatosAuto : AppCompatActivity() {
 
 
     }
+
 
     private fun alertEliminar(s: String, idvehiculo:String) {
         val alertDialogBuilder = AlertDialog.Builder(this)
@@ -133,7 +145,6 @@ class DatosAuto : AppCompatActivity() {
     private fun alertSuccess(s: String) {
         val alertDialogBuilder = AlertDialog.Builder(this)
             .setTitle("Felicidades")
-            .setIcon(R.drawable.ic_baseline_check_24)
             .setMessage(s)
             .setPositiveButton("OK", { dialog, whichButton ->
                 dialog.dismiss()
@@ -145,7 +156,6 @@ class DatosAuto : AppCompatActivity() {
     private fun alertFail(s: String) {
         val alertDialogBuilder = AlertDialog.Builder(this)
             .setTitle("Error")
-            .setIcon(R.drawable.ic_baseline_warning_24)
             .setMessage(s)
             .setPositiveButton("OK", { dialog, whichButton ->
                 dialog.dismiss()

@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity() {
         binding.navView.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.navigation_autohome -> replaceFragment(AutoHome())
-                R.id.navigation_taller -> replaceFragment(Taller())
+                R.id.navigation_taller -> replaceFragment(MapsFragment())
                 R.id.navigation_historial -> replaceFragment(Historial())
                 R.id.navigation_telemetria -> replaceFragment(Telemetria())
                 else ->{

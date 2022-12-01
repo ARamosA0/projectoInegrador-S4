@@ -102,6 +102,7 @@ class GraficoTemperatura : Fragment() {
                     }
                 }, Response.ErrorListener {
                     alertFail("No eres tu soy yo, no podemos obtener los datos")
+                    swipeEnd(swipe)
                 })
             queue.add(graphRequest)
         }

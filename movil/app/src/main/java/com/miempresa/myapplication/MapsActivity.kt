@@ -49,6 +49,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback,
         )
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 15f))
         mMap.setOnMarkerClickListener(this)
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney, 15f))
     }
 
 

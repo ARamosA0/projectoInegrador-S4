@@ -143,6 +143,7 @@ class AutoHome : Fragment() {
                     }
                 }, Response.ErrorListener {
                     alertFail("Intenta ingresar mas tarde o revisa tu conexión a internet")
+                    swipeEnd(swipe)
                 })
             queue.add(stringRequest)
         }

@@ -27,21 +27,26 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <LinearLayout
             android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="right">
+            android:layout_gravity="left">
+            
 
             <ImageButton
+
+
                 android:id="@+id/btn_cerrarsesion"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="8dp"
                 android:backgroundTint="#00FFFFFF"
-                android:gravity="center"
+
                 android:src="@drawable/ic_baseline_settings_24"
                 android:text="Button"
                 app:tint="@color/gris_oscuro"
@@ -87,7 +92,6 @@
 
 
     </LinearLayout>
-
 
 
 

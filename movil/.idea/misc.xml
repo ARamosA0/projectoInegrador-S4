@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/activity_auto_add.xml" value="0.11302083333333333" />
+        <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/activity_datos_auto.xml" value="0.109375" />
+        <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/activity_destinos.xml" value="0.1" />
+        <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/activity_destinosss.xml" value="0.1" />
+        <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/activity_login.xml" value="0.25052083333333336" />
+        <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/activity_main.xml" value="0.25052083333333336" />
+        <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/activity_mapa.xml" value="0.1" />
+        <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/activity_mapa_taller.xml" value="0.25052083333333336" />
+        <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/activity_maps.xml" value="0.15896739130434784" />
+        <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/activity_register.xml" value="0.25052083333333336" />
+        <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/activity_tallerrr.xml" value="0.72" />
+        <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/elemento_aut.xml" value="0.25052083333333336" />
+        <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/elemento_sensorerror.xml" value="0.13385416666666666" />
+        <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/fragment_auto_home.xml" value="0.264" />
+        <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/fragment_dashboard.xml" value="0.25052083333333336" />
+        <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/fragment_home.xml" value="0.25052083333333336" />
+        <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/fragment_notifications.xml" value="0.25052083333333336" />
+        <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/fragment_taller.xml" value="0.25052083333333336" />
+      </map>
+    </option>
+  </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />

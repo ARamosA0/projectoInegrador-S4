@@ -1,6 +1,7 @@
 package com.miempresa.myapplication.models
 
 data class AutoData(
+
     val id:Int,
     val aut_color: String,
     val aut_descripcion: String,

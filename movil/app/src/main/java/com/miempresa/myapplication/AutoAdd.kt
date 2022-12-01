@@ -4,14 +4,16 @@ import android.Manifest
 import android.app.DatePickerDialog
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.database.Cursor
-import android.graphics.Bitmap
-import android.net.Uri
+
 import android.os.Build
+
 import android.os.Bundle
+
 import android.os.StrictMode
 import android.provider.MediaStore
+
+
+
 import android.util.*
 import android.util.Base64
 import android.view.View
@@ -21,6 +23,7 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
@@ -30,6 +33,12 @@ import com.miempresa.myapplication.ui.graficosFragments.GraficoVoltaje
 import kotlinx.android.synthetic.main.activity_auto_add.*
 import org.json.JSONException
 import org.json.JSONObject
+
+
+import android.widget.ImageView
+
+import java.util.*
+
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -37,10 +46,13 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
+
 class AutoAdd : AppCompatActivity() {
+
 
     var cal = Calendar.getInstance()
     var id_marca:Int? = null
+
 
 
 
@@ -55,6 +67,8 @@ class AutoAdd : AppCompatActivity() {
             requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 123);
         }
 
+<<<<<<< HEAD
+=======
  */
         var listaMarcas = ArrayList<String>()
         listaMarcas.add("Ferrari")
@@ -76,6 +90,7 @@ class AutoAdd : AppCompatActivity() {
                 id_marca = i+1
             }
         }
+
 
 
         val dateSetListener = object : DatePickerDialog.OnDateSetListener {

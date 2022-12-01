@@ -7,23 +7,46 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
+
+
+
+
 import android.os.StrictMode
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import androidx.appcompat.app.AlertDialog
+
+
+import android.os.Handler
+
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
+
+
+
+
+
 import com.miempresa.myapplication.databinding.ActivityMainBinding
+
 import com.miempresa.myapplication.ui.autohome.AutoHome
 import com.miempresa.myapplication.ui.historial.Historial
 import com.miempresa.myapplication.ui.taller.Taller
 import com.miempresa.myapplication.ui.telemetria.Telemetria
 
 
+
+
+
 class MainActivity : AppCompatActivity() {
+
+
 
     private lateinit var binding : ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
+
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -107,4 +130,5 @@ class MainActivity : AppCompatActivity() {
             notify(1, builder.build())
         }
     }
+
 }

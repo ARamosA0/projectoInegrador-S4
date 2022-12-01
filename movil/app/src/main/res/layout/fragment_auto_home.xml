@@ -32,14 +32,9 @@
             android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-
-            <Button
-                android:id="@+id/notificacion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Button" />
+            android:orientation="vertical"
+            android:layout_gravity="left">
+            
 
             <ImageButton
 

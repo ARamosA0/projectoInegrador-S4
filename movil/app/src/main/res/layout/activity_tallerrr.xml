@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".tallerrr"
+    tools:context=".destinos"
     android:orientation="vertical">
 
     <TextView
@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:text="@string/label_from"/>
     <Button
-        android:id="@+id/btmFrom"
+        android:id="@+id/btnFrom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/btn_change"

@@ -66,9 +66,6 @@ class AutoAdd : AppCompatActivity() {
         } else {
             requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 123);
         }
-
-<<<<<<< HEAD
-=======
  */
         var listaMarcas = ArrayList<String>()
         listaMarcas.add("Ferrari")

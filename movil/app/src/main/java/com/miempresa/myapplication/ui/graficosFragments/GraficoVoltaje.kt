@@ -1,5 +1,7 @@
 package com.miempresa.myapplication.ui.graficosFragments
 
+import android.app.PendingIntent
+import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,6 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonArrayRequest
@@ -19,6 +23,7 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.miempresa.myapplication.R
+import com.miempresa.myapplication.RegisterActivity
 import com.miempresa.myapplication.models.Voltaje
 import org.json.JSONException
 
@@ -61,6 +66,28 @@ class GraficoVoltaje : Fragment() {
                             val ixa =
                                 response.getJSONObject(i).getInt("ixa")
                             scoreList.add(Voltaje(rda_fecha, rda_valor))
+                            if(rda_valor > 5.00){
+                                val CHANNEL_ID = "com.miempresa.myapplication"
+                                val intent = Intent(getActivity(), RegisterActivity::class.java).apply {
+                                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                }
+                                val pendingIntent: PendingIntent = PendingIntent.getActivity(getActivity(), 0, intent, PendingIntent.FLAG_IMMUTABLE)
+                                val builder = getActivity()?.let {
+                                    NotificationCompat.Builder(it, CHANNEL_ID)
+                                        .setSmallIcon(R.drawable.ic_baseline_directions_car_24)
+                                        .setContentTitle("ALERTA DE SENSOR")
+                                        .setContentText("Voltaje mayor a 5V detectada!")
+                                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                                        // Set the intent that will fire when the user taps the notification
+                                        //.setContentIntent(pendingIntent)
+                                        .setAutoCancel(true)
+                                }
+
+                                with(getActivity()?.let { NotificationManagerCompat.from(it) }) {
+                                    // notificationId is a unique int for each notification that you must define
+                                    builder?.let { this?.notify(1, it.build()) }
+                                }
+                            }
                         }
 
                         //setValueXLineChart(graph)
@@ -76,7 +103,7 @@ class GraficoVoltaje : Fragment() {
                         alertFail("Error al obtener los datos")
                     }
                 }, Response.ErrorListener {
-                    alertFail("Error en la conexion")
+                    alertFail("No eres tu, soy yo. No podemos obtener los datos")
                 })
             queue.add(graphRequest)
         }
@@ -156,7 +183,7 @@ class GraficoVoltaje : Fragment() {
     private fun alertFail(s: String) {
         val alertDialogBuilder = getActivity()?.let {
             AlertDialog.Builder(it)
-                .setTitle("Error")
+                .setTitle("Ups! Algo salió mal")
                 .setMessage(s)
                 .setPositiveButton("OK", { dialog, whichButton ->
                     dialog.dismiss()

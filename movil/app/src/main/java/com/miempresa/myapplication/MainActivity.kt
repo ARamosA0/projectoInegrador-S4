@@ -123,7 +123,7 @@ class MainActivity : AppCompatActivity() {
             .setSmallIcon(R.drawable.ic_baseline_directions_car_24)
             .setContentTitle("Revisión de mantenimiento")
             .setContentText("Ha pasado tiempo, hazle un chequeo a tu auto.")
-            .setContentIntent(pendingIntent)
+            //.setContentIntent(pendingIntent)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
         with(NotificationManagerCompat.from(this)) {

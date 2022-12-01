@@ -42,7 +42,7 @@ const Inf_Err_Temp = () => {
       const data = response.filter(
         (item) =>
           parseInt(item.rer_fecregistro.slice(8)) === e.$D &&
-          parseInt(item.rer_fecregistro.slice(5, 7)) !== e.$M
+          parseInt(item.rer_fecregistro.slice(5, 7)) !== e.$M+11
       );
       console.log(parseInt(response[0].rer_fecregistro.slice(8)));
       setuserErroresm(data.map((item) => item));

@@ -41,7 +41,7 @@ const Inf_Err_Volt = () => {
       const data = response.filter(
         (item) =>
           parseInt(item.rer_fecregistro.slice(8)) === e.$D &&
-          parseInt(item.rer_fecregistro.slice(5, 7)) !== e.$M
+          parseInt(item.rer_fecregistro.slice(5, 7)) === e.$M+1
       );
       console.log(parseInt(response[0].rer_fecregistro.slice(8)));
       setuserErroresm(data.map((item) => item));
@@ -70,11 +70,11 @@ const Inf_Err_Volt = () => {
       </Grid>
 
       {userErroresm.length > 0 ? (
-        <div className="paraerrores">
+        <Grid container  className="paraerrores">
           {userErroresm.length > 0 &&
             userErroresm.map((errr) => (
-                <Grid item xs={7}>
-                <Card >
+              <Grid item xs={7}>
+                <Card>
                   <CardContent>
                     <Grid container spacing={2}>
                       <Grid item lg={4} sm={12} className="linea">
@@ -87,7 +87,12 @@ const Inf_Err_Volt = () => {
                           </Grid>
                         </Grid>
                       </Grid>
-                      <Grid item lg={4} sm={12} className="descripcion del error">
+                      <Grid
+                        item
+                        lg={4}
+                        sm={12}
+                        className="descripcion del error"
+                      >
                         <Grid container>
                           <Grid item xs={12}>
                             <h3>Descripcion: </h3>
@@ -121,7 +126,7 @@ const Inf_Err_Volt = () => {
                 <br />
               </Grid>
             ))}
-        </div>
+        </Grid>
       ) : (
         <div className="ContenedorErrr">
           <div className="icono">

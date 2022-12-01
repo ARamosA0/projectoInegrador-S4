@@ -108,7 +108,7 @@ class LoginActivity : AppCompatActivity() {
                             alertFail("Hey, estos datos no van")
                         }
                     }, Response.ErrorListener {
-                        alertFail("Revisa los datos ingresados, es posible que este usuario ya esté registrado")
+                        alertFail("Revisa los datos ingresados, o revisa tu conexión a internet")
                     })
                 queue.add(stringRequest)
             }

@@ -67,7 +67,7 @@ class Telemetria : Fragment() {
                         alertFail("Error al obtener los datos")
                     }
                 }, Response.ErrorListener {
-                    alertFail("Error en la conexion")
+                    alertFail("Intenta ingresar mas tarde o revisa tu conexión a internet")
                 })
             queue.add(stringRequest)
         }
@@ -103,7 +103,7 @@ class Telemetria : Fragment() {
     private fun alertFail(s: String) {
         val alertDialogBuilder = getActivity()?.let {
             AlertDialog.Builder(it)
-                .setTitle("Error")
+                .setTitle("Ups! Algo salió mal")
                 .setMessage(s)
                 .setPositiveButton("OK", { dialog, whichButton ->
                     dialog.dismiss()

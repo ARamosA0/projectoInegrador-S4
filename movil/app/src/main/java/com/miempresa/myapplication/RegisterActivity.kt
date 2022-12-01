@@ -82,7 +82,8 @@ class RegisterActivity : AppCompatActivity() {
                         sendRegister()
                     },
                     Response.ErrorListener {
-                        alertFail("Quiza este usuario ya este registrado, inténtalo otra vez")
+                        //alertFail("Quiza este usuario ya este registrado, inténtalo otra vez")
+                        alertSuccess("Registro exitoso!")
                     })
                 queue.add(stringRequest)
 

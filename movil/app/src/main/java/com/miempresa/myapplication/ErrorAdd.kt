@@ -67,7 +67,6 @@ class ErrorAdd : AppCompatActivity() {
 
         val bundle :Bundle ?=intent.extras
         val idvehiculo = bundle?.getString("idvehiculo").toString()
-        errorDescAdd.setText(idvehiculo)
 
         rgError.setOnClickListener(){
             val nombre = errorNombreAdd.text.toString().trim()

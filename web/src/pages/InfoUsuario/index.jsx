@@ -95,7 +95,7 @@ const Inf_Usuario = () => {
               </div>
             </div>
           ) : (
-            <Box sx={{ display: "flex" }}>
+            <Box sx={{ display: "flex", justifyContent:"center", alignItems:"center" }}>
               <CircularProgress />
             </Box>
           )}

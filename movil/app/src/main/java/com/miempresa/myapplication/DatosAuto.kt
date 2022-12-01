@@ -112,7 +112,7 @@ class DatosAuto : AppCompatActivity() {
                         alertFail("Error al obtener los datos")
                     }
                 }, Response.ErrorListener {
-                    alertFail("Error en la conexion")
+                    alertFail("Intenta ingresar mas tarde o revisa tu conexión a internet")
                 })
             queue.add(stringRequest)
         }
@@ -166,7 +166,7 @@ class DatosAuto : AppCompatActivity() {
 
     private fun alertFail(s: String) {
         val alertDialogBuilder = AlertDialog.Builder(this)
-            .setTitle("Error")
+            .setTitle("Ups! Algo salió mal")
             .setMessage(s)
             .setPositiveButton("OK", { dialog, whichButton ->
                 dialog.dismiss()

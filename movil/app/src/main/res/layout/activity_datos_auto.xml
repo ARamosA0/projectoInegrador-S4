@@ -19,14 +19,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="PRueaba notus"
-                android:id="@+id/myNotificationButton"/>
-
-
-
             <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/carImage"
                 android:layout_width="150dp"

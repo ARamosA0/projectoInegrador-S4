@@ -40,21 +40,16 @@
 
 
         <activity
-            android:name=".mapa_taller"
-            android:exported="false"
-            android:label="@string/title_activity_mapa_taller" />
-
-        <activity
             android:name=".ErrorAdd"
             android:exported="false"
-            android:parentActivityName=".DatosAuto">
+            android:parentActivityName=".DatosAuto"
+            android:theme="@style/Theme.FinalConBar">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
             android:name=".DatosAuto"
-
             android:exported="false" >
 
             <meta-data

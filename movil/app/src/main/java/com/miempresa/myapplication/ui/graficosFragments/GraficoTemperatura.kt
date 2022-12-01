@@ -101,7 +101,7 @@ class GraficoTemperatura : Fragment() {
                         alertFail("Error al obtener los datos")
                     }
                 }, Response.ErrorListener {
-                    alertFail("Error en la conexion")
+                    alertFail("No eres tu soy yo, no podemos obtener los datos")
                 })
             queue.add(graphRequest)
         }
@@ -184,7 +184,7 @@ class GraficoTemperatura : Fragment() {
     private fun alertFail(s: String) {
         val alertDialogBuilder = getActivity()?.let {
             AlertDialog.Builder(it)
-                .setTitle("Error")
+                .setTitle("Ups! Algo salió mal")
                 .setMessage(s)
                 .setPositiveButton("OK", { dialog, whichButton ->
                     dialog.dismiss()

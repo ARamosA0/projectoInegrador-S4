@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">movil</string>
+    <string name="app_name">Automat</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="AutoHome">AutoHome</string>
     <string name="Telemetria">Telemetria</string>
@@ -22,5 +22,7 @@
         <item>Temperatura</item>
         <item>Kilometraje</item>
     </string-array>
+
+    <string name="urlAPI">https://projectoinegrador-s4-production.up.railway.app</string>
 
 </resources>

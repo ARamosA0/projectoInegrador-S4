@@ -84,35 +84,6 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btnGoogle"
-        android:layout_width="0dp"
-        android:layout_height="65dp"
-        android:backgroundTint="@color/gris"
-
-        android:drawableLeft="@drawable/icons8_google"
-        android:paddingLeft="30dp"
-        android:text="Acceder con Google"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="@+id/btnLogin"
-        app:layout_constraintStart_toStartOf="@+id/btnLogin"
-        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
-
-    <Button
-        android:id="@+id/btnFacebook"
-        android:layout_width="0dp"
-        android:layout_height="65dp"
-        android:backgroundTint="@color/gris"
-        android:drawableLeft="@drawable/icons8_facebook"
-        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-        android:paddingLeft="30dp"
-        android:text="Acceder con Facebook"
-        android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="@+id/btnLogin"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/btnLogin"
-        app:layout_constraintTop_toBottomOf="@+id/btnGoogle" />
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/userPaswordLayoutReg"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"

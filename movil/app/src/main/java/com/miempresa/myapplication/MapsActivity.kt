@@ -1,98 +1,55 @@
-package com.miempresa.googlemapv4
+package com.miempresa.myapplication
 
-import android.Manifest
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.AdapterView
-import android.widget.Button
-import android.widget.Spinner
-import android.widget.Toast
-import androidx.annotation.RequiresApi
-import androidx.core.content.ContextCompat
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.*
-import com.google.android.gms.tasks.Tasks.call
-import com.miempresa.myapplication.*
-
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import com.miempresa.myapplication.databinding.ActivityMapsBinding
-
 import kotlinx.android.synthetic.main.activity_maps.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener,
-    AdapterView.OnItemSelectedListener {
-
+class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
-
-
-    lateinit var binding: ActivityMapsBinding
+    private lateinit var binding: ActivityMapsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        binding = ActivityMapsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-/*
-        btnCalculate = findViewById(R.id.btnCalculateRoute)
-        btnCalculate.setOnClickListener{
-
-            start =""
-            end =""
-            poly = null
-            Toast.makeText(this,"Selecciona punto de origen y punto de final",Toast.LENGTH_SHORT).show()
-            if(::mMap.isInitialized){
-                mMap.setOnMapClickListener {
-                   if (start.isEmpty()){
-                       start = "${it.longitude},${it.latitude}"
-                   }else if (end.isEmpty()){
-                       end =  "${it.longitude},${it.latitude}"
-                       createRoute()
-                   }
-                }
-            }
-        }
-*/
-
-
-        /**
-         * Manipulates the map once available.
-         * This callback is triggered when the map is ready to be used.
-         * This is where we can add markers or lines, add listeners or move the camera. In this case,
-         * we just add a marker near Sydney, Australia.
-         * If Google Play services is not installed on the device, the user will be prompted to install
-         * it inside the SupportMapFragment. This method will only be triggered once the user has
-         * installed Google Play services and returned to the app.
-         */
-
-
-
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        val mapFragment = supportFragmentManager
+            .findFragmentById(R.id.map) as SupportMapFragment
+        mapFragment.getMapAsync(this)
     }
 
-    override fun onMapReady(p0: GoogleMap) {
-        TODO("Not yet implemented")
-    }
+    /**
+     * Manipulates the map once available.
+     * This callback is triggered when the map is ready to be used.
+     * This is where we can add markers or lines, add listeners or move the camera. In this case,
+     * we just add a marker near Sydney, Australia.
+     * If Google Play services is not installed on the device, the user will be prompted to install
+     * it inside the SupportMapFragment. This method will only be triggered once the user has
+     * installed Google Play services and returned to the app.
+     */
+    override fun onMapReady(googleMap: GoogleMap) {
+        mMap = googleMap
 
-    override fun onMarkerClick(p0: Marker): Boolean {
-        TODO("Not yet implemented")
+        // Add a marker in Sydney and move the camera
+        val sydney = LatLng(-16.4131105,-71.5419388)
+        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        createMarker()
     }
-
-    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onNothingSelected(parent: AdapterView<*>?) {
-        TODO("Not yet implemented")
+    private fun createMarker(){
+        val  coordinates= LatLng(-16.4131105,-71.5419388)
+        val marker = MarkerOptions().position(coordinates).title("Mi taller de auto favorito!")
+        mMap.addMarker(marker)
     }
 }

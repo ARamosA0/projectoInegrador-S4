@@ -34,21 +34,6 @@ class GraficoTemperatura : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val CHANNEL_ID = "com.miempresa.myapplication"
-        val builder = getActivity()?.let {
-            NotificationCompat.Builder(it,CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_baseline_directions_car_24)
-                .setContentTitle("ALERTA DE SENSOR!")
-                .setContentText("Niveles altos de ..., 30° fueron detectados ")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                // Set the intent that will fire when the user taps the notification
-                .setAutoCancel(true)
-        }
-
-        with(getActivity()?.let { NotificationManagerCompat.from(it) }) {
-            // notificationId is a unique int for each notification that you must define
-            builder?.let { this?.notify(1, it.build()) }
-        }
 
     }
 
@@ -82,6 +67,28 @@ class GraficoTemperatura : Fragment() {
                             val ixa =
                                 response.getJSONObject(i).getInt("ixa")
                             scoreList.add(Temperatura(rda_fecha, rda_valor))
+                            if(rda_valor > 30.00){
+                                val CHANNEL_ID = "com.miempresa.myapplication"
+                                val intent = Intent(getActivity(), RegisterActivity::class.java).apply {
+                                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                }
+                                val pendingIntent: PendingIntent = PendingIntent.getActivity(getActivity(), 0, intent, PendingIntent.FLAG_IMMUTABLE)
+                                val builder = getActivity()?.let {
+                                    NotificationCompat.Builder(it, CHANNEL_ID)
+                                        .setSmallIcon(R.drawable.ic_baseline_directions_car_24)
+                                        .setContentTitle("ALERTA DE SENSOR")
+                                        .setContentText("Temperatura mayor a 30° detectada!")
+                                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                                        // Set the intent that will fire when the user taps the notification
+                                        //.setContentIntent(pendingIntent)
+                                        .setAutoCancel(true)
+                                }
+
+                                with(getActivity()?.let { NotificationManagerCompat.from(it) }) {
+                                    // notificationId is a unique int for each notification that you must define
+                                    builder?.let { this?.notify(1, it.build()) }
+                                }
+                            }
                         }
 
                         initLineChart(graph)
@@ -116,7 +123,7 @@ class GraficoTemperatura : Fragment() {
         xAxis.valueFormatter = MyAxisFormatter()
         xAxis.setDrawLabels(true)
         xAxis.granularity = 1f
-        xAxis.labelRotationAngle = +45f
+        xAxis.labelRotationAngle = -45f
 
     }
 

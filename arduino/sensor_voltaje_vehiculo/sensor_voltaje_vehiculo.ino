@@ -6,8 +6,8 @@
 #include <ESP8266HTTPClient.h>
 
 //Conexion a red WiFi (2.4GHz)
-char* networkName = "network (2.4GHz)";
-char* networkPassword = "network password";
+char* networkName = "Redmi Note 9";
+char* networkPassword = "holacomoesta123";
 
 char* url = "https://projectoinegrador-s4-production.up.railway.app/datasensors/";
 const int urlPort = 443;
@@ -104,7 +104,7 @@ void httpDataPostRequest(float voltageValue) {
   
   //Serializamos los valores obtenidos. Sensor de temperatura tiene id de 1 (puede cambiar)
   DynamicJsonDocument doc(1024);
-  doc["ixa"] = 3;
+  doc["ixa"] = 2;
   doc["rda_valor"] = roundingTempValue(voltageValue);
   serializeJson(doc, jsonResult);
   

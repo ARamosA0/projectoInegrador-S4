@@ -118,27 +118,6 @@ DATABASES = {
 #     }
 # }
 
-
-#BD DIGITAL OCEAN
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-
-        'NAME': 'defaultdb',
-        'USER': 'doadmin',
-        'PASSWORD': 'AVNS_N1KB4on2mcZGbRDgSlu',
-        'HOST': 'db-mysql-nyc1-55843-do-user-12058349-0.b.db.ondigitalocean.com',
-        'PORT': '25060',
-     }
-
-}
-
-
-
-# #borralo o cambialo
-
-
-
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 

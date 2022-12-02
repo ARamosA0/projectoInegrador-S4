@@ -22,7 +22,7 @@ import {
 } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import RealMyCharts from "../Char";
-import {dataSensorGet} from "../../service/sensorServices"
+import { dataSensorGet } from "../../service/sensorServices";
 const SensorElect = () => {
   // Select fecha/hora
   const [fecha, setFecha] = useState(dayjs());
@@ -36,24 +36,25 @@ const SensorElect = () => {
 
   useEffect(() => {
     const getData = async () => {
-    try {
-      const response = await dataSensorGet();
+      try {
+        const response = await dataSensorGet();
 
-      // const ixa = response.map((item)=>item.ixa)
-      // console.log(ixa)
+        const tipoSensor = response.filter((item) => item.ixa === 2);
 
-      const tipoSensor = response.filter(item=>item.ixa === 2)
-
-      const data = tipoSensor.filter(item=>parseInt(item.rda_fecha.slice(8)) === fecha.$D 
-                                     && parseInt(item.rda_fecha.slice(5,7)) !== fecha.$M
-                                     && parseInt(item.rda_hora.slice(0,2)) === fecha.$H)
-      setAverageVolt(data.map((item)=>item.rda_valor))
-      setHour(data.map((item)=>item.rda_hora))
-      
-    } catch (error) {
+        console.log(fecha.$D, fecha.$M + 1);
+        console.log(tipoSensor[0].rda_fecha, tipoSensor[0].rda_hora);
+        const data = tipoSensor.filter(
+          (item) =>
+            parseInt(item.rda_fecha.slice(8)) === fecha.$D &&
+            parseInt(item.rda_fecha.slice(5, 7)) === fecha.$M + 1
+        );
+        setAverageVolt(data.map((item) => item.rda_valor));
+        setHour(data.map((item) => item.rda_hora));
+        console.log(hour);
+      } catch (error) {
         console.log(error);
-    }
-  };
+      }
+    };
     getData();
   }, [averageVolt]);
 
@@ -72,10 +73,28 @@ const SensorElect = () => {
     },
   };
 
+  const optionsReal = {
+    chart: {
+      id: "realtime",
+      animation: {
+        enabled: true,
+        easing: "linear",
+        dynamicAnimation: {
+          speed: 2000,
+        },
+      },
+    },
+    xaxis: {
+      categories: hour,
+    }
+  };
+
+  console.log(averageVolt);
+
   return (
     <Grid container>
       <Grid item xs={12} sx={{ marginBottom: 5, marginTop: 5 }}>
-        <Grid container>
+        <Grid container sx={{ paddingLeft: "10rem" }}>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <Grid item xs={6}>
               <DesktopDatePicker
@@ -97,26 +116,12 @@ const SensorElect = () => {
           </LocalizationProvider>
         </Grid>
       </Grid>
-      <Grid item xs={12}>
-        {fecha.$D != dayjs().$D
-        && fecha.$M === dayjs().$M
-        && fecha.$H === dayjs().$H ? (
-          <Chart
-          options={options}
-          series={series}
-          type="line"
-          width="900"
-        />
+      <Grid item xs={12} sx={{ paddingLeft: "5rem" }}>
+        {fecha.$D != dayjs().$D && fecha.$M != dayjs().$M + 1 ? (
+          <Chart options={options} series={series} type="line" width="900" />
         ) : (
           <>
-            REAL TIME
-            <RealMyCharts sensor={2}/>
-            {/* <Chart
-            options={options}
-            series={series}
-            type="line"
-            width="900"
-          /> */}
+            <Chart options={optionsReal} series={series} type="line" width="900" />
           </>
         )}
       </Grid>

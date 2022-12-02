@@ -139,3 +139,44 @@ body{
     font-weight: 800;
     font-size: 2rem;
 }
+
+
+@media only screen and (max-width: 600px){
+    .index-titulo {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: fit-content;
+        width: fit-content;
+        top: 4rem;
+        bottom: 10rem;
+        right: 10rem;
+        left: 1rem;
+        color: rgba(156, 154, 154, 0.329);
+        font-size: 3.5rem;
+        line-height: 0.3rem;
+        z-index: -100;
+    }
+    
+    .index-titulo-dos p{
+        color: black;
+        font-size: 2rem;
+        font-weight: 900;
+        line-height: 0.3rem;
+    }
+
+    .container-exp{
+        background-color: #2f2c2c;
+        height: 100vh;
+        /* display: flex;
+        justify-content: center;
+        align-items: center; */
+    }
+
+    .exp-container-img img {
+        width: 268px;
+        padding-left: 2rem;
+        padding-top: 5.6rem;
+    }
+}

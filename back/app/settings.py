@@ -90,8 +90,8 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-
 #Si tienes errores con la base de datos talvez es por el password
+
 #BD DIGITAL OCEAN
 DATABASES = {
      'default': {
@@ -117,6 +117,26 @@ DATABASES = {
 #         'PORT': '3306',
 #     }
 # }
+
+
+#BD DIGITAL OCEAN
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+
+        'NAME': 'defaultdb',
+        'USER': 'doadmin',
+        'PASSWORD': 'AVNS_N1KB4on2mcZGbRDgSlu',
+        'HOST': 'db-mysql-nyc1-55843-do-user-12058349-0.b.db.ondigitalocean.com',
+        'PORT': '25060',
+     }
+
+}
+
+
+
+# #borralo o cambialo
+
 
 
 # Password validation

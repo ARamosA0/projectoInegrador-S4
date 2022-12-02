@@ -23,7 +23,7 @@ const Index = () =>{
         <>
             <Container maxWidth="md" className="index-container">
                 <div className="index-titulo">
-                    <h1>Taller</h1>
+                    <h1>AUTOMAT</h1>
                 </div>
                 <div className="index-titulo-descripcion">
                     <div className="index-titulo-uno">
@@ -85,28 +85,6 @@ const Index = () =>{
             <Container maxWidth="md">
                 <IndexTipos/>
             </Container>
-            <div className="background-telemetria">
-                <Container maxWidth="md">
-                    <Grid container className="telemtria-container">
-                        <Grid item xs={12} className="telemtria-container-titulo">
-                            <div className="telemetria-container-titulo-uno">
-                                <p>/Telemetria</p>
-                            </div>
-                            <div className="telemetria-container-titulo-dos">
-                                <p>Revisa el estado de tu vehiculo</p>
-                            </div>
-
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Grid container spacing={1}>
-                                <Grid item xs={4}>
-
-                                </Grid>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                </Container>
-            </div>
         </>
     );
 }

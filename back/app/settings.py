@@ -93,14 +93,25 @@ WSGI_APPLICATION = 'app.wsgi.application'
 #Si tienes errores con la base de datos talvez es por el password
 
 #BD DIGITAL OCEAN
+# DATABASES = {
+#      'default': {
+#          'ENGINE': 'django.db.backends.mysql',
+#          'NAME': 'defaultdb',
+#          'USER': 'doadmin',
+#          'PASSWORD': 'AVNS_N1KB4on2mcZGbRDgSlu',
+#          'HOST': 'db-mysql-nyc1-55843-do-user-12058349-0.b.db.ondigitalocean.com',
+#          'PORT': '25060',
+#      }
+# }
+
 DATABASES = {
-     'default': {
-         'ENGINE': 'django.db.backends.mysql',
-         'NAME': 'defaultdb',
-         'USER': 'doadmin',
-         'PASSWORD': 'AVNS_N1KB4on2mcZGbRDgSlu',
-         'HOST': 'db-mysql-nyc1-55843-do-user-12058349-0.b.db.ondigitalocean.com',
-         'PORT': '25060',
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'railway',
+        'USER': 'root',
+        'PASSWORD': 'Y3rJ9aszMyicbaF2zqda',
+        'HOST': 'containers-us-west-170.railway.app',
+        'PORT': '5752',
      }
 }
 

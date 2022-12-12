@@ -105,7 +105,7 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # }
 
 
-BD DIGITAL OCEAN
+# BD DIGITAL OCEAN
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',

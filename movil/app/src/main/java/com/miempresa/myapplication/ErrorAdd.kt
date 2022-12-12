@@ -118,7 +118,6 @@ class ErrorAdd : AppCompatActivity() {
     private fun alertSuccess(s: String) {
         val alertDialogBuilder = AlertDialog.Builder(this)
             .setTitle("Felicidades")
-            .setIcon(R.drawable.ic_baseline_check_24)
             .setMessage(s)
             .setPositiveButton("OK", { dialog, whichButton ->
                 dialog.dismiss()

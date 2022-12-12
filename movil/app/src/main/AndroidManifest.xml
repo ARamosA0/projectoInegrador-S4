@@ -39,7 +39,7 @@
         <activity
             android:name=".ErrorAdd"
             android:exported="false"
-            android:parentActivityName=".DatosAuto"
+            android:parentActivityName=".MainActivity"
             android:theme="@style/Theme.FinalConBar">
             <meta-data
                 android:name="android.app.lib_name"

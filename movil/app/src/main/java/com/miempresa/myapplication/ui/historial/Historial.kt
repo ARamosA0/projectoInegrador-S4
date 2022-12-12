@@ -37,7 +37,6 @@ class Historial : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view: View = inflater.inflate(R.layout.fragment_historial, container, false)
-
         return view
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,6 +47,7 @@ class Historial : Fragment() {
         swipe.setColorSchemeResources(R.color.purple_200)
         swipe.isRefreshing = false
 
+        //RecyclerView
         var listarSenErr = view.findViewById<RecyclerView>(R.id.listaSenErr)
         listarSenErr.addItemDecoration(
             DividerItemDecoration(
@@ -139,6 +139,7 @@ class Historial : Fragment() {
                     }
                 }, Response.ErrorListener {
                     alertFail("Intenta ingresar mas tarde o revisa tu conexión a internet")
+                    swipeEnd(swipe)
                 })
             queue.add(stringRequest)
         }

@@ -70,7 +70,9 @@ class AutoAdd : AppCompatActivity() {
         var listaMarcas = ArrayList<String>()
         listaMarcas.add("Ferrari")
         listaMarcas.add("Mercedes")
-        listaMarcas.add("toyota")
+        listaMarcas.add("Toyota")
+        listaMarcas.add("Subaru")
+
 
         val MarcasAdapter = ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item, listaMarcas)
 
@@ -84,6 +86,9 @@ class AutoAdd : AppCompatActivity() {
                 id_marca = i+1
             }
             if (i == 2){
+                id_marca = i+1
+            }
+            if (i == 3){
                 id_marca = i+1
             }
         }

@@ -66,7 +66,9 @@ class GraficoTemperatura : Fragment() {
                                 response.getJSONObject(i).getString("rda_valor").toDouble()
                             val ixa =
                                 response.getJSONObject(i).getInt("ixa")
+
                             scoreList.add(Temperatura(rda_fecha, rda_valor))
+
                             if(rda_valor > 30.00){
                                 val CHANNEL_ID = "com.miempresa.myapplication"
                                 val intent = Intent(getActivity(), RegisterActivity::class.java).apply {
@@ -141,18 +143,20 @@ class GraficoTemperatura : Fragment() {
     }
 
     private fun setDataToLineChart(graph: LineChart) {
-        //now draw bar chart with dynamic data
+
         val entries: ArrayList<Entry> = ArrayList()
 
         scoreList = getScoreList()
 
-        //you can replace this data object with  your custom object
+
         for (i in scoreList.indices) {
             val score = scoreList[i]
             entries.add(Entry(i.toFloat(), score.score.toFloat()))
         }
 
         val lineDataSet = LineDataSet(entries, "")
+
+
         lineDataSet.color = resources.getColor(R.color.purple_200)
         lineDataSet.valueTextColor = resources.getColor(R.color.gris_oscuro)
 
@@ -166,8 +170,6 @@ class GraficoTemperatura : Fragment() {
 
 
     private fun getScoreList(): ArrayList<Temperatura> {
-
-
         return scoreList
     }
 

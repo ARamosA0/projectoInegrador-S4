@@ -33,29 +33,6 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
-        /*
-        val CHANNEL_ID = "com.miempresa.myapplication"
-        val intent = Intent(this, RegisterActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        }
-        val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
-        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setSmallIcon(R.drawable.ic_baseline_directions_car_24)
-            .setContentTitle("Ha pasado tanto desde su última revisión")
-            .setContentText("No dejes el mantenimiento de tu vehículo, hazle un chequeo")
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-            // Set the intent that will fire when the user taps the notification
-            .setContentIntent(pendingIntent)
-            .setAutoCancel(true)
-
-        with(NotificationManagerCompat.from(this)) {
-            // notificationId is a unique int for each notification that you must define
-            notify(1, builder.build())
-        }
-
-         */
-
-
 
         Thread.sleep(1000)
         setTheme(R.style.Theme_Final)

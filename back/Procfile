@@ -1,1 +1,1 @@
-web: pip3 install -r requirements.txt && gunicorn app.wsgi --log-file - 
+web: gunicorn app.wsgi --log-file - 

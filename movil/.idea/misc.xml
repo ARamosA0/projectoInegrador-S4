@@ -3,10 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/activity_auto_add.xml" value="0.11302083333333333" />
-        <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/activity_datos_auto.xml" value="0.109375" />
+        <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/activity_auto_add.xml" value="0.264" />
+        <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/activity_datos_auto.xml" value="0.4" />
         <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/activity_destinos.xml" value="0.1" />
         <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/activity_destinosss.xml" value="0.1" />
+        <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/activity_error_add.xml" value="0.25416666666666665" />
         <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/activity_login.xml" value="0.25052083333333336" />
         <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/activity_main.xml" value="0.25052083333333336" />
         <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/activity_mapa.xml" value="0.1" />
@@ -14,11 +15,19 @@
         <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/activity_maps.xml" value="0.15896739130434784" />
         <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/activity_register.xml" value="0.25052083333333336" />
         <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/activity_tallerrr.xml" value="0.72" />
+        <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/autos_usuario.xml" value="0.25416666666666665" />
         <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/elemento_aut.xml" value="0.25052083333333336" />
+        <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/elemento_erro.xml" value="0.25416666666666665" />
+        <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/elemento_sensor.xml" value="0.25416666666666665" />
         <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/elemento_sensorerror.xml" value="0.13385416666666666" />
         <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/fragment_auto_home.xml" value="0.264" />
         <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/fragment_dashboard.xml" value="0.25052083333333336" />
+        <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/fragment_grafico_temperatura.xml" value="0.25416666666666665" />
+        <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/fragment_grafico_vacio.xml" value="0.25416666666666665" />
+        <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/fragment_grafico_voltaje.xml" value="0.25416666666666665" />
+        <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/fragment_historial.xml" value="0.1015625" />
         <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/fragment_home.xml" value="0.25052083333333336" />
+        <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/fragment_maps.xml" value="0.1015625" />
         <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/fragment_notifications.xml" value="0.25052083333333336" />
         <entry key="..\:/REPOSITORIOS/projectoInegrador-S4/movil/app/src/main/res/layout/fragment_taller.xml" value="0.25052083333333336" />
       </map>

@@ -142,7 +142,7 @@ class AutoAdd : AppCompatActivity() {
         }
 
 
-
+//agregar vehiculo
         rgAuto.setOnClickListener() {
             val marca = autoMarcaAdd.text.toString().trim()
             val modelo = autoModeloAdd.text.toString().trim()
@@ -219,6 +219,8 @@ class AutoAdd : AppCompatActivity() {
             }
 
         }
+
+        // actualizar vehiculo
 
         modAuto.setOnClickListener() {
             val marca = autoMarcaAdd.text.toString().trim()

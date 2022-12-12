@@ -2,10 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -33,7 +36,6 @@
             android:value="AIzaSyCtqNrtkX4e1-eboyl8Cyz2moIjm0goIzA"/>
 
         <activity
-<<<<<<< HEAD
             android:name=".MapsActivity"
             android:exported="false"
             android:label="@string/title_activity_maps" />
@@ -42,26 +44,9 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
 
-
-        <activity
-=======
->>>>>>> 0c5ca0b0e102fe266166042a918f25ed8b1d2ce4
-            android:name=".ErrorAdd"
-            android:exported="false"
-            android:parentActivityName=".DatosAuto"
-            android:theme="@style/Theme.FinalConBar">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
         <activity
             android:name=".DatosAuto"
-<<<<<<< HEAD
             android:exported="false">
-=======
-            android:exported="false" >
-
->>>>>>> 0c5ca0b0e102fe266166042a918f25ed8b1d2ce4
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

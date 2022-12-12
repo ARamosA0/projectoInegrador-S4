@@ -37,12 +37,12 @@ const Inf_Err_Temp = () => {
     try {
       const response = await geterrsensor(1);
       console.log("para la fecha");
-      console.log(response[0].rer_fecregistro);
+      // console.log(response[0].rer_fecregistro);
       const contador = userErroresm.length;
       const data = response.filter(
         (item) =>
           parseInt(item.rer_fecregistro.slice(8)) === e.$D &&
-          parseInt(item.rer_fecregistro.slice(5, 7)) !== e.$M+11
+          parseInt(item.rer_fecregistro.slice(5, 7)) === e.$M+1
       );
       console.log(parseInt(response[0].rer_fecregistro.slice(8)));
       setuserErroresm(data.map((item) => item));

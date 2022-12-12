@@ -21,7 +21,7 @@ const Inf_Err_Volt = () => {
   //Constante para obtener la data de errores
   const ErroresVoltaje = async () => {
     const data = await geterrsensor(2);
-    console.log(data);
+    // console.log(data);
     setuserErroresm(data);
   };
   useEffect(() => {
@@ -36,8 +36,7 @@ const Inf_Err_Volt = () => {
     console.log(e);
     try {
       const response = await geterrsensor(2);
-      console.log("para la fecha");
-      console.log(response[0].rer_fecregistro);
+      console.log()
       const data = response.filter(
         (item) =>
           parseInt(item.rer_fecregistro.slice(8)) === e.$D &&

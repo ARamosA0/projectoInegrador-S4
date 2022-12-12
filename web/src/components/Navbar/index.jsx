@@ -75,7 +75,6 @@ const Navbar = () =>{
             </div>
             
             <div className="navbar-btn-group">
-                <div><Link to={"/ubicacion"}><MapIcon className="btn-navbar-map" fontSize="large"/></Link></div>   
                 <div>
 
                     {!user?(

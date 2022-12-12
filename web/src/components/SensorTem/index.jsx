@@ -113,14 +113,14 @@ const SensorTemp = () => {
                   renderInput={(params) => <TextField {...params} />}
                 />
               </Grid>
-              <Grid item xs={6}>
+              {/* <Grid item xs={6}>
                 <TimePicker
                   label="Escoge la hora"
                   value={fecha}
                   onChange={handleChangeFecha}
                   renderInput={(params) => <TextField {...params} />}
                 />
-              </Grid>
+              </Grid> */}
             </LocalizationProvider>
           </Grid>
         </Grid>
